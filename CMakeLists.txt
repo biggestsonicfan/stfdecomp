@@ -19,3 +19,15 @@ target_link_options(rom.bin
 )
 
 
+add_custom_command(
+	OUTPUT epr-19001.15 epr-19002.10
+	COMMAND stfbin2rom.py
+	--input rom.bin
+	--verify
+	VERBATIM
+	DEPENDS rom.bin
+)
+
+add_custom_target(game_code
+	DEPENDS epr-19001.15 epr-19002.10
+)
