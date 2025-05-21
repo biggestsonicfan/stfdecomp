@@ -1,0 +1,28 @@
+{
+   "rom_data.bin": [
+      { "mpr-19007.11": { "romset": "schamp", "checksum": "8b8ff751" } },
+      { "mpr-19008.12": { "romset": "schamp", "checksum": "a94654f5" } },
+      { "mpr-19005.9": { "romset": "schamp", "checksum" : "98cd1127" } },
+      { "mpr-19006.10": { "romset": "schamp", "checksum": "e79f0a26" } }
+   ],
+   "rom_ep.bin": [
+      { "epr-19003.7": { "romset": "sfight", "checksum": "63bae5c5" } },
+      { "epr-19004.8": { "romset": "sfight", "checksum": "c10c9f39" } }
+   ],
+   "rom_pol.bin": [
+      { "mpr-19009.17": { "romset": "schamp", "checksum": "fd410350" } },
+      { "mpr-19012.21": { "romset": "schamp", "checksum": "9bb7b5b6" } },
+      { "mpr-19010.18": { "romset": "schamp", "checksum": "6fd94187" } },
+      { "mpr-19013.22": { "romset": "schamp", "checksum": "9e232fe5" } }
+   ],
+   "rom_tex.bin": [
+      { "mpr-19019.27": { "romset": "schamp", "checksum": "59121896" } },
+      { "mpr-19017.25": { "romset": "schamp", "checksum": "7b298379" } },
+      { "mpr-19020.28": { "romset": "schamp", "checksum": "9540dba0" } },
+      { "mpr-19018.26": { "romset": "schamp", "checksum": "3b7e7a12" } }
+   ],
+   "rom_code1.bin": [
+      { "epr-19001.15": { "romset": "sfight", "checksum": "9b088511" } },
+      { "epr-19002.16": { "romset": "sfight", "checksum": "46f510da" } }
+   ]
+}

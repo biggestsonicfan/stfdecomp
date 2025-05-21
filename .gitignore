@@ -1,0 +1,19 @@
+# Folders
+build/
+temp/
+
+# Binaries
+*.bin
+*.bin.00
+*.bin.01
+*.15
+*.16
+
+# Objects
+*.out
+
+# ROM Files
+*.zip
+
+# Proprietary Files
+cpres*.S
