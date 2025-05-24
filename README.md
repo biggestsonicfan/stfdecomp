@@ -1,6 +1,9 @@
 # Sonic the Fighters - Decompilation
+
 This repository will contain buildable code using GCC-esque tools to compile the executable binaries necessary to run the data of Sonic the Fighters on a Model2b arcade board. It is an accumulation of many years of work to better understand the inner workings of AM2's arcade engine from the early to mid-1990s.
+
 ##### Credits and attribution:
+
 - [Tim Ritiau | egregiousguy](https://x.com/egregiousguy) - For collaboration, direct research, and dedication in their own Model2 journey.
 - [SteveBlockhead](https://forums.sonicretro.org/index.php?posts/924406/) - For originally and accidentally discovering debug mode, which allowed documenting the code much easier.
 - [Ryou of Sudden Desu](https://bsky.app/profile/suddendesu.bsky.social) - For their constant, independent digital archaeology efforts which led to the discovery of how Debug Mode was truly activated, as well as efforts to improve and implement new inputs in MAME's code.
@@ -8,11 +11,15 @@ This repository will contain buildable code using GCC-esque tools to compile the
 - [brouhaha](https://mastodon.social/@brouhaha) - For being a hardware and software [rubber duck debugger](https://en.wikipedia.org/wiki/Rubber_duck_debugging) with expansive embedded systems knowledge.
 
 ##### With special thanks to:
+
 - The decompilation/disassembly teams behind Mario 64, Zelda 64, Star Fox 64, Paper Mario 64, Dinosaur Planet, Pokémon GS Spaceworld Protos
 - Founders and maintainers of [The Cutting Room Floor Wiki](https://tcrf.net)
 - [Sappharad](https://github.com/Sappharad) - For kickstarting Sonic the Fighters research by discovering Honey in Sonic Gems Collection [two decades ago](https://archive.is/mcAuj).
+
 ##### Donors towards research efforts:
+
 - [Brady Hartel](https://x.com/BradyHartel)
+
 ## Compiling the program ROMs (DSP and sound executable decomps coming soon)
 
    - While the code is almost entirely still in assembly language, the way it is built will mostly remain the same as this repo evolves.
@@ -27,10 +34,10 @@ This repository will contain buildable code using GCC-esque tools to compile the
 
 No assets for the game will be provided in this repository, however, you will be able to extract them all using the various scripts and binaries in this repo.
 - Using the `data_extract.py` script you can extract various assets:
--- Run with `--all` to extract all currently supported asset extractions (they will be listed below)
--- Run with `--rom` to extract all interleaved ROM data from the `schamp` and `sfight` archives located in the `rom` folder.
--- Run with `--cpres` to extract and process DSP coprocessor executables from `rom_code1.bin` into 80960 compliant `.S` preprocessor files. (This will become deprecated when the coprocessors become decompiled)
---- More to come... (Models, textures, sounds, music samples, music arrangements)
+	- Run with `--all` to extract all currently supported asset extractions (they will be listed below)
+	- Run with `--rom` to extract all interleaved ROM data from the `schamp` and `sfight` archives located in the `rom` folder.
+	- Run with `--cpres` to extract and process DSP coprocessor executables from `rom_code1.bin` into 80960 compliant `.S` preprocessor files. (This will become deprecated when the coprocessors become decompiled)
+		- More to come... (Models, textures, sounds, music samples, music arrangements)
 
 ## What this decompilation is:
 
