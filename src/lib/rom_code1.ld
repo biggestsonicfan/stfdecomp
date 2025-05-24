@@ -409,6 +409,7 @@ SECTIONS
         vd_measure = 0x50D006;
         use_working = 0x50D007;
         AUDIO_3 = 0x50EFB0;
+        mmode = 0x50EFFC;
         ptr_BACKUP_RAM_TO_RAM = 0x50F300;
         deb_num = 0x50F380;
         stack_pointer_ram_add = 0x50F3FC;
