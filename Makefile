@@ -38,12 +38,7 @@ all:
 		$(SRC_DIR)/asm/$(TARGET_PREFIX)3.s \
 		$(SRC_DIR)/include/$(CPRES_PREFIX)2.s \
 		$(SRC_DIR)/asm/$(TARGET_PREFIX)4.s \
-		-o $(TEMP_DIR)/$(TARGET_PREFIX)_data.o
-
-	# Make our hello.c object
-	$(GCC)$(CROSS) -c $(GCC_ARGS) \
-		$(SRC_DIR)/c/hello.c \
-		-o $(TEMP_DIR)/hello1.o -I$(INCLUDE_DIR)	
+		-o $(TEMP_DIR)/$(TARGET_PREFIX)_data.o	
 
 	$(LINKTOOL)$(CROSS) -v -T$(LIB_DIR)/$(TARGET_PREFIX)1.ld -Fbout -o $(TEMP_DIR)/$(TARGET_PREFIX)1.out \
 	$(TEMP_DIR)/$(TARGET_PREFIX)1.o \
