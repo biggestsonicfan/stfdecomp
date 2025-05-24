@@ -17302,7 +17302,7 @@ off_AEF58:      .long loc_7E8F0         # DATA XREF: sub_7E3C8:loc_7E404↑o
                 .long 0xFFEA0016
                 .long 0x1000A
                 .long loc_7E8F0
-                .long byte_30+0x40
+                .long 0x70
                 .long 0x3000A
                 .long loc_7E8F0
                 .long 0x86
@@ -17343,7 +17343,7 @@ off_AEFFC:      .long loc_7E97C         # DATA XREF: sub_7E3C8+14↑o
                 .long 0xFFEA0016
                 .long 0x1000A
                 .long loc_7E97C
-                .long byte_30+0x40
+                .long 0x70
                 .long 0x3000A
                 .long loc_7E97C
                 .long 0x86

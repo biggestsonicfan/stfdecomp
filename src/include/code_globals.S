@@ -19,7 +19,6 @@
 .global BOOKKEEPING
 .global boss_disp
 .global boss_init
-.global byte_30
 .global C_R_T__TEST
 .global cam_mode_1
 .global cam_mode_10

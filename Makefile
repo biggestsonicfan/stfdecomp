@@ -25,10 +25,10 @@ all:
 	mkdir -p $(BUILD_DIR)/split
 
 	# Extract the data from the ROM
-	$(PYTHON) $(TOOL_DIR)/data_extract.py --all
+	$(PYTHON) $(TOOL_DIR)/data_extract.py --all	
 
-
-	$(GCC)$(CROSS) -c $(GCC_ARGS) \
+	$(GCC)$(CROSS) -r $(GCC_ARGS) \
+		$(SRC_DIR)/asm/kx/kx_init.s \
 		$(SRC_DIR)/asm/$(TARGET_PREFIX)1.s \
 		-o $(TEMP_DIR)/$(TARGET_PREFIX)1.o -I$(INCLUDE_DIR)
 
