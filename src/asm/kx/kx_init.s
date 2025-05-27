@@ -120,11 +120,4 @@ loc_1D4:                                # CODE XREF: start_ip+128↓j
                 call    copro_down2
 loc_1E0:                                # CODE XREF: start_ip+114↑j
                 call    _INTR_ram__am1_users2_yasuda_mb_src_init_0
-_Reinitialize:                          # Label from Motor Raid source
-                lda     0xFF000010, g5  # IAC Message Port
-                lda     _reinitialize_IAC, g6
-call_to_0x250:                          # Jumps to start_again_ip
-                synmovq g5, g6
-system_hang:                            # CODE XREF: start_ip:system_hang↓j
-                b       system_hang
 # End of function start_ip
