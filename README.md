@@ -1,4 +1,4 @@
-# Sonic the Fighters - Decompilation
+# Sonic the Fighters - A Work-In-Progress Decompilation
 
 This repository will contain buildable code using GCC-esque tools to compile the executable binaries necessary to run the data of Sonic the Fighters on a Model2b arcade board. It is an accumulation of many years of work to better understand the inner workings of AM2's arcade engine from the early to mid-1990s.
 
@@ -39,10 +39,10 @@ No assets for the game will be provided in this repository, however, you will be
 	- Run with `--cpres` to extract and process DSP coprocessor executables from `rom_code1.bin` into 80960 compliant `.S` preprocessor files. (This will become deprecated when the coprocessors become decompiled)
 		- More to come... (Models, textures, sounds, music samples, music arrangements)
 
-## What this decompilation is:
+## What this project is:
 
-This decompilation is an analysis of a game and all its components. These components have been stripped down to human-readable code to define the logic of the game in a way that can be rebuilt into its original form.
+This is a work-in-progress project of disassembled code from Sonic the Fighters which will be converted, function by function, to human-readable C/C++ code. One of the project's main goals is create an analysis of a game and all its components. These components will be broken down to code and assets, the logic and building blocks of the game, in a way that can be rebuilt into its original executable form.
 
-## What this decompilation _is not_:
+## What this project _is not_:
 
-This decompilation is not open source. Just like its predecessor, [stfdisasm](https://github.com/biggestsonicfan/stfdisasm), it is source-available. This code is [not licensed](https://choosealicense.com/no-permission/), and as such, all rights are reserved. GitHub's terms of service [allow users to view and fork the repository within the GitHub site](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository#choosing-the-right-license), and this allows for pull requests. The code may become licensed someday, but for now it will remain source-available for research purposes.
+This project is not open source. Just like its predecessor, [stfdisasm](https://github.com/biggestsonicfan/stfdisasm), it is source-available. This code is [not licensed](https://choosealicense.com/no-permission/), and as such, all rights are reserved. GitHub's terms of service [allow users to view and fork the repository within the GitHub site](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository#choosing-the-right-license), and this allows for pull requests. The code may become licensed someday, but for now it will remain source-available for research purposes.
