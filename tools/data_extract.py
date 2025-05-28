@@ -7,6 +7,7 @@ parser = argparse.ArgumentParser(description='Automated tool for extracting and 
 parser.add_argument('--all', dest='all', action='store_true', help='Extract and process all assets')
 parser.add_argument('--rom', dest='rom', action='store_true', help='Extract and process ROM data')
 parser.add_argument('--cpres', dest='cpres', action='store_true' ,help='Extract and prepare DSP coprocessor data for use in a decompilation')
+parser.add_argument('--csum', dest='csum', action='store_true' ,help='Verify ROM checksum')
 
 
 rom_data_path = os.path.join(sys.path[0],'..', 'rom')
@@ -137,6 +138,41 @@ def extract_cpres_data():
         write_assembly_data(cpres2, symbol_name='_cpres_data2', output_file=cpres2_output, bytes_per_line=16)
         print(f'Extracted DSP coprocessor data from rom_code1.bin: {cpres2_output}')
 
+def extract_rom_checksum(alignment, csum_data=0, buffer_length=0x80000):
+    print('Extracting ROM checksums...')
+    magic_offsets = ['0x59038', '0x59050']
+    crc_data = [0, 0]
+    with open(os.path.join(sys.path[0], '..', 'build', 'rom_code1.bin'), 'rb') as interleaved_data:
+        hardcoded_csums = [0, 0]
+        for i in range(0, 2):
+            interleaved_data.seek(int(magic_offsets[i], base=16))
+            hardcoded_csums[i] = int.from_bytes(interleaved_data.read(4), byteorder='little')
+        interleaved_data.seek(csum_data)
+        offset = csum_data
+        if alignment != 0:
+            interleaved_data.seek(2)
+        buffer_length >>= 1 #shro    1, r4, r4
+        offset ^= offset #xor     g0, g0, g0
+        skip_offset = offset
+        while buffer_length > 0:
+            skip_offset = interleaved_data.tell() & ~(1 << 1) # clrbit  1, r3, r15
+            if f'0x{skip_offset:04X}' not in magic_offsets:
+                for chunk1 in iter(partial(interleaved_data.read, 2), b''):
+                    crc_data[0] += sum(chunk1[:2])
+                    for chunk2 in iter(partial(interleaved_data.read, 2), b''):
+                        crc_data[1] += sum(chunk2[:2])
+                        break
+                    break
+            else:
+                print(f'Skipping offset: {skip_offset:04X}')
+            offset = skip_offset + 4
+            interleaved_data.seek(offset)
+            buffer_length -= 1
+        for crc in crc_data:
+            csum_data = int(hex(crc & 0xFFFF), base=16)
+            print(f'Checksum extracted: 0x{csum_data:04X}')
+            print(f'Checksum expected: 0x{hardcoded_csums[crc_data.index(crc)]:04X}')
+    
 def main():
     args = parser.parse_args()
     if args.all:
@@ -152,6 +188,8 @@ def main():
         extract_rom_data()
     elif args.cpres:
         extract_cpres_data()
+    elif args.csum:
+        extract_rom_checksum(0, csum_data=0, buffer_length=0x80000)
     else:
         print('No valid arguments provided. Use -h for help.')
 
