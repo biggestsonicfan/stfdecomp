@@ -28,13 +28,17 @@ all:
 	$(PYTHON) $(TOOL_DIR)/data_extract.py --all	
 
 	$(GCC)$(CROSS) -r $(GCC_ARGS) \
-		$(SRC_DIR)/asm/kx/kx_init.s \
-		$(SRC_DIR)/asm/kx/start_ip.s \
-		$(SRC_DIR)/asm/kx/kx.s \
-		$(SRC_DIR)/asm/$(TARGET_PREFIX)1.s \
-		-o $(TEMP_DIR)/$(TARGET_PREFIX)1.o -I$(INCLUDE_DIR)
+		$(SRC_DIR)/asm/init/kx/kx_init.s \
+		$(SRC_DIR)/asm/init/interrupt/table_to_ram.s \
+		$(SRC_DIR)/asm/init/prcb/prcb_to_ram.s \
+		$(SRC_DIR)/asm/init/ram/fix_prcb.s \
+		$(SRC_DIR)/asm/init/copro/init.s \
+		$(SRC_DIR)/asm/init/kx/kx.s \
+		$(SRC_DIR)/asm/init/ram/buff_ram.s \
+		-o $(TEMP_DIR)/start_ip.o -I$(INCLUDE_DIR)
 
 	$(GCC)$(CROSS) -r $(GCC_ARGS) \
+		$(SRC_DIR)/asm/$(TARGET_PREFIX)1.s \
 		$(SRC_DIR)/asm/$(TARGET_PREFIX)2.s \
 		$(SRC_DIR)/include/$(CPRES_PREFIX)1.s \
 		$(SRC_DIR)/asm/$(TARGET_PREFIX)3.s \
@@ -43,7 +47,7 @@ all:
 		-o $(TEMP_DIR)/$(TARGET_PREFIX)_data.o	
 
 	$(LINKTOOL)$(CROSS) -v -T$(LIB_DIR)/$(TARGET_PREFIX)1.ld -Fbout -o $(TEMP_DIR)/$(TARGET_PREFIX)1.out \
-	$(TEMP_DIR)/$(TARGET_PREFIX)1.o \
+	$(TEMP_DIR)/start_ip.o \
 	$(TEMP_DIR)/$(TARGET_PREFIX)_data.o \
 	-L$(TEMP_DIR)
 

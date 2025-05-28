@@ -1,5 +1,5 @@
 /* rom_code1.ld */
-STARTUP (rom_code1.o)
+STARTUP (start_ip.o)
 
 MEMORY
 {
@@ -32,16 +32,20 @@ SECTIONS
         cam_mode33 = 33;
         cam_mode34 = 34;
         cam_mode9 = 9;
+        displacement = 0;
         displacement10 = 10;
         displacement100 = 100;
         displacement128 = 128;
+        displacement1 = 1;
         displacement256 = 256;
+        displacement2 = 2;
         displacement32 = 32;
         displacement333 = 333;
         displacement34 = 34;
         displacement35 = 35;
         displacement36 = 36;
         displacement38 = 38;
+        displacement3 = 3;
         displacement40 = 40;
         displacement42 = 42;
         displacement44 = 44;

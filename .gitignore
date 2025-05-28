@@ -17,3 +17,6 @@ temp/
 
 # Proprietary Files
 cpres*.S
+
+# Work in progress
+src/c/*
