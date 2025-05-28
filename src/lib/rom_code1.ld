@@ -1292,4 +1292,5 @@ cs1 = -(system_address_table + prcb_ptr + start_ip);
 #*move    $0
 #*mkfill $0 $1.bin 0xff
 #*split   $1.bin 1048576 32 524288 16 $1.bin
+#*sh    python tools/data_extract.py --csum
 */
