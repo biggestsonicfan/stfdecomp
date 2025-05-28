@@ -24,6 +24,71 @@ SECTIONS
 
      /* Manual placement of RAM-only fixed-address globals */
     .bss (NOLOAD) : {
+
+        /* Displacement Nonsense */
+
+        cam_mode10 = 10;
+        cam_mode11 = 11;
+        cam_mode33 = 33;
+        cam_mode34 = 34;
+        cam_mode9 = 9;
+        displacement10 = 10;
+        displacement100 = 100;
+        displacement128 = 128;
+        displacement256 = 256;
+        displacement32 = 32;
+        displacement333 = 333;
+        displacement34 = 34;
+        displacement35 = 35;
+        displacement36 = 36;
+        displacement38 = 38;
+        displacement40 = 40;
+        displacement42 = 42;
+        displacement44 = 44;
+        displacement46 = 46;
+        displacement48 = 48;
+        displacement50 = 50;
+        displacement52 = 52;
+        displacement54 = 54;
+        displacement56 = 56;
+        displacement58 = 58;
+        displacement60 = 60;
+        displacement62 = 62;
+        displacement64 = 64;
+        displacement66 = 66;
+        displacement68 = 68;
+        displacement70 = 70;
+        displacement72 = 72;
+        displacement74 = 74;
+        displacement76 = 76;
+        displacement78 = 78;
+        displacement8 = 8;
+        displacement80 = 80;
+        displacement82 = 82;
+        displacement84 = 84;
+        displacement86 = 86;
+        displacement88 = 88;
+        displacement9 = 9;
+        displacement90 = 90;
+        displacement92 = 92;
+        displacement94 = 94;
+        displacement96 = 96;
+        displacement98 = 98;
+        mode10 = 10;
+        mode11 = 11;
+        mode128 = 128;
+        mode8 = 8;
+        mode9 = 9;
+        stage8 = 8;
+        sub_mode32 = 32;
+        sub_mode33 = 33;
+        sub_mode9 = 9;
+        versus10 = 10;
+        versus8 = 8;
+        versus9 = 9;
+
+        /* End Displacement Nonsense */
+
         RAMBASE_START = 0x500000;
         CPU_FAIL = 0x500018;
         frame_counter = 0x500020;
@@ -1136,9 +1201,9 @@ SECTIONS
         debug_menu_related = 0x59F274;
         num_motions_ram = 0x5A0000;
         list_motions_ram = 0x5A0004;
-        _intr_table_ram = 0x5FF000;
-        _prcb_ram = 0x5FF410;
-        _intr_stack = 0x5FF500;
+        intr_ram = 0x5FF000;
+        prcb_ram = 0x5FF410;
+        intr_stack = 0x5FF500;
         stack_pointer_ram = 0x5FF640;
         _trap_stack = 0x5FF800;
         GEO_START = 0x800000;

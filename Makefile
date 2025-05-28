@@ -29,6 +29,8 @@ all:
 
 	$(GCC)$(CROSS) -r $(GCC_ARGS) \
 		$(SRC_DIR)/asm/kx/kx_init.s \
+		$(SRC_DIR)/asm/kx/start_ip.s \
+		$(SRC_DIR)/asm/kx/kx.s \
 		$(SRC_DIR)/asm/$(TARGET_PREFIX)1.s \
 		-o $(TEMP_DIR)/$(TARGET_PREFIX)1.o -I$(INCLUDE_DIR)
 
