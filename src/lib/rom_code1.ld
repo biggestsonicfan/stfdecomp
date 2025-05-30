@@ -1,5 +1,5 @@
 /* rom_code1.ld */
-STARTUP (start_ip.o)
+/* STARTUP (kx_init.o) */
 
 MEMORY
 {
@@ -11,14 +11,122 @@ SECTIONS
 {
 
     .text :
-    {
-        *(.text)
+    {   
+        src/asm/init/kx/kx_init.o(start_prog)
+        src/asm/init/kx/kx_init.o(start_ip_first)
+        src/asm/init/kx/kx_init.o(intr_to_ram)
+        src/asm/init/kx/kx_init.o(prcb_to_ram)
+        src/asm/init/ram/fix_prcb.o(fix_prcb)
+        src/asm/init/copro/copro_init.o(copro_init)
+        src/asm/init/kx/kx_init.o(reinit)
+        src/asm/init/ram/buff_ram.o(buff_ram)
+        src/asm/init/kx/kx_init.o(start_again)
+        src/asm/init/serial/serial_init.o(serial_init)
+        src/asm/init/gfx/gfx_init.o(gfx_init)
+        src/asm/init/interrupt/interrupt_init.o(interrupt_init)
+        src/asm/init/gfx/colors_init.o(colors_init)
+        src/asm/init/gfx/texture_init.o(texture_init)
+        src/asm/init/fault/f_handle.o(load_fault_ascii)
+        src/asm/init/fault/print_fault.o(init_pfault)
+        src/asm/init/serial/serial_init.o(serial_delay)
+        src/asm/init/kx/kx_init.o(init_move_data)
+        src/asm/init/timer/timer.o(timer_manip)
+        src/asm/init/vsync/vsync.o(vsync)
+        src/asm/init/timer/timer.o(timer_func)
+        src/asm/init/other/other.o(other_func)
+        src/asm/init/interrupt/i_halt.o(i_halt_func)
+        src/asm/init/copro/copro_init.o(copro_down_func)
+        src/asm/init/copro/copro_init.o(copro_init_data)
+        src/asm/init/collision/collision.o(coli_data)
+        src/asm/init/collision/collision.o(coli_funcs)
+        src/asm/init/copro/copro_init.o(afterimage)
+        src/asm/init/copro/copro_init.o(shadow)
+        src/asm/init/geometry/geo_init.o(geo_func_start)
+        src/asm/init/copro/copro_init.o(copro_down2_func)
+        src/asm/init/geometry/geo_init.o(geo_init)
+        src/asm/init/interrupt/interrupt_init.o(interrupt)
+        src/asm/main/main/main.o(main_returns)
+        src/asm/init/player/player_entry.o(player)
+        src/asm/init/credits/check.o(credit_backup_ram)
+        src/asm/init/credits/check.o(check)
+        src/asm/init/credits/check.o(credits_required)
+        src/asm/init/credits/check.o(coin_interr)
+        src/asm/init/credits/check.o(credit_interr_data)
+        src/asm/init/credits/check.o(more_credit_code)
+        src/asm/init/credits/check.o(more_credit_data)
+        src/asm/init/credits/check.o(chute)
+        src/asm/init/credits/check.o(cred_required)
+        src/asm/init/credits/check.o(even_more_credit_code)
+        src/asm/init/gfx/gfx_init.o(send_colors)
+        src/asm/init/interrupt/interrupt_init.o(poly_bank_change)
+        src/asm/init/geometry/geo_init.o(end_mark)
+        src/asm/init/window/window.o(window)
+        src/asm/init/ram/sram.o(sram)
+        src/asm/init/kx/kx_init.o(prcb_data)
+        src/asm/init/kx/kx_init.o(sys_proc)
+        src/asm/init/kx/kx_init.o(fault_proc)
+        src/asm/init/interrupt/interrupt_init.o(interr_targets)
+        src/asm/init/kx/kx_init.o(boot_ftable)
+        src/asm/init/kx/kx_init.o(reinit_iac)
+        src/asm/init/gfx/gfx_init.o(palette_data_end)
+        src/asm/init/fault/f_table.o(ftable)
+        src/asm/init/geometry/geo_init.o(geo_data)
+        src/asm/init/interrupt/i_table.o(interr_table)
+        src/asm/init/ram/buff_ram.o(buff_adds)
+        src/asm/init/fault/print_fault.o(fault_ascii)
+        src/asm/init/interrupt/i_halt.o(i_halt_ascii)
+        src/asm/init/fault/f_handle.o(fault_ascii)
+        src/asm/init/collision/collision.o(coli_ball_pntr)
+        src/asm/init/event/event.o(mmode_set)
+        src/asm/init/obj/poly.o(poly_obj_funcs)
+        src/asm/init/window/window.o(window_data)
+        src/asm/init/print/print.o(print)
+        src/asm/init/math/math.o(math)
+        src/asm/init/unused/un_disp_floats.o(float_display)
+        src/asm/main/main/main.o(main_sub)
+        src/asm/main/advertise/init_adv_rep.o(adv_replay_ram_init)
+        src/asm/main/buffer/clear_buffer.o(clear_buffer)
+        src/asm/main/coprocessor/coproc_error.o(coproc_error)
+        src/asm/main/mode/mode_control.o(debug_mode_control)
+        src/asm/main/mode/test_enter_exit.o(test_mode)
+        src/asm/main/warning/warning.o(warning)
+        src/asm/main/advertise/advertise_mode.o(adv_mode_data)
+        src/asm/main/advertise/advertise_mode.o(advertise_mode)
+        src/asm/main/unused/un_check_credit.o(credit_check)
+        src/asm/main/advertise/fbi_pic/fbi_pic.o(fbi_pic)
+        src/asm/main/advertise/sega_pic/sega_pic.o(seeeegaaaaaa)
+        src/asm/main/advertise/movie/movie.o(movie)
+        src/asm/main/advertise/replay/replay.o(replay)
+        src/asm/main/advertise/cpu_battle/cpu_battle.o(cpu_battle)
+        src/asm/main/advertise/advertise_mode.o(repeat)
+        src/asm/main/unused/un_check_credit.o(dec_credit)
+        src/asm/main/info/info.o(info)
+        src/asm/main/select/select.o(select)
+        src/asm/main/round/story.o(story)
+        src/asm/main/round/round.o(states)
+        src/asm/main/round/game/game.o(int)
+        src/asm/main/round/mask/mask.o(int)
+        src/asm/main/round/round.o(init)
+        src/asm/main/round/mask/mask.o(dsp)
+        src/asm/main/round/burni/burni.o(burni)
+        src/asm/main/round/round.o(int)
+        src/asm/main/round/set/set.o(set)
+        src/asm/main/round/ready/ready.o(ready)
+        src/asm/main/round/fight/fight.o(fight)
+        src/asm/main/round/rep_waza/rep_waza.o(rep_waza)
+        src/asm/main/round/judge/judge.o(judge)
+        src/asm/main/round/replay/replay.o(replay)
+        src/asm/main/round/next/next.o(next)
+        src/asm/main/round/victory/victory.o(victory)
+        src/asm/main/round/win/win.o(win)
+        src/asm/main/round/stage_up/stage_up.o(stage_up)
+
+        src/asm/init/warn/check.o(warn_screen_check)
+
     } >rom
 
     .data :
     {
-        *(.data)
-        . = NEXT(1M) - SIZEOF(.text);
     } = 0xFFFF >rom
 
 
@@ -264,6 +372,7 @@ SECTIONS
         win_eye2_x = 0x501412;
         win_eye3_y = 0x501414;
         win_eye3_x = 0x501416;
+        buffer_ptr = 0x501800;
         un_poly_data_err_flag = 0x501998;
         hsync = 0x50300C;
         vsync = 0x50300E;
@@ -1116,6 +1225,7 @@ SECTIONS
         TRANS_MAP = 0x53013C;
         REPLAY_BANK_ADR_value = 0x531000;
         fa_object0_ram = 0x543100;
+        rep_ram = 0x535000;
         ARRAY_NUM_RED = 0x544000;
         ARRAY_NUM_GREEN = 0x544200;
         ARRAY_NUM_BLUE = 0x544400;
@@ -1207,7 +1317,7 @@ SECTIONS
         list_motions_ram = 0x5A0004;
         intr_ram = 0x5FF000;
         prcb_ram = 0x5FF410;
-        intr_stack = 0x5FF500;
+        _intr_stack = 0x5FF500;
         stack_pointer_ram = 0x5FF640;
         _trap_stack = 0x5FF800;
         GEO_START = 0x800000;

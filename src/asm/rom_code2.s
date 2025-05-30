@@ -1,6 +1,4 @@
 .data
-
-.include        "src/include/data_globals.S"
     .global _cpres_start
     .global _uk_textures
 

@@ -1,6 +1,5 @@
     .data
 
-.include        "src/include/data_globals.S"
 
 off_C2058:      .long off_C2078         # DATA XREF: calc_rob_angle_cont+80↑r
                 .long off_C2218

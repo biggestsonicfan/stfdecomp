@@ -11,6 +11,7 @@ temp/
 
 # Objects
 *.out
+*.out
 
 # ROM Files
 *.zip
@@ -20,3 +21,4 @@ cpres*.S
 
 # Work in progress
 src/c/*
+*.bak
