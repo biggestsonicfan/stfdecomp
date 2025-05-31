@@ -36,3 +36,14 @@ all:
 	$(GCC)$(CROSS) -r $(GCC_ARGS) round/victory/victory.s -o round/victory/victory.o
 	$(GCC)$(CROSS) -r $(GCC_ARGS) round/win/win.s -o round/win/win.o
 	$(GCC)$(CROSS) -r $(GCC_ARGS) round/stage_up/stage_up.s -o round/stage_up/stage_up.o
+	$(GCC)$(CROSS) -r $(GCC_ARGS) round/deathegg/mask.s -o round/deathegg/mask.o
+	$(GCC)$(CROSS) -r $(GCC_ARGS) round/deathegg/mezase.s -o round/deathegg/mezase.o
+	$(GCC)$(CROSS) -r $(GCC_ARGS) round/intrude/intrude.s -o round/intrude/intrude.o
+	$(GCC)$(CROSS) -r $(GCC_ARGS) round/continue/continue.s -o round/continue/continue.o
+	$(GCC)$(CROSS) -r $(GCC_ARGS) round/set_close/set_close.s -o round/set_close/set_close.o
+	$(GCC)$(CROSS) -r $(GCC_ARGS) round/over/over.s -o round/over/over.o
+
+	make -C round/ending
+
+	$(GCC)$(CROSS) -r $(GCC_ARGS) name/name/name.s -o name/name/name.o
+	$(GCC)$(CROSS) -r $(GCC_ARGS) rank/all_end/all_end.s -o rank/all_end/all_end.o

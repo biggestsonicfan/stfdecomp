@@ -1,3 +1,4 @@
+        .extern set_obj_go
         .globl chg_pol_color_req
         .globl chg_scr_color_req
         .section gfx_init

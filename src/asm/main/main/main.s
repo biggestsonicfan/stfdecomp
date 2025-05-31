@@ -1,3 +1,4 @@
+        .globl main
         .extern clr_pattern_s
         .extern interrupt_wait
         .extern geo_initialize

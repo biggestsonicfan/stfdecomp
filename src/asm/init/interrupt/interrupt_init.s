@@ -1,3 +1,4 @@
+        .extern main
         .globl interrupt_wait
         .globl read_sw
         .globl write_sw

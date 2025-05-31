@@ -3991,7 +3991,7 @@ calc_kaze:                              # CODE XREF: osage_dsp:loc_67958↑p
                 cmpobe  r14, r15, loc_68B34
                 lda     start_ip_add+1, r14
                 cmpobe  r14, r15, loc_68B34
-                lda     pcrb+2, r14
+                lda     prcb+2, r14
                 cmpobe  r14, r15, loc_68B34
                 lda     displacement2, r14
                 cmpobe  r14, r15, loc_68B4C
@@ -6572,9 +6572,9 @@ loc_6B478:                              # CODE XREF: cam_mode_9+278↑j
                 cmpo    0, r5
                 bne     sub_6DCCC
 loc_6B480:                              # CODE XREF: cam_mode_9+240↑j
-                lda     word_6BE90, r11
+                lda     cam_mot_check, r11
 loc_6B488:                              # CODE XREF: cam_mode_9+2E8↓j
-                ldos    (r11), r3
+                ldos    (r11), r3       # Load motion check
                 cmpobe  0, r3, loc_6B644
                 ldos    2(r11), r8
                 ldos    4(r11), r9
@@ -7116,8 +7116,8 @@ loc_6BCC8:                              # CODE XREF: sub_6BBFC+BC↑j
                 cvtir   r3, r3
                 lda     0x42800000, r13
                 divr    r13, r3, r3
-                ldt     0x0(g0), r4
-                ldt     0x48(g0), r8
+                ldt     0x0(g0), r4     # g0 will be float from cam_mot_check
+                ldt     72(g0), r8
                 subr    r4, r8, r4
                 subr    r5, r9, r5
                 subr    r6, r10, r6
@@ -7125,8 +7125,8 @@ loc_6BCC8:                              # CODE XREF: sub_6BBFC+BC↑j
                 divr    r3, r5, r5
                 divr    r3, r6, r6
                 stt     r4, 0x224(g13)
-                ldt     0xC(g0), r4
-                ldt     0x54(g0), r8
+                ldt     12(g0), r4
+                ldt     84(g0), r8
                 subr    r4, r8, r4
                 subr    r5, r9, r5
                 subr    r6, r10, r6
@@ -7224,764 +7224,2389 @@ loc_6BDF8:                              # CODE XREF: sub_6BD48+A8↑j
                 ret
 # End of function sub_6BD48
 # ---------------------------------------------------------------------------
-word_6BE90:     .short 0x1D2            # DATA XREF: cam_mode_9:loc_6B480↑o
+cam_mot_check:  .short 466              # DATA XREF: cam_mode_9:loc_6B480↑o
                 .short 14
-                .short 0x91
+                .short 145
                 .short 0
-                .short 0xCB4C
-                .short 6
-                .short 0xCB4C
-                .short 6
-                .short 0xA7
-                .short 0xA
+                .long flt_6CB4C         # Right
+                .long flt_6CB4C         # Left
+                .short 167              # KURURI_N
+                .short 10
+                .short 120
+                .short 0
+                .long flt_6CCD8
+                .long flt_6CDB0
+                .short 284              # SUKUI_SNC_N
+                .short 10
+                .short 75
+                .short 0
+                .long flt_6CE88
+                .long flt_6CF3C
+                .short 175              # MAWASI_Y
+                .short 10
+                .short 210
+                .short 0
+                .long flt_6D1A0
+                .long flt_6D278
+                .short 180              # PACHIKI_N
+                .short 10
+                .short 80
+                .short 0
+                .long flt_6D350
+                .long flt_6D350
+                .short 307              # UFO_N
+                .short 10
+                .short 110
+                .short 0
+                .long flt_6D3E0
+                .long flt_6D3E0
+                .short 105              # FUMIDAI_N
+                .short 10
+                .short 70
+                .short 0
+                .long flt_6D7D0
+                .long flt_6D8A8
+                .short 281              # SON_FUMI_Y
+                .short 10
+                .short 76
+                .short 0
+                .long flt_6D620
+                .long flt_6D6F8
+                .short 165              # KUMA_TATAKI_N
+                .short 10
+                .short 90
+                .short 0
+                .long flt_6D980
+                .long flt_6DA10
+                .short 147              # KUMA_HAM_NAGE_N
+                .short 10
+                .short 90
+                .short 0
+                .long flt_6DAA0
+                .long flt_6DAA0
+                .short 464              # MSN_SKY2_N
+                .short 10
+                .short 140
+                .short 0
+                .long flt_6DB30
+                .long flt_6DB30
+                .short 36               # BIG_NAGE00_N
+                .short 10
+                .short 70
+                .short 0
+                .long flt_6DB9C
+                .long flt_6DC2C
+                .short 34               # BERO_N
+                .short 10
+                .short 70
+                .short 0
+                .long flt_6CFF0
+                .long flt_6D080
+                .short 32               # ASIFUMI_N
+                .short 10
+                .short 70
+                .short 0
+                .long flt_6D590
+                .long flt_6D590
+                .short 445              # MEMAWASHI_N
+                .short 10
+                .short 220
+                .short 0
+                .long flt_6C7A4
+                .long flt_6C858
+                .short 435              # KUIMA_BOWL_N
+                .short 10
+                .short 110
+                .short 0
+                .long flt_6C90C
+                .long flt_6C99C
+                .short 418              # BETA_N
+                .short 10
+                .short 110
+                .short 0
+                .long flt_6CA2C
+                .long flt_6CABC
+                .short 413              # MIDAREZUKI_Y
+                .short 10
+                .long 210
+                .long flt_6C5AC
+                .long flt_6C4D4
+                .short 411              # KUMA_ATAMA_N
+                .short 10
+                .short 85
+                .short 0
+                .long flt_6C684
+                .long flt_6C714
+                .short 443              # HM_UBAI_N
+                .short 10
+                .short 200
+                .short 0
+                .long flt_6C0E4
+                .long flt_6C1E0
+                .short 448              # GUN_UBAI_N
+                .short 10
+                .short 200
+                .short 0
+                .long flt_6C0E4
+                .long flt_6C1E0
+                .short 409              # BERO_COMB_N
+                .short 10
+                .short 70
+                .short 0
+                .long flt_6CFF0
+                .long flt_6D080
+                .short 492              # BOMB_UBAI_N
+                .short 10
+                .short 190
+                .short 0
+                .long flt_6C2DC
+                .long flt_6C3D8
+                .short 484              # HIPPARI_N
+                .short 10
+                .short 100
+                .short 0
+                .long flt_6D110
+                .long flt_6D110
+                .short 495              # TLS_SKY3_N
+                .short 14
+                .short 130
+                .short 0
+                .long flt_6CBB8
+                .long flt_6CC48
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .float 0.0
+                .float 0.0
+                .long 0
+                .float 1.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .float 0.0
+                .float -6.5
+                .float 1.27
+                .float 0.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 20
+                .short 2
+                .float 0.0
+                .float 0.0
+                .float 1.27
+                .float 6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 40
+                .short 2
+                .float 0.0
+                .float 6.5
+                .float 1.27
+                .float -0.1
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 60
+                .short 2
+                .float 0.0
+                .float 0.0
+                .float 1.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 70
+                .short 2
+                .float 0.0
+flt_6C0E4:      .float 0.0              # DATA XREF: ROM:0006BFC8↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float -1.0             # Block #1
+                .float 1.0
+                .float -2.5
+                .float 0.0
+                .float 1.3
+                .float 0.0
+                .float 100.0
+                .short 5
+                .short 0x502
+                .short 0
+                .short 0
+                .float -0.5             # Block #2
+                .float 2.3
+                .float -2.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x23
+                .short 0x502
+                .short 3
+                .short 0
+                .float 0.0              # Block #3
+                .float 2.3
+                .float -2.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x32
+                .short 0x502
+                .short 3
+                .short 0
+                .float 2.0              # Block #4
+                .float 2.3
+                .float -2.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x50
+                .short 0x402
+                .short 3
+                .short 0
+                .float 3.0              # Block #5
+                .float 2.3
+                .float -3.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
                 .short 0x78
+                .short 0x402
+                .short 3
                 .short 0
-                .short 0xCCD8
-                .short 6
-                .short 0xCDB0
-                .short 6
-                .short 0x11C
+                .float 4.0              # Block #6
+                .float 2.3
+                .float -3.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0xC8
+                .short 0x400
+                .short 3
+                .short 0
+flt_6C1E0:      .float 0.0              # DATA XREF: ROM:0006BFCC↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 1.0              # Block #8
+                .float 1.0
+                .float -2.5
+                .float 0.0
+                .float 1.3
+                .float 0.0
+                .float 100.0
+                .short 5
+                .short 0x502
+                .short 0
+                .short 0
+                .float 0.5              # Block #9
+                .float 2.3
+                .float -2.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x23
+                .short 0x502
+                .short 3
+                .short 0
+                .float 0.0              # Block #10
+                .float 2.3
+                .float -2.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x32
+                .short 0x502
+                .short 3
+                .short 0
+                .float -2.0             # Block #11
+                .float 2.3
+                .float -2.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x50
+                .short 0x402
+                .short 3
+                .short 0
+                .float -3.0             # Block #12
+                .float 2.3
+                .float -3.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x78
+                .short 0x402
+                .short 3
+                .short 0
+                .float -4.0             # Block #13
+                .float 2.3
+                .float -3.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0xC8
+                .short 0x400
+                .short 3
+                .short 0
+flt_6C2DC:      .float 0.0              # DATA XREF: ROM:0006BFF8↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float -1.0             # Block #15
+                .float 1.0
+                .float -2.5
+                .float 0.0
+                .float 1.3
+                .float 0.0
+                .float 100.0
+                .short 5
+                .short 0x502
+                .short 0
+                .short 0
+                .float -0.5             # Block #16
+                .float 2.3
+                .float -2.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x23
+                .short 0x502
+                .short 3
+                .short 0
+                .float 0.0              # Block #17
+                .float 2.3
+                .float -2.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x3C
+                .short 0x502
+                .short 3
+                .short 0
+                .float -4.0             # Block #18
+                .float 2.3
+                .float 0.0
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x50
+                .short 0x502
+                .short 3
+                .short 0
+                .float -4.0             # Block #19
+                .float 2.3
+                .float 3.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x78
+                .short 0x502
+                .short 3
+                .short 0
+                .float -3.5             # Block #20
+                .float 2.3
+                .float 3.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0xBE
+                .short 0x400
+                .short 3
+                .short 0
+flt_6C3D8:      .float 0.0              # DATA XREF: ROM:0006BFFC↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 1.0              # Block #22
+                .float 1.0
+                .float -2.5
+                .float 0.0
+                .float 1.3
+                .float 0.0
+                .float 100.0
+                .short 5
+                .short 0x502
+                .short 0
+                .short 0
+                .float 0.5              # Block #23
+                .float 2.3
+                .float -2.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x23
+                .short 0x502
+                .short 3
+                .short 0
+                .float 0.0              # Block #24
+                .float 2.3
+                .float -2.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x32
+                .short 0x502
+                .short 3
+                .short 0
+                .float 2.0              # Block #25
+                .float 2.3
+                .float -2.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x50
+                .short 0x402
+                .short 3
+                .short 0
+                .float 3.0              # Block #26
+                .float 2.3
+                .float -3.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x78
+                .short 0x402
+                .short 3
+                .short 0
+                .float 4.0              # Block #27
+                .float 2.3
+                .float -3.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0xBE
+                .short 0x400
+                .short 3
+                .short 0
+flt_6C4D4:      .float 0.0              # DATA XREF: ROM:0006BFAC↑o
+                .float 1.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 0x302
+                .short 3
+                .short 0
+                .float -3.0             # Block #29
+                .float 2.27
+                .float -3.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x1E
+                .short 0x502
+                .short 3
+                .short 0
+                .float 3.0              # Block #30
+                .float 2.27
+                .float -3.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x3C
+                .short 0x502
+                .short 3
+                .short 0
+                .float 3.0              # Block #31
+                .float 3.27
+                .float 3.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x78
+                .short 0x502
+                .short 3
+                .short 0
+                .float -3.0             # Block #32
+                .float 3.27
+                .float 3.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xB4
+                .short 0x502
+                .short 3
+                .short 0
+                .float -3.0             # Block #33
+                .float 3.27
+                .float -3.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xD2
+                .short 0x300
+                .short 3
+                .short 0
+flt_6C5AC:      .float 0.0              # DATA XREF: ROM:0006BFA8↑o
+                .float 1.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 0x302
+                .short 3
+                .short 0
+                .float -3.0             # Block #35
+                .float 2.27
+                .float -3.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x1E
+                .short 0x502
+                .short 3
+                .short 0
+                .float -3.0             # Block #36
+                .float 2.27
+                .float 3.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x3C
+                .short 0x502
+                .short 3
+                .short 0
+                .float 3.0              # Block #37
+                .float 3.27
+                .float 3.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x78
+                .short 0x502
+                .short 3
+                .short 0
+                .float 3.0              # Block #38
+                .float 3.27
+                .float -3.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xB4
+                .short 0x502
+                .short 3
+                .short 0
+                .float -3.0             # Block #39
+                .float 3.27
+                .float -3.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xD2
+                .short 0x300
+                .short 3
+                .short 0
+flt_6C684:      .float 0.0              # DATA XREF: ROM:0006BFB8↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #41
+                .float 3.5
+                .float -4.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
                 .short 0xA
-                .long 0x4B
-                .long 0x6CE88
-                .long 0x6CF3C
-                .long 0xA00AF
-                .long 0xD2
-                .long 0x6D1A0
-                .long 0x6D278
-                .long 0xA00B4
-                .long 0x50
-                .long 0x6D350
-                .long 0x6D350
-                .long 0xA0133
-                .long 0x6E
-                .long 0x6D3E0
-                .long 0x6D3E0
-                .long 0xA0069
-                .long 0x46
-                .long 0x6D7D0
-                .long 0x6D8A8
-                .long 0xA0119
-                .long 0x4C
-                .long 0x6D620
-                .long 0x6D6F8
-                .long 0xA00A5
-                .long 0x5A
-                .long 0x6D980
-                .long 0x6DA10
-                .long 0xA0093
-                .long 0x5A
-                .long 0x6DAA0
-                .long 0x6DAA0
-                .long 0xA01D0
-                .long 0x8C
-                .long 0x6DB30
-                .long 0x6DB30
-                .long 0xA0024
-                .long 0x46
-                .long 0x6DB9C
-                .long 0x6DC2C
-                .long 0xA0022
-                .long 0x46
-                .long 0x6CFF0
-                .long 0x6D080
-                .long 0xA0020
-                .long 0x46
-                .long 0x6D590
-                .long 0x6D590
-                .long 0xA01BD
-                .long 0xDC
-                .long 0x6C7A4
-                .long 0x6C858
-                .long 0xA01B3
-                .long 0x6E
-                .long 0x6C90C
-                .long 0x6C99C
-                .long 0xA01A2
-                .long 0x6E
-                .long 0x6CA2C
-                .long 0x6CABC
-                .long 0xA019D
-                .long 0xD2
-                .long 0x6C5AC
-                .long 0x6C4D4
-                .long 0xA019B
-                .long 0x55
-                .long 0x6C684
-                .long 0x6C714
-                .long 0xA01BB
-                .long 0xC8
-                .long 0x6C0E4
-                .long 0x6C1E0
-                .long 0xA01C0
-                .long 0xC8
-                .long 0x6C0E4
-                .long 0x6C1E0
-                .long 0xA0199
-                .long 0x46
-                .long 0x6CFF0
-                .long 0x6D080
-                .long 0xA01EC
-                .long 0xBE
-                .long 0x6C2DC
-                .long 0x6C3D8
-                .long 0xA01E4
-                .long 0x64
-                .long 0x6D110
-                .long 0x6D110
-                .long 0xE01EF
-                .long 0x82
-                .long 0x6CBB8
-                .long 0x6CC48
-                .long 0
-                .long 0
-                .long 0
-                .long 0
-                .long 0
-                .long 0x3FA28F5C, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000, 0
-                .long 0xC0D00000, 0x3FA28F5C
-                .fill 2, 4, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20014
-                .fill 2, 4, 0
-                .long 0x3FA28F5C, 0x40D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20028, 0
-                .long 0x40D00000, 0x3FA28F5C, 0xBDCCCCCD, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x2003C
-                .fill 2, 4, 0
-                .long 0x3FA28F5C, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20046
-                .fill 2, 4, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000, 0
-                .long 0xBF800000, 0x3F800000, 0xC0200000, 0
-                .long 0x3FA66666, 0
-                .long 0x42C80000, 0x5020005, 0
-                .long 0xBF000000, 0x40133333, 0xC0333333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x5020023, 3, 0
-                .long 0x40133333, 0xC0333333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x5020032, 3, 0x40000000, 0x40133333
-                .long 0xC0333333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x4020050, 3, 0x40400000, 0x40133333
-                .long 0xC0733333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x4020078, 3, 0x40800000, 0x40133333
-                .long 0xC0733333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x40000C8, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000, 0
-                .fill 2, 4, 0x3F800000
-                .long 0xC0200000, 0
-                .long 0x3FA66666, 0
-                .long 0x42C80000, 0x5020005, 0
-                .long 0x3F000000, 0x40133333, 0xC0333333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x5020023, 3, 0
-                .long 0x40133333, 0xC0333333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x5020032, 3, 0xC0000000, 0x40133333
-                .long 0xC0333333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x4020050, 3, 0xC0400000, 0x40133333
-                .long 0xC0733333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x4020078, 3, 0xC0800000, 0x40133333
-                .long 0xC0733333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x40000C8, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000, 0
-                .long 0xBF800000, 0x3F800000, 0xC0200000, 0
-                .long 0x3FA66666, 0
-                .long 0x42C80000, 0x5020005, 0
-                .long 0xBF000000, 0x40133333, 0xC0333333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x5020023, 3, 0
-                .long 0x40133333, 0xC0333333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x502003C, 3, 0xC0800000, 0x40133333
-                .fill 2, 4, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x5020050, 3, 0xC0800000, 0x40133333
-                .long 0x40733333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x5020078, 3, 0xC0600000, 0x40133333
-                .long 0x40733333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x40000BE, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000, 0
-                .fill 2, 4, 0x3F800000
-                .long 0xC0200000, 0
-                .long 0x3FA66666, 0
-                .long 0x42C80000, 0x5020005, 0
-                .long 0x3F000000, 0x40133333, 0xC0333333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x5020023, 3, 0
-                .long 0x40133333, 0xC0333333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x5020032, 3, 0x40000000, 0x40133333
-                .long 0xC0333333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x4020050, 3, 0x40400000, 0x40133333
-                .long 0xC0733333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x4020078, 3, 0x40800000, 0x40133333
-                .long 0xC0733333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x40000BE, 3, 0
-                .long 0x3FA28F5C, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x3020000, 3, 0xC0400000, 0x401147AE
-                .long 0xC0400000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x502001E, 3, 0x40400000, 0x401147AE
-                .long 0xC0400000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x502003C, 3, 0x40400000, 0x405147AE
-                .long 0x40400000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x5020078, 3, 0xC0400000, 0x405147AE
-                .long 0x40400000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x50200B4, 3, 0xC0400000, 0x405147AE
-                .long 0xC0400000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x30000D2, 3, 0
-                .long 0x3FA28F5C, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x3020000, 3, 0xC0400000, 0x401147AE
-                .long 0xC0400000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x502001E, 3, 0xC0400000, 0x401147AE
-                .long 0x40400000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x502003C, 3, 0x40400000, 0x405147AE
-                .long 0x40400000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x5020078, 3, 0x40400000, 0x405147AE
-                .long 0xC0400000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x50200B4, 3, 0xC0400000, 0x405147AE
-                .long 0xC0400000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x30000D2, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x40600000, 0xC0900000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x402000A, 0
-                .long 0x40900000, 0x401147AE, 0xC0900000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4020046, 3, 0x40B00000, 0x401147AE
-                .long 0xC0900000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4000055, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000, 0
-                .long 0x40900000, 0x40600000, 0xC0900000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x402000A, 0
-                .long 0x40900000, 0x401147AE
-                .fill 2, 4, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4020028, 3, 0x40900000, 0x401147AE
-                .long 0x40900000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4000055, 3, 0
-                .long 0x3FA28F5C, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x3020000, 3, 0xC0600000, 0x401147AE
-                .long 0xC0400000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x5020014, 3, 0xC0600000, 0x401147AE
-                .long 0xC0400000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x5020078, 3, 0xBF800000, 0x405147AE
-                .long 0xC0600000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x50200B4, 3, 0xC0000000, 0x405147AE
-                .long 0xC0800000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x30000DC, 3, 0
-                .long 0x3FA28F5C, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x3020000, 3, 0x40600000, 0x401147AE
-                .long 0xC0400000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x5020014, 3, 0x40600000, 0x401147AE
-                .long 0xC0400000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x5020078, 3, 0x3F800000, 0x405147AE
-                .long 0xC0600000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x50200B4, 3, 0x40000000, 0x405147AE
-                .long 0xC0800000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x30000DC, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x40600000, 0xC0600000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x402000A, 0
-                .long 0x41080000, 0x405147AE
-                .fill 2, 4, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x3020050, 3, 0x41180000, 0x4088A3D7
-                .fill 2, 4, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x3000064, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x40600000, 0xC0600000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x402000A, 0
-                .long 0xC1080000, 0x405147AE
-                .fill 2, 4, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x3020050, 3, 0xC1180000, 0x4088A3D7
-                .fill 2, 4, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x3000064, 3, 0
-                .long 0x3FA28F5C, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x3020000, 3, 0x40900000, 0x405147AE
-                .fill 2, 4, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x402001E, 4, 0x40900000, 0x405147AE
-                .fill 2, 4, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4020050, 4, 0x40900000, 0x405147AE
-                .long 0x40000000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4000064, 3, 0
-                .long 0x3FA28F5C, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x3020000, 3, 0xC0900000, 0x405147AE
-                .fill 2, 4, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x402001E, 4, 0xC0900000, 0x405147AE
-                .fill 2, 4, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4020050, 4, 0xC0900000, 0x405147AE
-                .long 0x40000000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4000064, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x40E00000, 0
-                .long 0x42C80000, 0x302004B, 3, 0
-                .long 0x3F11EB85, 0xC0D00000, 0
-                .long 0x40600000, 0
-                .long 0x42C80000, 0x64
-                .fill 2, 4, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x3F800000, 0xC0600000, 0
-                .long 0x40833333, 0
-                .long 0x42C80000, 0x402001E, 0
-                .long 0x41080000, 0x401147AE, 0xC0000000, 0
-                .long 0x40833333, 0
-                .long 0x42C80000, 0x3020050, 3, 0x41280000, 0x40A8A3D7
-                .long 0xC0000000, 0
-                .long 0x4121999A, 0
-                .long 0x42C80000, 0x3000082, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x3F800000, 0xC0600000, 0
-                .long 0x40833333, 0
-                .long 0x42C80000, 0x402001E, 0
-                .long 0xC1080000, 0x401147AE, 0xC0000000, 0
-                .long 0x40833333, 0
-                .long 0x42C80000, 0x3020050, 3, 0xC1280000, 0x40A8A3D7
-                .long 0xC0000000, 0
-                .long 0x4121999A, 0
-                .long 0x42C80000, 0x3000082, 3, 0
-                .long 0x3FA28F5C, 0xC0200000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4020000, 4, 0x40900000, 0x3FA28F5C
-                .long 0xC0600000, 0
-                .long 0x40066666, 0
-                .long 0x42C80000, 0x3020014, 3, 0x40800000, 0x401147AE
-                .long 0xC0900000, 0
-                .long 0x40600000, 0
-                .long 0x42C80000, 0x5020023, 3, 0x40900000, 0x3FA28F5C
-                .long 0xC0600000, 0
-                .long 0x40466666
-                .long 0
-                .long 0x42C80000, 0x5020032, 3, 0x40F9999A, 0x3FA28F5C
-                .long 0xC0200000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4000046, 3, 0x40F9999A, 0x3FA28F5C
-                .long 0xC0200000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4000064, 3, 0
-                .long 0x3FA28F5C, 0xC0200000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4020000, 4, 0x40900000, 0x3FA28F5C
-                .long 0xC0600000, 0
-                .long 0x40066666, 0
-                .long 0x42C80000, 0x3020014, 3, 0xC0800000, 0x401147AE
-                .long 0xC0900000, 0
-                .long 0x40600000, 0
-                .long 0x42C80000, 0x5020023, 3, 0xC0900000, 0x3FA28F5C
-                .long 0xC0600000, 0
-                .long 0x40466666
-                .long 0
-                .long 0x42C80000, 0x5020032, 3, 0xC0F9999A, 0x3FA28F5C
-                .long 0xC0200000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4000046, 3, 0xC0F9999A, 0x3FA28F5C
-                .long 0xC0200000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4000064, 3, 0
-                .long 0x3FA28F5C, 0xC0200000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4020000, 4, 0x40600000, 0x405147AE
-                .long 0xC0200000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x2000A, 0
-                .long 0x3FC00000, 0x410CCCCD, 0xC0200000, 0
-                .long 0x40066666, 0
-                .long 0x42C80000, 0x5020028, 5, 0x40E00000, 0x405147AE
-                .long 0xC0800000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x500003C, 3, 0x40E00000, 0x405147AE
-                .long 0xC0800000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x500004B, 3, 0
-                .long 0x3FA28F5C, 0xC0200000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4020000, 4, 0x40600000, 0x405147AE
-                .long 0xC0200000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x2000A, 0
-                .long 0xBFC00000, 0x410CCCCD, 0xC0200000, 0
-                .long 0x40066666, 0
-                .long 0x42C80000, 0x5020028, 5, 0xC0E00000, 0x405147AE
-                .long 0xC0800000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x500003C, 3, 0xC0E00000, 0x405147AE
-                .long 0xC0800000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x500004B, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x3FE66666, 0xC0400000, 0
-                .long 0x40000000, 0
-                .long 0x42C80000, 0x402000F, 3, 0x40F00000, 0x40600000
-                .long 0xC0900000, 0
-                .long 0x3F800000, 0
-                .long 0x42C80000, 0x3000032, 3, 0x40F00000, 0x40600000
-                .long 0xC0900000, 0
-                .long 0x3F800000, 0
-                .long 0x42C80000, 0x3000046, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x3FE66666, 0xC0400000, 0
-                .long 0x40000000, 0
-                .long 0x42C80000, 0x402000F, 3, 0xC0F00000, 0x40600000
-                .long 0xC0900000, 0
-                .long 0x3F800000, 0
-                .long 0x42C80000, 0x3000032, 3, 0xC0F00000, 0x40600000
-                .long 0xC0900000, 0
-                .long 0x3F800000, 0
-                .long 0x42C80000, 0x3000046, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x40600000, 0xC0800000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x402000A, 0
-                .long 0x3F800000, 0x3FE66666, 0xC0400000, 0
-                .long 0x3FC00000, 0
-                .long 0x42C80000, 0x402003C, 3, 0x3F800000, 0x40133333
-                .long 0xC0B00000, 0
-                .long 0x3FC00000, 0
-                .long 0x42C80000, 0x4000064, 3, 0
-                .long 0x3FA28F5C, 0xC0200000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4020000, 4, 0xC0400000, 0x3F000000
-                .long 0xC0400000, 0
-                .long 0x3F000000, 0
-                .long 0x42C80000, 0x402001E, 4, 0xC0400000, 0x4088A3D7
-                .long 0xC0400000, 0
-                .long 0x3F800000, 0
-                .long 0x42C80000, 0x302003C, 3, 0xC0600000, 0x40F00000
-                .long 0xBFC00000, 0
-                .long 0x3F000000, 0
-                .long 0x42C80000, 0x3020082, 5, 0xC1200000, 0x3FA28F5C
-                .long 0xBF800000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x96, 3, 0xC1200000, 0x3FA28F5C, 0xBF800000
-                .long 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0xD2, 3, 0
-                .long 0x3FA28F5C, 0xC0200000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4020000, 4, 0x40400000, 0x3F000000
-                .long 0xC0400000, 0
-                .long 0x3F000000, 0
-                .long 0x42C80000, 0x402001E, 4, 0x40400000, 0x4088A3D7
-                .long 0xC0400000, 0
-                .long 0x3F800000, 0
-                .long 0x42C80000, 0x302003C, 3, 0x40600000, 0x40F00000
-                .long 0xBFC00000, 0
-                .long 0x3F000000, 0
-                .long 0x42C80000, 0x3020082, 5, 0x41200000, 0x3FA28F5C
-                .long 0x3F800000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x96, 3, 0x41200000, 0x3FA28F5C, 0x3F800000
-                .long 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0xD2, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x40600000, 0xC0600000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x402000A, 0
-                .long 0x3F800000, 0x40133333, 0xC0333333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x400002D, 3, 0x3F800000, 0x40133333
-                .long 0xC0333333, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x4000050, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x40000000, 0xC0600000, 0
-                .long 0x40133333, 0
-                .long 0x42C80000, 0x4020014, 3, 0
-                .long 0x40000000, 0xC0600000, 0
-                .long 0x40133333, 0
-                .long 0x42C80000, 0x4000015, 3, 0
-                .long 0x40000000, 0xC0600000, 0
-                .long 0x40133333, 0
-                .long 0x42C80000, 0x402001E, 3, 0x40000000, 0x3FA66666
-                .long 0xC0B00000, 0
-                .long 0x40133333, 0
-                .long 0x42C80000, 0x4000032, 3, 0
-                .long 0x3FC00000, 0xC0C00000, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x300006E, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x40000000, 0xC0600000, 0
-                .long 0x40133333, 0
-                .long 0x42C80000, 0x4020014, 3, 0
-                .long 0x40000000, 0xC0600000, 0
-                .long 0x40133333, 0
-                .long 0x42C80000, 0x4000015, 3, 0
-                .long 0x40000000, 0xC0600000, 0
-                .long 0x40133333, 0
-                .long 0x42C80000, 0x402001E, 3, 0x40000000, 0x3FA66666
-                .long 0xC0B00000, 0
-                .long 0x40133333, 0
-                .long 0x42C80000, 0x4000032, 3, 0
-                .long 0x3FC00000, 0xC0C00000, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x300006E, 3, 0
-                .long 0x3FC00000, 0xC0400000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x3FC00000, 0xC0400000, 0
-                .long 0x3F000000, 0
-                .long 0x42C80000, 0x4020020, 3, 0x3F000000, 0x40466666
-                .long 0xC0900000, 0
-                .long 0x3FC00000, 0
-                .long 0x42C80000, 0x300003C, 3, 0x3F000000, 0x40466666
-                .long 0xC0900000, 0
-                .long 0x3FC00000, 0
-                .long 0x42C80000, 0x3000046, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000, 0
-                .long 0x3F800000, 0x40200000, 0xC0800000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x402000A, 4, 0
-                .long 0x40600000, 0xC0800000, 0
-                .long 0x40200000, 0
-                .long 0x42C80000, 0x4020023, 4, 0x4039999A, 0x40D00000
-                .long 0xC0900000, 0
-                .long 0x40400000, 0
-                .long 0x42C80000, 0x4020032, 3, 0x40400000, 0x3F800000
-                .long 0xC0D00000, 0
-                .long 0x40400000, 0
-                .long 0x42C80000, 0x300003C, 3, 0x40400000, 0x3F800000
-                .long 0xC0D00000, 0
-                .long 0x40400000, 0
-                .long 0x42C80000, 0x3000041, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000, 0
-                .long 0x3F800000, 0x40200000, 0xC0800000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x402000A, 4, 0
-                .long 0x40600000, 0xC0800000, 0
-                .long 0x40200000, 0
-                .long 0x42C80000, 0x4020023, 4, 0xC039999A, 0x40D00000
-                .long 0xC0900000, 0
-                .long 0x40400000, 0
-                .long 0x42C80000, 0x4020032, 3, 0xC0400000, 0x3F800000
-                .long 0xC0D00000, 0
-                .long 0x40400000, 0
-                .long 0x42C80000, 0x300003C, 3, 0xC0400000, 0x3F800000
-                .long 0xC0D00000, 0
-                .long 0x40400000, 0
-                .long 0x42C80000, 0x3000041, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x40200000, 0xC0A00000, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x402000A, 4, 0
-                .long 0x40200000, 0xC0800000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4020017, 4, 0xC0900000, 0x3F800000
-                .long 0xC0D00000, 0
-                .long 0x40A00000, 0
-                .long 0x42C80000, 0x4020032, 4, 0xC0900000, 0x40400000
-                .long 0xC0F00000, 0
-                .long 0x3FA66666, 0
-                .long 0x42C80000, 0x300003C, 3, 0xC0900000, 0x40400000
-                .long 0xC0F00000, 0
-                .long 0x3FA66666, 0
-                .long 0x42C80000, 0x3000046, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x40200000, 0xC0A00000, 0
-                .long 0x3FE66666, 0
-                .long 0x42C80000, 0x402000A, 4, 0
-                .long 0x40200000, 0xC0800000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x4020017, 4, 0x40900000, 0x3F800000
-                .long 0xC0D00000, 0
-                .long 0x40A00000, 0
-                .long 0x42C80000, 0x4020032, 4, 0x40900000, 0x40400000
-                .long 0xC0F00000, 0
-                .long 0x3FA66666, 0
-                .long 0x42C80000, 0x300003C, 3, 0x40900000, 0x40400000
-                .long 0xC0F00000, 0
-                .long 0x3FA66666, 0
-                .long 0x42C80000, 0x3000046, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x40600000, 0xC0600000, 0
-                .long 0x40066666, 0
-                .long 0x42C80000, 0x402000A, 3, 0x40F00000, 0x3FC00000
-                .fill 2, 4, 0
-                .long 0x4059999A, 0
-                .long 0x42C80000, 0x300003C, 3, 0x40F00000, 0x3FC00000
-                .fill 2, 4, 0
-                .long 0x4059999A, 0
-                .long 0x42C80000, 0x300005A, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x40600000, 0xC0600000, 0
-                .long 0x40066666, 0
-                .long 0x42C80000, 0x402000A, 3, 0xC0F00000, 0x3FC00000
-                .fill 2, 4, 0
-                .long 0x4059999A, 0
-                .long 0x42C80000, 0x300003C, 3, 0xC0F00000, 0x3FC00000
-                .fill 2, 4, 0
-                .long 0x4059999A, 0
-                .long 0x42C80000, 0x300005A, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x40600000, 0xC0900000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x402000A
-                .fill 2, 4, 0
-                .long 0x40200000, 0xC019999A, 0
-                .long 0x400CCCCD, 0
-                .long 0x42C80000, 0x3000028, 3, 0
-                .long 0x40200000, 0xC019999A, 0
-                .long 0x400CCCCD, 0
-                .long 0x42C80000, 0x3000050, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x40E00000, 0
-                .long 0x42C80000, 0x302003C, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x8C
-                .fill 2, 4, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x40600000, 0xC0600000, 0
-                .long 0x40066666, 0
-                .long 0x42C80000, 0x402000A, 3, 0x40F00000, 0x40B00000
-                .fill 2, 4, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x3000032, 3, 0x40F00000, 0x3FC00000
-                .fill 2, 4, 0
-                .long 0x4059999A, 0
-                .long 0x42C80000, 0x3000046, 3, 0
-                .long 0x401147AE, 0xC0D00000, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x20000
-                .fill 2, 4, 0
-                .long 0x40600000, 0xC0600000, 0
-                .long 0x40066666, 0
-                .long 0x42C80000, 0x402000A, 3, 0xC0F00000, 0x40B00000
-                .fill 2, 4, 0
-                .long 0x3F8CCCCD, 0
-                .long 0x42C80000, 0x3000032, 3, 0xC0F00000, 0x3FC00000
-                .fill 2, 4, 0
-                .long 0x4059999A, 0
-                .long 0x42C80000, 0x3000046, 3
+                .short 0x402
+                .short 0
+                .short 0
+                .float 4.5              # Block #42
+                .float 2.27
+                .float -4.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x46
+                .short 0x402
+                .short 3
+                .short 0
+                .float 5.5              # Block #43
+                .float 2.27
+                .float -4.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x55
+                .short 0x400
+                .short 3
+                .short 0
+flt_6C714:      .float 0.0              # DATA XREF: ROM:0006BFBC↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 4.5              # Block #45
+                .float 3.5
+                .float -4.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xA
+                .short 0x402
+                .short 0
+                .short 0
+                .float 4.5              # Block #46
+                .float 2.27
+                .float 0.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x28
+                .short 0x402
+                .short 3
+                .short 0
+                .float 4.5              # Block #47
+                .float 2.27
+                .float 4.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x55
+                .short 0x400
+                .short 3
+                .short 0
+flt_6C7A4:      .float 0.0              # DATA XREF: ROM:0006BF78↑o
+                .float 1.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 0x302
+                .short 3
+                .short 0
+                .float -3.5             # Block #49
+                .float 2.27
+                .float -3.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x14
+                .short 0x502
+                .short 3
+                .short 0
+                .float -3.5             # Block #50
+                .float 2.27
+                .float -3.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x78
+                .short 0x502
+                .short 3
+                .short 0
+                .float -1.0             # Block #51
+                .float 3.27
+                .float -3.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xB4
+                .short 0x502
+                .short 3
+                .short 0
+                .float -2.0             # Block #52
+                .float 3.27
+                .float -4.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xDC
+                .short 0x300
+                .short 3
+                .short 0
+flt_6C858:      .float 0.0              # DATA XREF: ROM:0006BF7C↑o
+                .float 1.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 0x302
+                .short 3
+                .short 0
+                .float 3.5              # Block #54
+                .float 2.27
+                .float -3.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x14
+                .short 0x502
+                .short 3
+                .short 0
+                .float 3.5              # Block #55
+                .float 2.27
+                .float -3.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x78
+                .short 0x502
+                .short 3
+                .short 0
+                .float 1.0              # Block #56
+                .float 3.27
+                .float -3.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xB4
+                .short 0x502
+                .short 3
+                .short 0
+                .float 2.0              # Block #57
+                .float 3.27
+                .float -4.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xDC
+                .short 0x300
+                .short 3
+                .short 0
+flt_6C90C:      .float 0.0              # DATA XREF: ROM:0006BF88↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #59
+                .float 3.5
+                .float -3.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xA
+                .short 0x402
+                .short 0
+                .short 0
+                .float 8.5              # Block #60
+                .float 3.27
+                .float 0.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x50
+                .short 0x302
+                .short 3
+                .short 0
+                .float 9.5              # Block #61
+                .float 4.27
+                .float 0.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x64
+                .short 0x300
+                .short 3
+                .short 0
+flt_6C99C:      .float 0.0              # DATA XREF: ROM:0006BF8C↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #63
+                .float 3.5
+                .float -3.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xA
+                .short 0x402
+                .short 0
+                .short 0
+                .float -8.5             # Block #64
+                .float 3.27
+                .float 0.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x50
+                .short 0x302
+                .short 3
+                .short 0
+                .float -9.5             # Block #65
+                .float 4.27
+                .float 0.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x64
+                .short 0x300
+                .short 3
+                .short 0
+flt_6CA2C:      .float 0.0              # DATA XREF: ROM:0006BF98↑o
+                .float 1.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 0x302
+                .short 3
+                .short 0
+                .float 4.5              # Block #67
+                .float 3.27
+                .float 0.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x1E
+                .short 0x402
+                .short 4
+                .short 0
+                .float 4.5              # Block #68
+                .float 3.27
+                .float 0.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x50
+                .short 0x402
+                .short 4
+                .short 0
+                .float 4.5              # Block #69
+                .float 3.27
+                .float 2.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x64
+                .short 0x400
+                .short 3
+                .short 0
+flt_6CABC:      .float 0.0              # DATA XREF: ROM:0006BF9C↑o
+                .float 1.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 0x302
+                .short 3
+                .short 0
+                .float -4.5             # Block #71
+                .float 3.27
+                .float 0.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x1E
+                .short 0x402
+                .short 4
+                .short 0
+                .float -4.5             # Block #72
+                .float 3.27
+                .float 0.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x50
+                .short 0x402
+                .short 4
+                .short 0
+                .float -4.5             # Block #73
+                .float 3.27
+                .float 2.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x64
+                .short 0x400
+                .short 3
+                .short 0
+flt_6CB4C:      .float 0.0              # DATA XREF: ROM:0006BE98↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #75
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 7.0
+                .float 0.0
+                .float 100.0
+                .short 0x4B
+                .short 0x302
+                .short 3
+                .short 0
+                .float 0.0              # Block #76
+                .float 0.56999999
+                .float -6.5
+                .float 0.0
+                .float 3.5
+                .float 0.0
+                .float 100.0
+                .short 0x64
+                .short 0
+                .short 0
+                .short 0
+flt_6CBB8:      .float 0.0              # DATA XREF: ROM:0006C018↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #78
+                .float 1.0
+                .float -3.5
+                .float 0.0
+                .float 4.0999999
+                .float 0.0
+                .float 100.0
+                .short 0x1E
+                .short 0x402
+                .short 0
+                .short 0
+                .float 8.5              # Block #79
+                .float 2.27
+                .float -2.0
+                .float 0.0
+                .float 4.0999999
+                .float 0.0
+                .float 100.0
+                .short 0x50
+                .short 0x302
+                .short 3
+                .short 0
+                .float 10.5             # Block #80
+                .float 5.27
+                .float -2.0
+                .float 0.0
+                .float 10.1
+                .float 0.0
+                .float 100.0
+                .short 0x82
+                .short 0x300
+                .short 3
+                .short 0
+flt_6CC48:      .float 0.0              # DATA XREF: ROM:0006C01C↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #82
+                .float 1.0
+                .float -3.5
+                .float 0.0
+                .float 4.0999999
+                .float 0.0
+                .float 100.0
+                .short 0x1E
+                .short 0x402
+                .short 0
+                .short 0
+                .float -8.5             # Block #83
+                .float 2.27
+                .float -2.0
+                .float 0.0
+                .float 4.0999999
+                .float 0.0
+                .float 100.0
+                .short 0x50
+                .short 0x302
+                .short 3
+                .short 0
+                .float -10.5            # Block #84
+                .float 5.27
+                .float -2.0
+                .float 0.0
+                .float 10.1
+                .float 0.0
+                .float 100.0
+                .short 0x82
+                .short 0x300
+                .short 3
+                .short 0
+flt_6CCD8:      .float 0.0              # DATA XREF: ROM:0006BEA8↑o
+                .float 1.27
+                .float -2.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 0x402
+                .short 4
+                .short 0
+                .float 4.5              # Block #86
+                .float 1.27
+                .float -3.5
+                .float 0.0
+                .float 2.0999999
+                .float 0.0
+                .float 100.0
+                .short 0x14
+                .short 0x302
+                .short 3
+                .short 0
+                .float 4.0              # Block #87
+                .float 2.27
+                .float -4.5
+                .float 0.0
+                .float 3.5
+                .float 0.0
+                .float 100.0
+                .short 0x23
+                .short 0x502
+                .short 3
+                .short 0
+                .float 4.5              # Block #88
+                .float 1.27
+                .float -3.5
+                .float 0.0
+                .float 3.0999999
+                .float 0.0
+                .float 100.0
+                .short 0x32
+                .short 0x502
+                .short 3
+                .short 0
+                .float 7.8000002        # Block #89
+                .float 1.27
+                .float -2.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x46
+                .short 0x400
+                .short 3
+                .short 0
+                .float 7.8000002        # Block #90
+                .float 1.27
+                .float -2.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x64
+                .short 0x400
+                .short 3
+                .short 0
+flt_6CDB0:      .float 0.0              # DATA XREF: ROM:0006BEAC↑o
+                .float 1.27
+                .float -2.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 0x402
+                .short 4
+                .short 0
+                .float 4.5              # Block #92
+                .float 1.27
+                .float -3.5
+                .float 0.0
+                .float 2.0999999
+                .float 0.0
+                .float 100.0
+                .short 0x14
+                .short 0x302
+                .short 3
+                .short 0
+                .float -4.0             # Block #93
+                .float 2.27
+                .float -4.5
+                .float 0.0
+                .float 3.5
+                .float 0.0
+                .float 100.0
+                .short 0x23
+                .short 0x502
+                .short 3
+                .short 0
+                .float -4.5             # Block #94
+                .float 1.27
+                .float -3.5
+                .float 0.0
+                .float 3.0999999
+                .float 0.0
+                .float 100.0
+                .short 0x32
+                .short 0x502
+                .short 3
+                .short 0
+                .float -7.8000002       # Block #95
+                .float 1.27
+                .float -2.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x46
+                .short 0x400
+                .short 3
+                .short 0
+                .float -7.8000002       # Block #96
+                .float 1.27
+                .float -2.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x64
+                .short 0x400
+                .short 3
+                .short 0
+flt_6CE88:      .float 0.0              # DATA XREF: ROM:0006BEB8↑o
+                .float 1.27
+                .float -2.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 0x402
+                .short 4
+                .short 0
+                .float 3.5              # Block #98
+                .float 3.27
+                .float -2.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xA
+                .short 2
+                .short 0
+                .short 0
+                .float 1.5              # Block #99
+                .float 8.8000002
+                .float -2.5
+                .float 0.0
+                .float 2.0999999
+                .float 0.0
+                .float 100.0
+                .short 0x28
+                .short 0x502
+                .short 5
+                .short 0
+                .float 7.0              # Block #100
+                .float 3.27
+                .float -4.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x3C
+                .short 0x500
+                .short 3
+                .short 0
+                .float 7.0              # Block #101
+                .float 3.27
+                .float -4.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x4B
+                .short 0x500
+                .short 3
+                .short 0
+flt_6CF3C:      .float 0.0              # DATA XREF: ROM:0006BEBC↑o
+                .float 1.27
+                .float -2.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 0x402
+                .short 4
+                .short 0
+                .float 3.5              # Block #103
+                .float 3.27
+                .float -2.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xA
+                .short 2
+                .short 0
+                .short 0
+                .float -1.5             # Block #104
+                .float 8.8000002
+                .float -2.5
+                .float 0.0
+                .float 2.0999999
+                .float 0.0
+                .float 100.0
+                .short 0x28
+                .short 0x502
+                .short 5
+                .short 0
+                .float -7.0             # Block #105
+                .float 3.27
+                .float -4.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x3C
+                .short 0x500
+                .short 3
+                .short 0
+                .float -7.0             # Block #106
+                .float 3.27
+                .float -4.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x4B
+                .short 0x500
+                .short 3
+                .short 0
+flt_6CFF0:      .float 0.0              # DATA XREF: ROM:0006BF58↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #108
+                .float 1.8
+                .float -3.0
+                .float 0.0
+                .float 2.0
+                .float 0.0
+                .float 100.0
+                .short 0xF
+                .short 0x402
+                .short 3
+                .short 0
+                .float 7.5              # Block #109
+                .float 3.5
+                .float -4.5
+                .float 0.0
+                .float 1.0
+                .float 0.0
+                .float 100.0
+                .short 0x32
+                .short 0x300
+                .short 3
+                .short 0
+                .float 7.5              # Block #110
+                .float 3.5
+                .float -4.5
+                .float 0.0
+                .float 1.0
+                .float 0.0
+                .float 100.0
+                .short 0x46
+                .short 0x300
+                .short 3
+                .short 0
+flt_6D080:      .float 0.0              # DATA XREF: ROM:0006BF5C↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #112
+                .float 1.8
+                .float -3.0
+                .float 0.0
+                .float 2.0
+                .float 0.0
+                .float 100.0
+                .short 0xF
+                .short 0x402
+                .short 3
+                .short 0
+                .float -7.5             # Block #113
+                .float 3.5
+                .float -4.5
+                .float 0.0
+                .float 1.0
+                .float 0.0
+                .float 100.0
+                .short 0x32
+                .short 0x300
+                .short 3
+                .short 0
+                .float -7.5             # Block #114
+                .float 3.5
+                .float -4.5
+                .float 0.0
+                .float 1.0
+                .float 0.0
+                .float 100.0
+                .short 0x46
+                .short 0x300
+                .short 3
+                .short 0
+flt_6D110:      .float 0.0              # DATA XREF: ROM:0006C008↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #116
+                .float 3.5
+                .float -4.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xA
+                .short 0x402
+                .short 0
+                .short 0
+                .float 1.0              # Block #117
+                .float 1.8
+                .float -3.0
+                .float 0.0
+                .float 1.5
+                .float 0.0
+                .float 100.0
+                .short 0x3C
+                .short 0x402
+                .short 3
+                .short 0
+                .float 1.0              # Block #118
+                .float 2.3
+                .float -5.5
+                .float 0.0
+                .float 1.5
+                .float 0.0
+                .float 100.0
+                .short 0x64
+                .short 0x400
+                .short 3
+                .short 0
+flt_6D1A0:      .float 0.0              # DATA XREF: ROM:0006BEC8↑o
+                .float 1.27
+                .float -2.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 0x402
+                .short 4
+                .short 0
+                .float -3.0             # Block #120
+                .float 0.5
+                .float -3.0
+                .float 0.0
+                .float 0.5
+                .float 0.0
+                .float 100.0
+                .short 0x1E
+                .short 0x402
+                .short 4
+                .short 0
+                .float -3.0             # Block #121
+                .float 4.27
+                .float -3.0
+                .float 0.0
+                .float 1.0
+                .float 0.0
+                .float 100.0
+                .short 0x3C
+                .short 0x302
+                .short 3
+                .short 0
+                .float -3.5             # Block #122
+                .float 7.5
+                .float -1.5
+                .float 0.0
+                .float 0.5
+                .float 0.0
+                .float 100.0
+                .short 0x82
+                .short 0x302
+                .short 5
+                .short 0
+                .float -10.0            # Block #123
+                .float 1.27
+                .float -1.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x96
+                .short 0
+                .short 3
+                .short 0
+                .float -10.0            # Block #124
+                .float 1.27
+                .float -1.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xD2
+                .short 0
+                .short 3
+                .short 0
+flt_6D278:      .float 0.0              # DATA XREF: ROM:0006BECC↑o
+                .float 1.27
+                .float -2.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 0x402
+                .short 4
+                .short 0
+                .float 3.0              # Block #126
+                .float 0.5
+                .float -3.0
+                .float 0.0
+                .float 0.5
+                .float 0.0
+                .float 100.0
+                .short 0x1E
+                .short 0x402
+                .short 4
+                .short 0
+                .float 3.0              # Block #127
+                .float 4.27
+                .float -3.0
+                .float 0.0
+                .float 1.0
+                .float 0.0
+                .float 100.0
+                .short 0x3C
+                .short 0x302
+                .short 3
+                .short 0
+                .float 3.5              # Block #128
+                .float 7.5
+                .float -1.5
+                .float 0.0
+                .float 0.5
+                .float 0.0
+                .float 100.0
+                .short 0x82
+                .short 0x302
+                .short 5
+                .short 0
+                .float 10.0             # Block #129
+                .float 1.27
+                .float 1.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x96
+                .short 0
+                .short 3
+                .short 0
+                .float 10.0             # Block #130
+                .float 1.27
+                .float 1.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xD2
+                .short 0
+                .short 3
+                .short 0
+flt_6D350:      .float 0.0              # DATA XREF: ROM:0006BED8↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #132
+                .float 3.5
+                .float -3.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xA
+                .short 0x402
+                .short 0
+                .short 0
+                .float 1.0              # Block #133
+                .float 2.3
+                .float -2.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x2D
+                .short 0x400
+                .short 3
+                .short 0
+                .float 1.0              # Block #134
+                .float 2.3
+                .float -2.8
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x50
+                .short 0x400
+                .short 3
+                .short 0
+flt_6D3E0:      .float 0.0              # DATA XREF: ROM:0006BEE8↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #136
+                .float 2.0
+                .float -3.5
+                .float 0.0
+                .float 2.3
+                .float 0.0
+                .float 100.0
+                .short 0x14
+                .short 0x402
+                .short 3
+                .short 0
+                .float 0.0              # Block #137
+                .float 2.0
+                .float -3.5
+                .float 0.0
+                .float 2.3
+                .float 0.0
+                .float 100.0
+                .short 0x15
+                .short 0x400
+                .short 3
+                .short 0
+                .float 0.0              # Block #138
+                .float 2.0
+                .float -3.5
+                .float 0.0
+                .float 2.3
+                .float 0.0
+                .float 100.0
+                .short 0x1E
+                .short 0x402
+                .short 3
+                .short 0
+                .float 2.0              # Block #139
+                .float 1.3
+                .float -5.5
+                .float 0.0
+                .float 2.3
+                .float 0.0
+                .float 100.0
+                .short 0x32
+                .short 0x400
+                .short 3
+                .short 0
+                .float 0.0              # Block #140
+                .float 1.5
+                .float -6.0
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x6E
+                .short 0x300
+                .short 3
+                .short 0
+                .float 0.0              # Block #141
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #142
+                .float 2.0
+                .float -3.5
+                .float 0.0
+                .float 2.3
+                .float 0.0
+                .float 100.0
+                .short 0x14
+                .short 0x402
+                .short 3
+                .short 0
+                .float 0.0              # Block #143
+                .float 2.0
+                .float -3.5
+                .float 0.0
+                .float 2.3
+                .float 0.0
+                .float 100.0
+                .short 0x15
+                .short 0x400
+                .short 3
+                .short 0
+                .float 0.0              # Block #144
+                .float 2.0
+                .float -3.5
+                .float 0.0
+                .float 2.3
+                .float 0.0
+                .float 100.0
+                .short 0x1E
+                .short 0x402
+                .short 3
+                .short 0
+                .float 2.0              # Block #145
+                .float 1.3
+                .float -5.5
+                .float 0.0
+                .float 2.3
+                .float 0.0
+                .float 100.0
+                .short 0x32
+                .short 0x400
+                .short 3
+                .short 0
+                .float 0.0              # Block #146
+                .float 1.5
+                .float -6.0
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0x6E
+                .short 0x300
+                .short 3
+                .short 0
+flt_6D590:      .float 0.0              # DATA XREF: ROM:0006BF68↑o
+                .float 1.5
+                .float -3.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #148
+                .float 1.5
+                .float -3.0
+                .float 0.0
+                .float 0.5
+                .float 0.0
+                .float 100.0
+                .short 0x20
+                .short 0x402
+                .short 3
+                .short 0
+                .float 0.5              # Block #149
+                .float 3.0999999
+                .float -4.5
+                .float 0.0
+                .float 1.5
+                .float 0.0
+                .float 100.0
+                .short 0x3C
+                .short 0x300
+                .short 3
+                .short 0
+                .float 0.5              # Block #150
+                .float 3.0999999
+                .float -4.5
+                .float 0.0
+                .float 1.5
+                .float 0.0
+                .float 100.0
+                .short 0x46
+                .short 0x300
+                .short 3
+                .short 0
+flt_6D620:      .float 0.0              # DATA XREF: ROM:0006BF08↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 1.0              # Block #152
+                .float 2.5
+                .float -4.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xA
+                .short 0x402
+                .short 4
+                .short 0
+                .float 0.0              # Block #153
+                .float 3.5
+                .float -4.0
+                .float 0.0
+                .float 2.5
+                .float 0.0
+                .float 100.0
+                .short 0x23
+                .short 0x402
+                .short 4
+                .short 0
+                .float 2.9000001        # Block #154
+                .float 6.5
+                .float -4.5
+                .float 0.0
+                .float 3.0
+                .float 0.0
+                .float 100.0
+                .short 0x32
+                .short 0x402
+                .short 3
+                .short 0
+                .float 3.0              # Block #155
+                .float 1.0
+                .float -6.5
+                .float 0.0
+                .float 3.0
+                .float 0.0
+                .float 100.0
+                .short 0x3C
+                .short 0x300
+                .short 3
+                .short 0
+                .float 3.0              # Block #156
+                .float 1.0
+                .float -6.5
+                .float 0.0
+                .float 3.0
+                .float 0.0
+                .float 100.0
+                .short 0x41
+                .short 0x300
+                .short 3
+                .short 0
+flt_6D6F8:      .float 0.0              # DATA XREF: ROM:0006BF0C↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 1.0              # Block #158
+                .float 2.5
+                .float -4.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xA
+                .short 0x402
+                .short 4
+                .short 0
+                .float 0.0              # Block #159
+                .float 3.5
+                .float -4.0
+                .float 0.0
+                .float 2.5
+                .float 0.0
+                .float 100.0
+                .short 0x23
+                .short 0x402
+                .short 4
+                .short 0
+                .float -2.9000001       # Block #160
+                .float 6.5
+                .float -4.5
+                .float 0.0
+                .float 3.0
+                .float 0.0
+                .float 100.0
+                .short 0x32
+                .short 0x402
+                .short 3
+                .short 0
+                .float -3.0             # Block #161
+                .float 1.0
+                .float -6.5
+                .float 0.0
+                .float 3.0
+                .float 0.0
+                .float 100.0
+                .short 0x3C
+                .short 0x300
+                .short 3
+                .short 0
+                .float -3.0             # Block #162
+                .float 1.0
+                .float -6.5
+                .float 0.0
+                .float 3.0
+                .float 0.0
+                .float 100.0
+                .short 0x41
+                .short 0x300
+                .short 3
+                .short 0
+flt_6D7D0:      .float 0.0              # DATA XREF: ROM:0006BEF8↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #164
+                .float 2.5
+                .float -5.0
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0xA
+                .short 0x402
+                .short 4
+                .short 0
+                .float 0.0              # Block #165
+                .float 2.5
+                .float -4.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x17
+                .short 0x402
+                .short 4
+                .short 0
+                .float -4.5             # Block #166
+                .float 1.0
+                .float -6.5
+                .float 0.0
+                .float 5.0
+                .float 0.0
+                .float 100.0
+                .short 0x32
+                .short 0x402
+                .short 4
+                .short 0
+                .float -4.5             # Block #167
+                .float 3.0
+                .float -7.5
+                .float 0.0
+                .float 1.3
+                .float 0.0
+                .float 100.0
+                .short 0x3C
+                .short 0x300
+                .short 3
+                .short 0
+                .float -4.5             # Block #168
+                .float 3.0
+                .float -7.5
+                .float 0.0
+                .float 1.3
+                .float 0.0
+                .float 100.0
+                .short 0x46
+                .short 0x300
+                .short 3
+                .short 0
+flt_6D8A8:      .float 0.0              # DATA XREF: ROM:0006BEFC↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #170
+                .float 2.5
+                .float -5.0
+                .float 0.0
+                .float 1.8
+                .float 0.0
+                .float 100.0
+                .short 0xA
+                .short 0x402
+                .short 4
+                .short 0
+                .float 0.0              # Block #171
+                .float 2.5
+                .float -4.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x17
+                .short 0x402
+                .short 4
+                .short 0
+                .float 4.5              # Block #172
+                .float 1.0
+                .float -6.5
+                .float 0.0
+                .float 5.0
+                .float 0.0
+                .float 100.0
+                .short 0x32
+                .short 0x402
+                .short 4
+                .short 0
+                .float 4.5              # Block #173
+                .float 3.0
+                .float -7.5
+                .float 0.0
+                .float 1.3
+                .float 0.0
+                .float 100.0
+                .short 0x3C
+                .short 0x300
+                .short 3
+                .short 0
+                .float 4.5              # Block #174
+                .float 3.0
+                .float -7.5
+                .float 0.0
+                .float 1.3
+                .float 0.0
+                .float 100.0
+                .short 0x46
+                .short 0x300
+                .short 3
+                .short 0
+flt_6D980:      .float 0.0              # DATA XREF: ROM:0006BF18↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #176
+                .float 3.5
+                .float -3.5
+                .float 0.0
+                .float 2.0999999
+                .float 0.0
+                .float 100.0
+                .short 0xA
+                .short 0x402
+                .short 3
+                .short 0
+                .float 7.5              # Block #177
+                .float 1.5
+                .float 0.0
+                .float 0.0
+                .float 3.4000001
+                .float 0.0
+                .float 100.0
+                .short 0x3C
+                .short 0x300
+                .short 3
+                .short 0
+                .float 7.5              # Block #178
+                .float 1.5
+                .float 0.0
+                .float 0.0
+                .float 3.4000001
+                .float 0.0
+                .float 100.0
+                .short 0x5A
+                .short 0x300
+                .short 3
+                .short 0
+flt_6DA10:      .float 0.0              # DATA XREF: ROM:0006BF1C↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #180
+                .float 3.5
+                .float -3.5
+                .float 0.0
+                .float 2.0999999
+                .float 0.0
+                .float 100.0
+                .short 0xA
+                .short 0x402
+                .short 3
+                .short 0
+                .float -7.5             # Block #181
+                .float 1.5
+                .float 0.0
+                .float 0.0
+                .float 3.4000001
+                .float 0.0
+                .float 100.0
+                .short 0x3C
+                .short 0x300
+                .short 3
+                .short 0
+                .float -7.5             # Block #182
+                .float 1.5
+                .float 0.0
+                .float 0.0
+                .float 3.4000001
+                .float 0.0
+                .float 100.0
+                .short 0x5A
+                .short 0x300
+                .short 3
+                .short 0
+flt_6DAA0:      .float 0.0              # DATA XREF: ROM:0006BF28↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #184
+                .float 3.5
+                .float -4.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0xA
+                .short 0x402
+                .short 0
+                .short 0
+                .float 0.0              # Block #185
+                .float 2.5
+                .float -2.4000001
+                .float 0.0
+                .float 2.2
+                .float 0.0
+                .float 100.0
+                .short 0x28
+                .short 0x300
+                .short 3
+                .short 0
+                .float 0.0              # Block #186
+                .float 2.5
+                .float -2.4000001
+                .float 0.0
+                .float 2.2
+                .float 0.0
+                .float 100.0
+                .short 0x50
+                .short 0x300
+                .short 3
+                .short 0
+flt_6DB30:      .float 0.0              # DATA XREF: ROM:0006BF38↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #188
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 7.0
+                .float 0.0
+                .float 100.0
+                .short 0x3C
+                .short 0x302
+                .short 3
+                .short 0
+                .float 0.0              # Block #189
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x8C
+                .short 0
+                .short 0
+                .short 0
+flt_6DB9C:      .float 0.0              # DATA XREF: ROM:0006BF48↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #191
+                .float 3.5
+                .float -3.5
+                .float 0.0
+                .float 2.0999999
+                .float 0.0
+                .float 100.0
+                .short 0xA
+                .short 0x402
+                .short 3
+                .short 0
+                .float 7.5              # Block #192
+                .float 5.5
+                .float 0.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x32
+                .short 0x300
+                .short 3
+                .short 0
+                .float 7.5              # Block #193
+                .float 1.5
+                .float 0.0
+                .float 0.0
+                .float 3.4000001
+                .float 0.0
+                .float 100.0
+                .short 0x46
+                .short 0x300
+                .short 3
+                .short 0
+flt_6DC2C:      .float 0.0              # DATA XREF: ROM:0006BF4C↑o
+                .float 2.27
+                .float -6.5
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0
+                .short 2
+                .short 0
+                .short 0
+                .float 0.0              # Block #195
+                .float 3.5
+                .float -3.5
+                .float 0.0
+                .float 2.0999999
+                .float 0.0
+                .float 100.0
+                .short 0xA
+                .short 0x402
+                .short 3
+                .short 0
+                .float -7.5             # Block #196
+                .float 5.5
+                .float 0.0
+                .float 0.0
+                .float 1.1
+                .float 0.0
+                .float 100.0
+                .short 0x32
+                .short 0x300
+                .short 3
+                .short 0
+                .float -7.5             # Block #197
+                .float 1.5
+                .float 0.0
+                .float 0.0
+                .float 3.4000001
+                .float 0.0
+                .float 100.0
+                .short 0x46
+                .short 0x300
+                .short 3
+                .short 0
 # =============== S U B R O U T I N E =======================================
 cam_mode_to_33:                         # CODE XREF: cam_mode_9+220↑p
                 lda     cam_mode33, r15
@@ -8616,7 +10241,7 @@ loc_6E614:                              # CODE XREF: cam_mode_3+17C↑j
                 lda     0x3E99999A, r7
                 addr    r5, r7, r5
                 stt     r4, 0x44(r11)
-                lda     pcrb, r15
+                lda     prcb, r15
                 stib    r15, 0x40(g13)
                 addo    4, sp, sp
                 st      g13, -4(sp)
@@ -16382,7 +18007,7 @@ loc_76B8C:                              # DATA XREF: ROM:00076B7C↑o
                 lda     mode9, r4
                 cmpobne r3, r4, loc_76BB4
                 ldob    _sub_mode, r3
-                lda     pcrb, r4
+                lda     prcb, r4
                 cmpobe  r3, r4, giant_wing_init
 loc_76BB4:                              # CODE XREF: ROM:00076B9C↑j
                 ldos    0x50A026, r4
@@ -16480,7 +18105,7 @@ giant_wing_disp:                        # DATA XREF: ROM:0009CEB8↓o
                 lda     mode9, r4
                 cmpobne r3, r4, loc_76D5C
                 ldob    _sub_mode, r3
-                lda     mode9, r4
+                lda     sub_mode9, r4
                 cmpobne r3, r4, loc_76D5C
                 b       loc_76E30
 # ---------------------------------------------------------------------------
@@ -17341,7 +18966,7 @@ write_intrude_times:                    # CODE XREF: INTRUDE_INT+24↑p
                 ret
 # End of function write_intrude_times
 # =============== S U B R O U T I N E =======================================
-sub_77E34:                              # CODE XREF: ROM:TEST_INT↑p
+sub_77E34:                              # CODE XREF: TEST_INT↑p
                 ld      add_BACKUP_RAM_TO_RAM, r15
                 ldob    0x5000E9, r12
                 bbc     0, r12, loc_77EAC
@@ -19290,7 +20915,7 @@ loc_7A0C4:                              # CODE XREF: insert_disp+624↑j
 # ---------------------------------------------------------------------------
 title_put_clr:                          # Label from official source
                 ld      mode_flag, r4
-                lda     pcrb, r3
+                lda     prcb, r3
                 lda     displacement8(r3), r3
                 and     r4, r3, r3
                 cmpobe  0, r3, loc_7A1A4
@@ -22275,7 +23900,6 @@ loc_7D3D4:                              # DATA XREF: ROM:000AEB70↓o
                 call    clr_pattern_s
                 b       gp_mes_ex
 # ---------------------------------------------------------------------------
-.globl draw_PERFECT
 draw_PERFECT:                           # DATA XREF: ROM:000AEB48↓o
                 lda     0x1000FAA, g9
                 mov     28, g0          # PERFECT texture
@@ -24685,7 +26309,7 @@ sub_7F5F4:                              # CODE XREF: play_motion:loc_1C8C0↑p
                 mulo    0x1C, r7, r15
                 st      r11, displacement(r3)[r15*1]
 # End of function sub_7F5F4
-                stt     r4, pcrb(r3)[r15*1]
+                stt     r4, prcb(r3)[r15*1]
                 stt     r8, check_word1(r3)[r15*1]
                 ret
 # =============== S U B R O U T I N E =======================================
@@ -35917,7 +37541,7 @@ loc_8AE0C:                              # CODE XREF: sub_8C180:loc_8C194↓p
                 ld      0x14(g6), r3
                 b       loc_8AE18
 # ---------------------------------------------------------------------------
-loc_8AE14:                              # CODE XREF: sub_8D760+D8↓p
+loc_8AE14:                              # CODE XREF: sub_8D6F4+144↓p
                 ld      0x18(g6), r3
 loc_8AE18:                              # CODE XREF: sub_8AE04+4↑j
                 ld      0x0(r3), r4
@@ -36119,7 +37743,7 @@ loc_8B0EC:                              # CODE XREF: sub_8B070+68↑j
                 ret
 # End of function sub_8B070
 # =============== S U B R O U T I N E =======================================
-sub_8B0F4:                              # CODE XREF: sub_8D760:loc_8D770↓p
+sub_8B0F4:                              # CODE XREF: sub_8D6F4:loc_8D770↓p
                 ldt     0x5C(g6), r4
                 ldt     0x44(g6), r8
                 ld      0x20(g6), r7
@@ -38512,7 +40136,7 @@ sub_8D6F4:                              # DATA XREF: ROM:off_8D6E4↑o
                 call    sub_8AE04
                 b       loc_8D874
 # ---------------------------------------------------------------------------
-loc_8D714:                              # CODE XREF: ROM:0008D708↑j
+loc_8D714:                              # CODE XREF: sub_8D6F4+14↑j
                 mov     1, r15
                 stib    r15, 0xC(g6)
                 ld      0x0(g6), r15
@@ -38537,17 +40161,17 @@ loc_8D734:                              # DATA XREF: ROM:0008D6E8↑o
                 st      r15, 0x0(g6)
                 b       loc_8D770
 # ---------------------------------------------------------------------------
-loc_8D768:                              # CODE XREF: ROM:0008D754↑j
+loc_8D768:                              # CODE XREF: sub_8D6F4+60↑j
                 subi    1, r9, r9
                 stos    r9, 0x2E(g6)
-loc_8D770:                              # CODE XREF: sub_8D760+4↑j
+loc_8D770:                              # CODE XREF: sub_8D6F4+70↑j
                 call    sub_8B0F4
                 call    sub_8AF50
                 call    sub_8AFB4
                 call    sub_8AE48
                 b       loc_8D874
 # ---------------------------------------------------------------------------
-loc_8D784:                              # CODE XREF: ROM:0008D74C↑j
+loc_8D784:                              # CODE XREF: sub_8D6F4+58↑j
                 ld      0x0(g6), r15
                 clrbit  5, r15, r15
                 st      r15, 0x0(g6)
@@ -38584,10 +40208,10 @@ loc_8D7C4:                              # DATA XREF: ROM:0008D6EC↑o
                 call    sub_3464C
                 ld      0x50A368, r15
                 cmpobe  0, r15, loc_8D868
-loc_8D820:                              # CODE XREF: sub_8D760+94↑j
+loc_8D820:                              # CODE XREF: sub_8D6F4+100↑j
                 b       loc_8D874
 # ---------------------------------------------------------------------------
-loc_8D824:                              # CODE XREF: ROM:0008D73C↑j
+loc_8D824:                              # CODE XREF: sub_8D6F4+48↑j
                 ld      0x0(g6), r15
                 setbit  7, r15, r15
                 st      r15, 0x0(g6)
@@ -38608,13 +40232,13 @@ loc_8D848:                              # DATA XREF: ROM:0008D6F0↑o
                 call    loc_8AE14
                 b       loc_8D874
 # ---------------------------------------------------------------------------
-loc_8D868:                              # CODE XREF: sub_8D760+BC↑j
+loc_8D868:                              # CODE XREF: sub_8D6F4+128↑j
                 mov     0, r11
                 st      r11, 0x0(g6)
                 st      r11, 8(g6)
-loc_8D874:                              # CODE XREF: ROM:0008D710↑j
+loc_8D874:                              # CODE XREF: sub_8D6F4+1C↑j
                 ret
-# End of function sub_8D760
+# End of function sub_8D6F4
 # =============== S U B R O U T I N E =======================================
 _uk_heart_subroutine:                   # DATA XREF: ROM:_uk_heart_thing↓o
                 mov     0, g0

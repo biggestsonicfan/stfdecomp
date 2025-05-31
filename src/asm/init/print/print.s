@@ -4,6 +4,7 @@
         .globl print_dec
         .globl debug_disp_mes
         .globl debug_disp_hex_h
+        .globl print_hex_w
         .globl debug_disp_hex
         .globl debug_disp_int
         .globl debug_disp_float

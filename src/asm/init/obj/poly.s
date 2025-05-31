@@ -1,3 +1,4 @@
+        .globl set_obj_go
         .extern debug_disp_hex_h
         .extern debug_disp_hex
         .extern debug_disp_int

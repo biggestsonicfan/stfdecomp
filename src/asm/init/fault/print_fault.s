@@ -1,4 +1,5 @@
 
+        .extern print_hex_w
         .globl _display_trace_fault
         .globl _display_operation_fault
         .globl _display_arithmetic_fault

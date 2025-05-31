@@ -1,1825 +1,4 @@
  .text
-
-# =============== S U B R O U T I N E =======================================
-# mezase = "go toward"
-MEZASE_DEATHEGG_MASK_INT:               # DATA XREF: ROM:0000B0D4↑o
-                lda     start_ip_add+3, r15 # Label from official source
-                stib    r15, stage_num
-                ld      not_scr_bg_move, r15
-                clrbit  0xF, r15, r15
-                st      r15, not_scr_bg_move
-                call    change_scene
-                lda     0x1000000, g9
-                shlo    6, 1, g0
-                addo    0x1F, 0x11, g1
-                call    clr_pattern_s
-                mov     10, g0
-                call    _Scroll_Initialize
-                mov     0, r15
-                stis    r15, 0x100A000
-                mov     0, r15
-                stis    r15, 0x100A008
-                mov     0, r15
-                stis    r15, scrB_H_page
-                mov     0, r15
-                stis    r15, scrB_V_page
-                call    am_upper7_black
-                call    draw_bottom_black_mask
-                lda     0x1004380, g9
-                lda     353, g0         # Picture with all the chaos emeralds on it
-                call    dsp_pattern_new
-                ld      add_BACKUP_RAM_TO_RAM, r4
-                ldob    0x3352(r4), r4  # r4 = BACKUP_RAM_START+0x3352
-                cmpobne 0, r4, loc_EC70 # branch if country_val not equal to 0
-                lda     0x100148A, g9
-                lda     372, g0         # YOU GOT 8 EMERALDS texture jp
-                call    dsp_pattern_new
-loc_EC70:                               # CODE XREF: MEZASE_DEATHEGG_MASK_INT+9C↑j
-                lda     0x1000B08, g9
-                lda     354, g0         # YOU GOT 8 EMERALDS texture
-                call    dsp_pattern_new
-                call    efc_ram_init
-                mov     1, r4
-                ld      mod_fa_sound, r3
-                ld      0x0(r3), r5
-                setbit  31, r5, r5
-                st      r5, 0x0(r3)
-                lda     sound_queue_init, r5
-                st      r5, 0xC(r3)
-                lda     0xA00001, g0
-                call    check_same_sound
-                call    sound_request_u
-                ld      not_scr_bg_move, r15
-                setbit  16, r15, r15
-                st      r15, not_scr_bg_move
-                mov     0, r15
-                stib    r15, p1_wins
-                mov     0, r15
-                stib    r15, p2_wins
-                call    clear_win_lamp_cntr
-                ld      mod_fa_game_disp, r3
-                ld      0x0(r3), r15
-                setbit  30, r15, r15
-                st      r15, 0x0(r3)
-                ld      fa_camera, r3
-                ldob    winner, r14
-                cmpobe  1, r14, loc_ED3C
-                ld      0x0(r3), r15
-                clrbit  2, r15, r15
-                st      r15, 0x0(r3)
-                ld      0x0(r3), r15
-                setbit  0x1C, r15, r15
-                st      r15, 0x0(r3)
-                ld      fa_rob0, r3
-                shlo    0xE, 1, r15
-                stis    r15, 0x24(r3)
-                b       loc_ED64
-# ---------------------------------------------------------------------------
-loc_ED3C:                               # CODE XREF: MEZASE_DEATHEGG_MASK_INT+14C↑j
-                ld      0x0(r3), r15
-                clrbit  1, r15, r15
-                st      r15, 0x0(r3)
-                ld      0x0(r3), r15
-                setbit  0x1D, r15, r15
-                st      r15, 0x0(r3)
-                ld      fa_rob1, r3
-                shlo    0xE, 1, r15
-                stis    r15, 0x24(r3)
-loc_ED64:                               # CODE XREF: MEZASE_DEATHEGG_MASK_INT+178↑j
-                lda     0xAE100A, g0    # sd_game_bgm_0a
-                call    check_same_sound
-                call    sound_request_u
-                call    efc_rob_poly_para_init
-                shlo    8, 1, r15
-                st      r15, CTRL_TIMER
-                ldib    _sub_mode, r15
-                lda     1(r15), r15     # Add 1 to _sub_mode
-                stib    r15, _sub_mode
-                b       game_sub_ex     # Subtracts 1 from CTRL_TIMER
-# End of function MEZASE_DEATHEGG_MASK_INT
-# =============== S U B R O U T I N E =======================================
-# mezase = "go toward"
-MEZASE_DEATHEGG_MASK_DSP:               # DATA XREF: ROM:0000B0DC↑o
-                ld      busy_signal_flag, r14 # Label from official source
-                cmpobe  1, r14, loc_EDBC
-                ld      not_scr_bg_move, r15
-                clrbit  16, r15, r15
-                st      r15, not_scr_bg_move
-loc_EDBC:                               # CODE XREF: MEZASE_DEATHEGG_MASK_DSP+8↑j
-                ld      CTRL_TIMER, r3
-                shlo    7, 1, r4
-                cmpobne r4, r3, loc_EDF0
-                lda     0x1000B08, g9
-                addo    31, 23, g0      # g0 = 54 or 0x36
-                mov     4, g1
-                call    clr_pattern_s
-                lda     0x1000A08, g9
-                lda     355, g0         # YOU CAN NOW CHALLENGE THE DEATH EGG II
-                call    dsp_pattern_new
-loc_EDF0:                               # CODE XREF: MEZASE_DEATHEGG_MASK_DSP+2C↑j
-                cmpibl  0, r3, loc_EE1C
-                lda     0x1000000, g9
-                shlo    6, 1, g0
-                addo    0x1F, 0x11, g1
-                call    clr_pattern_s
-                ldib    _sub_mode, r15
-                lda     1(r15), r15
-                stib    r15, _sub_mode
-loc_EE1C:                               # CODE XREF: MEZASE_DEATHEGG_MASK_DSP:loc_EDF0↑j
-                b       game_sub_ex     # Subtracts 1 from CTRL_TIMER
-# End of function MEZASE_DEATHEGG_MASK_DSP
-# =============== S U B R O U T I N E =======================================
-# mezase = "go toward"
-MEZASE_DEATHEGG_INT:                    # DATA XREF: ROM:0000B0E4↑o
-# FUNCTION CHUNK AT 0000E374 SIZE 00000378 BYTES
-                shlo    7, 5, r15       # Label from official source
-                st      r15, CTRL_TIMER
-                ldib    _sub_mode, r15
-                lda     1(r15), r15
-                stib    r15, _sub_mode
-                call    sub_56DA0
-MEZASE_DEATHEGG_DSP:                    # DATA XREF: ROM:0000B0EC↑o
-                call    sub_56DEC       # Label from official source
-                ld      CTRL_TIMER, r14
-                cmpobe  0, r14, loc_EE58
-                b       game_sub_ex     # Subtracts 1 from CTRL_TIMER
-# ---------------------------------------------------------------------------
-loc_EE58:                               # CODE XREF: MEZASE_DEATHEGG_INT+30↑j
-                ld      fa_camera, r3
-                ld      0x0(r3), r15
-                setbit  1, r15, r15
-                st      r15, 0x0(r3)
-                ld      0x0(r3), r15
-                setbit  2, r15, r15
-                st      r15, 0x0(r3)
-                ld      0x0(r3), r15
-                clrbit  28, r15, r15
-                st      r15, 0x0(r3)
-                ld      0x0(r3), r15
-                clrbit  29, r15, r15
-                st      r15, 0x0(r3)
-                ld      0x5004C8, r15
-                clrbit  31, r15, r15
-                st      r15, 0x5004C8
-                b       next_program
-# End of function MEZASE_DEATHEGG_INT
-# =============== S U B R O U T I N E =======================================
-INTRUDE_INT:                            # DATA XREF: ROM:0000B074↑o
-                subo    1, 0, r3        # Label from official source
-                st      r3, 0x500498
-                ld      mod_fa_sound, r3
-                ld      0x0(r3), r4
-                clrbit  0x1D, r4, r4
-                setbit  0x1C, r4, r4
-                st      r4, 0x0(r3)
-                call    write_intrude_times
-                lda     0xA00003, g0    # Weird audio that doesn't exist
-                call    check_same_sound
-                call    sound_request_u
-                lda     0xAE1302, g0    # sd_gong_4
-                call    sound_request_u
-                ld      mod_fa_control0, r3
-                ld      0x0(r3), r15
-                clrbit  0, r15, r15
-                st      r15, 0x0(r3)
-                ld      0x0(r3), r15
-                clrbit  1, r15, r15
-                st      r15, 0x0(r3)
-                shlo    6, 1, r15
-                st      r15, CTRL_TIMER
-                lda     check_word1+1, r15
-                stib    r15, draw_vs_routine_flag
-                ld      not_scr_bg_move, r15
-                clrbit  5, r15, r15
-                st      r15, not_scr_bg_move
-                ld      mod_fa_game_disp, r3
-                ld      0x0(r3), r4
-                clrbit  0x1B, r4, r4
-                setbit  5, r4, r4
-                st      r4, 0x0(r3)
-                mov     0xC, r3
-                ldob    COIN_INTERUPT_FLAGS, r14 # 0x00 = INSERT COINS
-                andnot  r3, r14, r14
-                stob    r14, COIN_INTERUPT_FLAGS # 0x00 = INSERT COINS
-                mov     0, r15
-                stis    r15, 0x100A000
-                mov     0, r15
-                stis    r15, 0x100A008
-                lda     0x1000700, g9
-                addo    0x1F, 0x1F, g0
-                mov     0x18, g1
-                call    clr_pattern_s
-                lda     0x100C000, r14
-                mov     0, r15
-                shlo    0xB, 1, r13
-loc_EFA8:                               # CODE XREF: INTRUDE_INT+10C↓j
-                stis    r15, (r14)
-                addo    2, r14, r14
-                cmpdeco 1, r13, r13
-                bl      loc_EFA8
-                ldib    _sub_mode, r15
-                lda     1(r15), r15
-                stib    r15, _sub_mode
-                b       game_sub_ex     # Subtracts 1 from CTRL_TIMER
-# End of function INTRUDE_INT
-# =============== S U B R O U T I N E =======================================
-INTRUDE_DSP:                            # DATA XREF: ROM:0000B07C↑o
-# FUNCTION CHUNK AT 0000A218 SIZE 000005DC BYTES
-                ld      fa_rob0, r3     # Label from official source
-                ld      fa_rob1, r4
-                ld      0x0(r3), r15
-                setbit  0x11, r15, r15
-                st      r15, 0x0(r3)
-                ld      0x0(r4), r15
-                setbit  0x11, r15, r15
-                st      r15, 0x0(r4)
-                ld      CTRL_TIMER, r15
-                bbs     2, r15, loc_F008
-                b       loc_F008
-# ---------------------------------------------------------------------------
-loc_F008:                               # CODE XREF: INTRUDE_DSP+30↑j
-                ld      CTRL_TIMER, r14
-                cmpibl  0, r14, game_sub_ex # Subtracts 1 from CTRL_TIMER
-                ld      not_scr_bg_move, r15
-                clrbit  0x10, r15, r15
-                st      r15, not_scr_bg_move
-                call    set_close
-                call    close_obj       # return
-                mov     0, r15
-                stib    r15, 0x500056
-                ld      not_scr_bg_move, r15
-                setbit  0xF, r15, r15
-                st      r15, not_scr_bg_move
-                ld      mod_fa_game_disp, r3
-                ld      0x0(r3), r15
-                setbit  6, r15, r15
-                st      r15, 0x0(r3)
-                mov     6, r3
-                stob    r3, mode
-                stob    r3, also_mode
-                shlo    r3, 1, r4
-                st      r4, mode_flag
-                b       SEL_INT
-# End of function INTRUDE_DSP
-# =============== S U B R O U T I N E =======================================
-CONTINUE_INT:                           # DATA XREF: ROM:0000B084↑o
-                ld      continue_count, r14 # Label from official source
-                addi    1, r14, r15
-                st      r15, continue_count
-                ld      also_continue_count, r14
-                addi    1, r14, r15
-                st      r15, also_continue_count
-                mov     1, r4
-                ld      mod_fa_sampling, r3
-                ld      0x0(r3), r5
-loc_F0C0:                               # DATA XREF: ROM:00010888↓o
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                mov     1, r4
-                ld      mod_fa_coli, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                ld      fa_camera, r3
-                lda     check_word3+2, r15
-                stib    r15, 0x40(r3)
-                ldob    gameprogram, r14 # bit 0 clear = Player 1
-                cmpobe  2, r14, loc_F10C
-loc_F100:                               # DATA XREF: sub_56DEC+11F4↓o
-                ldos    rank_mode, r14
-                bbs     9, r14, loc_F2E4
-loc_F10C:                               # CODE XREF: CONTINUE_INT+74↑j
-                ld      not_scr_bg_move, r15
-                clrbit  2, r15, r15
-                st      r15, not_scr_bg_move
-                ld      not_scr_bg_move, r15
-                clrbit  3, r15, r15
-                st      r15, not_scr_bg_move
-                ldob    winner, r14
-                cmpobe  1, r14, loc_F14C
-                ld      fa_rob0, r3
-                b       loc_F154
-# ---------------------------------------------------------------------------
-loc_F14C:                               # CODE XREF: CONTINUE_INT+B4↑j
-                ld      fa_rob1, r3
-loc_F154:                               # CODE XREF: CONTINUE_INT+C0↑j
-                ld      0x0(r3), r15
-                clrbit  0x11, r15, r15
-                st      r15, 0x0(r3)
-                ld      not_scr_bg_move, r15
-                clrbit  4, r15, r15
-                st      r15, not_scr_bg_move
-                ld      not_scr_bg_move, r15
-                clrbit  7, r15, r15
-                st      r15, not_scr_bg_move
-                ld      not_scr_bg_move, r15
-                setbit  0x17, r15, r15
-                st      r15, not_scr_bg_move
-                ld      mod_fa_game_disp, r3
-                ld      0x0(r3), r15
-                setbit  0x18, r15, r15
-                st      r15, 0x0(r3)
-                ld      not_scr_bg_move, r15
-                bbc     0xB, r15, loc_F1E4
-                call    sub_783B4
-                ld      0x500240, r15
-                clrbit  5, r15, r15
-                st      r15, 0x500240
-                ldob    0x50004E, r14
-                cmpobe  0, r14, loc_F1F4
-                b       loc_F234
-# ---------------------------------------------------------------------------
-loc_F1E4:                               # CODE XREF: CONTINUE_INT+130↑j
-                call    save_stats_and_reset_counters
-                ld      select0_flag, r15
-                bbs     2, r15, loc_F234
-loc_F1F4:                               # CODE XREF: CONTINUE_INT+154↑j
-                ld      select0_flag, r15
-                setbit  2, r15, r15
-                st      r15, select0_flag
-                ld      select1_flag, r15
-                clrbit  2, r15, r15
-                st      r15, select1_flag
-                ld      not_scr_bg_move, r15
-                clrbit  0x13, r15, r15
-                st      r15, not_scr_bg_move
-                b       loc_F270
-# ---------------------------------------------------------------------------
-loc_F234:                               # CODE XREF: CONTINUE_INT+158↑j
-                ld      select0_flag, r15
-                clrbit  2, r15, r15
-                st      r15, select0_flag
-                ld      select1_flag, r15
-                setbit  2, r15, r15
-                st      r15, select1_flag
-                ld      not_scr_bg_move, r15
-                clrbit  0x12, r15, r15
-                st      r15, not_scr_bg_move
-loc_F270:                               # CODE XREF: CONTINUE_INT+1A8↑j
-                ld      mod_fa_effect, r13
-                shlo    7, 5, r15
-                st      r15, CTRL_TIMER
-                lda     703, r15
-                stis    r15, ingame_countdown_FFFF # Rename this, it's not always FFFF
-                lda     check_word1+2, r15
-                stib    r15, draw_vs_routine_flag
-                ld      mod_fa_game_disp, r3
-                ld      0x0(r3), r15
-                setbit  0x16, r15, r15
-                st      r15, 0x0(r3)
-                ldob    gameprogram, r14 # bit 0 clear = Player 1
-                cmpobe  2, r14, loc_F2CC
-                ld      0x0(r3), r15
-                clrbit  0x16, r15, r15
-                st      r15, 0x0(r3)
-loc_F2CC:                               # CODE XREF: CONTINUE_INT+234↑j
-                ldib    _sub_mode, r15
-                lda     1(r15), r15
-                stib    r15, _sub_mode
-                b       game_sub_ex     # Subtracts 1 from CTRL_TIMER
-# ---------------------------------------------------------------------------
-loc_F2E4:                               # CODE XREF: CONTINUE_INT+80↑j
-                ld      not_scr_bg_move, r15
-                clrbit  0xD, r15, r15
-                st      r15, not_scr_bg_move
-                mov     0xA, r15
-                stib    r15, mode
-                b       game_sub_ex     # Subtracts 1 from CTRL_TIMER
-# End of function CONTINUE_INT
-# =============== S U B R O U T I N E =======================================
-CONTINUE_DSP:                           # DATA XREF: ROM:0000B08C↑o
-# FUNCTION CHUNK AT 0000A218 SIZE 000005DC BYTES
-                lda     639, r13        # Label from official source
-                ld      CTRL_TIMER, r14
-                cmpobne r13, r14, loc_F318
-loc_F318:                               # CODE XREF: CONTINUE_DSP+C↑j
-                lda     check_word1+3, r15
-                stib    r15, draw_vs_routine_flag
-                ld      INTERUPT_FLAGS_HELD, r8
-                ldob    look_char, r14
-                cmpobe  1, r14, loc_F34C
-                bbs     13, r8, loc_F358
-                ld      mod_fa_effect, r7
-                b       loc_F358
-# ---------------------------------------------------------------------------
-loc_F34C:                               # CODE XREF: CONTINUE_DSP+30↑j
-                bbs     21, r8, loc_F358
-                ld      mod_fa_effect, r7
-loc_F358:                               # CODE XREF: CONTINUE_DSP+34↑j
-                ld      INTERUPT_FLAGS_MOMENTARY, r8
-                mov     1, g0
-                ldob    gameprogram, r15 # bit 0 clear = Player 1
-                cmpobge 1, r15, loc_F388
-                addo    2, g0, g0
-                ld      not_scr_bg_move, r15
-                clrbit  23, r15, r15
-                st      r15, not_scr_bg_move
-loc_F388:                               # CODE XREF: CONTINUE_DSP+64↑j
-                mov     g0, r15
-                call    player_entry
-                cmpibne 0, g0, loc_F3D8
-                lda     check_word4+2, r15
-                stib    r15, draw_vs_routine_flag
-                mov     r15, g0
-                call    sub_78184
-                ld      mod_fa_game_disp, r3
-                ld      0x0(r3), r15
-                clrbit  24, r15, r15
-                st      r15, 0x0(r3)
-                ld      not_scr_bg_move, r15
-                bbs     2, r15, loc_F500
-                ld      not_scr_bg_move, r15
-                bbs     3, r15, loc_F4DC
-loc_F3D8:                               # CODE XREF: CONTINUE_DSP+88↑j
-                ld      not_scr_bg_move, r15
-                bbc     10, r15, loc_F410
-                shlo    7, 5, r15
-                st      r15, CTRL_TIMER
-                lda     0x2BF, r15
-                stis    r15, ingame_countdown_FFFF # Rename this, it's not always FFFF
-                ld      not_scr_bg_move, r15
-                clrbit  0xA, r15, r15
-                st      r15, not_scr_bg_move
-loc_F410:                               # CODE XREF: CONTINUE_DSP+D8↑j
-                shlo    6, 7, r13
-                ld      CTRL_TIMER, r14
-                cmpibl  r13, r14, loc_F45C
-                ldob    0x50004E, r14
-                cmpobe  0, r14, loc_F438
-                shlo    8, 7, r13
-                and     r13, r8, r3
-                b       loc_F440
-# ---------------------------------------------------------------------------
-loc_F438:                               # CODE XREF: CONTINUE_DSP+120↑j
-                shlo    0x10, 7, r13
-                and     r13, r8, r3
-loc_F440:                               # CODE XREF: CONTINUE_DSP+12C↑j
-                cmpobe  0, r3, loc_F45C
-                ld      CTRL_TIMER, r15
-                lda     -0x40(r15), r15
-                st      r15, CTRL_TIMER
-loc_F45C:                               # CODE XREF: CONTINUE_DSP+114↑j
-                ld      CTRL_TIMER, r14
-                cmpi    0, r14
-                ble     game_sub_ex     # Subtracts 1 from CTRL_TIMER
-cont_over:                              # Label from official source
-                ld      mod_fa_game_disp, r3
-                ld      0x0(r3), r15
-                clrbit  0x18, r15, r15
-                st      r15, 0x0(r3)
-                ld      not_scr_bg_move, r15
-                bbc     0xB, r15, loc_F4B8
-                ld      not_scr_bg_move, r15
-                clrbit  0xC, r15, r15
-                st      r15, not_scr_bg_move
-                ld      select0_flag, r15
-                bbs     2, r15, pl1_conti_alone
-                ld      select1_flag, r15
-                bbs     2, r15, pl2_conti_alone
-loc_F4B8:                               # CODE XREF: CONTINUE_DSP+180↑j
-                ld      not_scr_bg_move, r15
-                clrbit  0xD, r15, r15
-                st      r15, not_scr_bg_move
-                mov     0xA, r15
-                stib    r15, mode
-                b       game_sub_ex     # Subtracts 1 from CTRL_TIMER
-# ---------------------------------------------------------------------------
-loc_F4DC:                               # CODE XREF: CONTINUE_DSP+CC↑j
-                ld      not_scr_bg_move, r15
-                bbs     0xB, r15, vs_conti
-                ld      not_scr_bg_move, r15
-                setbit  0xD, r15, r15
-                st      r15, not_scr_bg_move
-                b       pl2_conti_alone
-# ---------------------------------------------------------------------------
-loc_F500:                               # CODE XREF: CONTINUE_DSP+C0↑j
-                ld      not_scr_bg_move, r15
-                bbs     0xB, r15, vs_conti
-                ld      not_scr_bg_move, r15
-                setbit  0xD, r15, r15
-                st      r15, not_scr_bg_move
-                b       pl1_conti_alone
-# ---------------------------------------------------------------------------
-vs_conti:                               # CODE XREF: CONTINUE_DSP+1DC↑j
-                ld      select0_flag, r15 # Label from official source
-                setbit  2, r15, r15
-                st      r15, select0_flag
-                ld      select1_flag, r15
-                setbit  2, r15, r15
-                st      r15, select1_flag
-                ld      not_scr_bg_move, r15
-                clrbit  0xB, r15, r15
-                st      r15, not_scr_bg_move
-                ld      not_scr_bg_move, r15
-                clrbit  5, r15, r15
-                st      r15, not_scr_bg_move
-                call    set_close
-                call    close_obj       # return
-                mov     0, r15
-                stib    r15, 0x500056
-                ld      not_scr_bg_move, r15
-                setbit  12, r15, r15
-                st      r15, not_scr_bg_move
-                ld      not_scr_bg_move, r15
-                setbit  0xF, r15, r15
-                st      r15, not_scr_bg_move
-                mov     6, r3
-                stob    r3, mode
-                stob    r3, also_mode
-                shlo    r3, 1, r4
-                st      r4, mode_flag
-                b       SEL_INT
-# ---------------------------------------------------------------------------
-pl1_conti_alone:                        # CODE XREF: MEZASE_DEATHEGG_INT-890↑j
-                ld      select0_flag, r15 # Label from Fighting Vipers source
-                setbit  2, r15, r15
-                st      r15, select0_flag
-                ld      select0_flag, r15
-                clrbit  0, r15, r15
-                st      r15, select0_flag
-                ld      select1_flag, r15
-                clrbit  2, r15, r15
-                st      r15, select1_flag
-                mov     0, r15
-                stib    r15, gameprogram # bit 0 clear = Player 1
-                b       conti_1p_com
-# ---------------------------------------------------------------------------
-pl2_conti_alone:                        # CODE XREF: MEZASE_DEATHEGG_INT-88C↑j
-                ld      select0_flag, r15 # Label from Fighting Vipers source
-                clrbit  2, r15, r15
-                st      r15, select0_flag
-                ld      select1_flag, r15
-                clrbit  0, r15, r15
-                st      r15, select1_flag
-                ld      select1_flag, r15
-                setbit  2, r15, r15
-                st      r15, select1_flag
-                mov     1, r15
-                stib    r15, gameprogram # bit 0 clear = Player 1
-conti_1p_com:                           # CODE XREF: CONTINUE_DSP+314↑j
-                ld      not_scr_bg_move, r15 # Label from Fighting Vipers source
-                setbit  5, r15, r15
-                st      r15, not_scr_bg_move
-                ld      not_scr_bg_move, r15
-                setbit  7, r15, r15
-                st      r15, not_scr_bg_move
-                mov     0, r15
-                stib    r15, 0x500056
-conti_com:                              # Label from Fighting Vipers source
-                ld      not_scr_bg_move, r15
-                clrbit  0xB, r15, r15
-                st      r15, not_scr_bg_move
-                mov     0, r15
-                stib    r15, _sub_mode
-                call    set_game_setting
-# End of function CONTINUE_DSP
-# =============== S U B R O U T I N E =======================================
-set_close:                              # CODE XREF: ROUND_DSP+15A8↑p
-                ld      fa_rob0, r7     # Label from Fighting Vipers source
-                ld      fa_rob1, r8
-                ld      0x0(r7), r15
-                clrbit  27, r15, r15
-                st      r15, 0x0(r7)
-                ld      0x0(r8), r15
-                clrbit  27, r15, r15
-                st      r15, 0x0(r8)
-                ret
-# End of function set_close
-# =============== S U B R O U T I N E =======================================
-# return
-close_obj:                              # CODE XREF: INTRUDE_DSP+5C↑p
-                ret                     # Label from Fighting Vipers source
-# End of function close_obj
-# =============== S U B R O U T I N E =======================================
-OVER_INT:                               # DATA XREF: ROM:00007B54↑o
-                mov     2, g0           # Label from official source
-                call    _Scroll_Initialize
-                lda     162, g0
-                call    _Scroll_Initialize
-loc_F700:                               # DATA XREF: sub_7F894+68↓o
-                mov     1, r4
-                ld      mod_fa_sampling, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                ld      fa_camera, r3
-                lda     displacement, r15
-                stib    r15, 0x40(r3)
-                ldob    STAGE_ID, r14
-                cmpoble 10, r14, loc_F758 # if STAGE_ID less or equal to 10 (all cases in normal gameplay)
-loc_F738:                               # CODE XREF: OVER_INT+78↓j
-                shlo    6, 3, r15
-                st      r15, CTRL_TIMER
-                lda     start_ip_add+2, r15
-                stib    r15, draw_vs_routine_flag
-                b       loc_F7F8
-# ---------------------------------------------------------------------------
-loc_F758:                               # CODE XREF: OVER_INT+44↑j
-                lda     start_ip_add+3, r3
-                ldob    stage_num, r14
-                cmpobne r3, r14, loc_F738
-                shlo    9, 1, r15
-                st      r15, CTRL_TIMER
-                ld      fa_camera, r3
-                ld      0x0(r3), r15
-                clrbit  2, r15, r15
-                st      r15, 0x0(r3)
-                lda     displacement, r15
-                stib    r15, draw_vs_routine_flag
-                ld      not_scr_bg_move, r15
-                clrbit  0x10, r15, r15
-                st      r15, not_scr_bg_move
-                lda     win_down, g0    # Window down
-                call    set_window      # g0 = two shorts
-                mov     0, r15
-                stis    r15, 0x100A000
-                mov     0, r15
-                stis    r15, 0x100A008
-                lda     0x1000000, g9
-                addo    0x1F, 0x1F, g0
-                addo    0x1F, 0x11, g1
-                call    clr_pattern_s
-                lda     0x1000584, g9
-                lda     74, g0          # GAME OVER TEX
-                call    dsp_pattern_new
-loc_F7F8:                               # CODE XREF: OVER_INT+64↑j
-                lda     0xA00360, g0
-                call    sound_request_u
-                lda     0xAE1009, g0    # sd_game_bgm_09
-                call    check_same_sound
-                call    sound_request_u
-                ld      mod_fa_game_disp, r3
-                ld      0x0(r3), r15
-                clrbit  0x18, r15, r15
-                st      r15, 0x0(r3)
-                ld      not_scr_bg_move, r15
-                clrbit  0x16, r15, r15
-                st      r15, not_scr_bg_move
-                ld      0x0(r3), r15
-                setbit  0x1E, r15, r15
-                st      r15, 0x0(r3)
-                ld      0x0(r3), r15
-                setbit  0x19, r15, r15
-                st      r15, 0x0(r3)
-                ldib    mode, r15
-                lda     1(r15), r15
-                stib    r15, mode
-                ret
-# End of function OVER_INT
-# =============== S U B R O U T I N E =======================================
-OVER_DSP:                               # DATA XREF: ROM:00007B5C↑o
-                ldob    STAGE_ID, r14
-                cmpobg  10, r14, loc_F890 # If STAGE_ID < 10 branch (Not possible)
-                lda     start_ip_add+3, r3
-                ldob    stage_num, r14
-                cmpobne r3, r14, loc_F890
-                call    load_egg_game_over_environment
-loc_F890:                               # CODE XREF: OVER_DSP+8↑j
-                ld      CTRL_TIMER, r15
-                lda     -1(r15), r15
-                st      r15, CTRL_TIMER
-                lda     301, r13
-                ld      CTRL_TIMER, r14
-                cmpobne r13, r14, loc_F8BC
-                call    set_over_voice
-loc_F8BC:                               # CODE XREF: OVER_DSP+48↑j
-                shlo    8, 1, r13
-                ld      CTRL_TIMER, r14
-                cmpobl  r13, r14, loc_F8F4
-                ld      INTERUPT_FLAGS_MOMENTARY, r3
-                ldob    gameprogram, r14 # bit 0 clear = Player 1
-                cmpobe  1, r14, loc_F8E4
-                bbs     4, r3, loc_F900 # P1 Start
-loc_F8E4:                               # CODE XREF: OVER_DSP+70↑j
-                ldob    gameprogram, r14 # bit 0 clear = Player 1
-                cmpobe  0, r14, loc_F8F4
-                bbs     5, r3, loc_F900 # P2 Start
-loc_F8F4:                               # CODE XREF: OVER_DSP+5C↑j
-                ld      CTRL_TIMER, r14
-                cmpibl  0, r14, loc_F924
-loc_F900:                               # CODE XREF: OVER_DSP+74↑j
-                mov     1, r4
-                ld      fa_camera, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                mov     18, r15
-                stib    r15, mode
-loc_F924:                               # CODE XREF: OVER_DSP+90↑j
-                ret
-# End of function OVER_DSP
-# =============== S U B R O U T I N E =======================================
-set_over_voice:                         # CODE XREF: OVER_DSP+4C↑p
-                ldob    STAGE_ID, r14   # Label from Fighting Vipers source
-                cmpoble 10, r14, loc_F9A4 # return
-                ldob    0x50004E, r14
-                cmpobne 1, r14, loc_F954
-                ld      fa_rob0, r7
-                ld      fa_rob1, r8
-                b       loc_F964
-# ---------------------------------------------------------------------------
-loc_F954:                               # CODE XREF: set_over_voice+14↑j
-                ld      fa_rob1, r7
-                ld      fa_rob0, r8
-loc_F964:                               # CODE XREF: set_over_voice+28↑j
-                ldob    0x1B1(r8), r3
-                ldob    0x1B1(r7), r4
-                cmpobe  r3, r4, loc_F988
-                cmpobe  8, r3, loc_F988
-                ld      frame_counter, r3
-                and     1, r3, r3
-                addo    0xF, r3, r3
-                b       loc_F98C
-# ---------------------------------------------------------------------------
-loc_F988:                               # CODE XREF: set_over_voice+44↑j
-                mov     0xF, r3
-loc_F98C:                               # CODE XREF: set_over_voice+5C↑j
-                ld      blank_per_character_audio_array[r3*4], r15
-                ld      (r15)[r4*4], r5
-                cmpobe  0, r5, loc_F9A4 # return
-                mov     r5, g0
-                b       loc_F9A4        # return
-# ---------------------------------------------------------------------------
-loc_F9A4:                               # CODE XREF: set_over_voice+8↑j
-                ret                     # return
-# End of function set_over_voice
-# ---------------------------------------------------------------------------
-                .long 0x20015A          # unreachable code
-                .long 0x11700A2
-                .long 0x9B00FE
-                .long 0x9B00FE
-                .long 0x9B00FE
-                .long 0x9B00FE
-# ---------------------------------------------------------------------------
-ENDING_INT:                             # DATA XREF: ROM:00007B64↑o
-                ldib    STAGE_ID, r15   # Label from Fighting Vipers source (obvious tho)
-                stib    r15, list_motions_ram+1
-                mov     0, r15
-                stib    r15, 0x50004D
-                lda     win_down_rom, r10 # Window down
-                lda     win_down, r11   # Window down
-                ldt     (r10), r4
-                stt     r4, (r11)
-                ldt     0xC(r10), r4
-                stt     r4, 0xC(r11)
-                call    sub_1051C
-                lda     0x8E, g0
-                call    _Scroll_Initialize
-                shlo    3, 0x15, g0
-                call    _Scroll_Initialize
-                call    sub_105C0
-                lda     start_ip_add+3, r15
-                stib    r15, stage_num
-                call    change_scene
-                mov     1, r4
-                ld      mod_fa_win0, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                mov     1, r4
-                ld      mod_fa_win1, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                mov     1, r4
-                ld      mod_fa_coli, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                mov     1, r4
-                ld      mod_fa_sampling, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                mov     1, r4
-                ld      mod_fa_obj0, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                ld      fa_camera, r3
-                ld      0x0(r3), r4
-                setbit  1, r4, r4
-                setbit  2, r4, r4
-                setbit  0xE, r4, r4
-                clrbit  0x1F, r4, r4
-                st      r4, 0x0(r3)
-                lda     0x43C00000, r3
-                mov     0, r15
-                stis    r15, 0x100A000
-                shlo    0xD, 1, r15
-                stis    r15, 0x100A008
-                lda     0x1006000, g9
-                lda     405, g0         # Earth far away texture
-                call    dsp_pattern_low
-                mov     0, r15
-                stis    r15, scrB_H_page
-                shlo    0xD, 1, r15
-                stis    r15, scrB_V_page
-                ld      not_scr_bg_move, r15
-                setbit  0xE, r15, r15
-                st      r15, not_scr_bg_move
-                lda     0x1004000, g9
-                lda     390, g0         # Outer space texture
-                call    dsp_pattern_low
-                lda     0x1004078, g9
-                lda     390, g0         # Outer space texture
-                call    dsp_pattern_low
-                lda     0x100407C, g9
-                lda     390, g0         # Outer space texture
-                ld      texture_palette_offsets[g0*4], r12
-                ld      0x4C(r12), r4
-                ld      0x4E(r12), r5
-                shlo    7, 1, r6
-                shlo    7, 1, r3
-loc_FB60:                               # CODE XREF: ROM:0000FB70↓j
-                stos    r4, (g9)
-                stos    r5, 2(g9)
-                addo    g9, r6, g9
-                cmpdeco 1, r3, r3
-                bl      loc_FB60
-                call    efc_ram_init
-                call    efc_rob_poly_para_init
-                shlo    8, 0x11, r15
-                st      r15, CTRL_TIMER
-                ld      mod_fa_game_disp, r3
-                ld      0x0(r3), r4
-                setbit  0x1E, r4, r4
-                clrbit  0x17, r4, r4
-                clrbit  0x14, r4, r4
-                st      r4, 0x0(r3)
-                lda     0xA00001, g0
-                call    check_same_sound
-                call    sound_request_u
-                ld      not_scr_bg_move, r15
-                clrbit  0xE, r15, r15
-                st      r15, not_scr_bg_move
-                mov     0, r15
-                stib    r15, stage_num
-                call    init_endsub_vars
-                mov     0, r15
-                stis    r15, num_motions_ram
-                mov     0, r15
-                stib    r15, _sub_mode
-                ldib    mode, r15
-                lda     1(r15), r15
-                stib    r15, mode
-                ret
-# ---------------------------------------------------------------------------
-ENDING_DSP:                             # DATA XREF: ROM:00007B6C↑o
-                subo    1, 0, r13       # Label from official source
-                ld      CTRL_TIMER, r14
-                addi    r13, r14, r15
-                st      r15, CTRL_TIMER
-                ld      CTRL_TIMER, r14
-                cmpibl  0, r14, stuff_conti # if CTRL_TIMER less than 0, branch
-                lda     0xA00350, g0    # This audio does not exist in the game
-                call    sound_request_u
-                mov     1, r4
-                ld      mod_fa_coli, r3
-                ld      0x0(r3), r5
-                setbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                mov     1, r4
-                ld      mod_fa_play, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                ld      not_scr_bg_move, r15
-                clrbit  0x19, r15, r15
-                st      r15, not_scr_bg_move
-                ld      not_scr_bg_move, r15
-                clrbit  0x10, r15, r15
-                st      r15, not_scr_bg_move
-                lda     0x43F00000, r3
-                st      r3, focus_dist_x
-                st      r3, focus_dist_y
-                mov     0, r15
-                stis    r15, scrB_H_page
-                mov     0, r15
-                stis    r15, scrB_V_page
-                lda     0x1000000, g9
-                shlo    6, 1, g0
-                addo    0x1F, 0x11, g1
-                call    clr_pattern_s
-                ld      not_scr_bg_move, r15
-                setbit  0xE, r15, r15
-                st      r15, not_scr_bg_move
-                call    init_endsub_vars
-                ldib    list_motions_ram+1, r15
-                stib    r15, STAGE_ID
-                mov     0, r15
-                st      r15, 0x5003A4
-                lda     pcrb+3, r15
-                stib    r15, _sub_mode
-                call    sub_29110
-                mov     0, r15
-                stis    r15, 0x100A000
-                mov     0, r15
-                stis    r15, 0x100A008
-                lda     0x1008000, r14
-                mov     0, r15
-                shlo    7, 3, r13
-loc_FD44:                               # CODE XREF: ROM:0000FD50↓j
-                stis    r15, (r14)
-                addo    2, r14, r14
-                cmpdeco 1, r13, r13
-                bl      loc_FD44
-                lda     0x1008800, r14
-                mov     0, r15
-                shlo    7, 3, r13
-loc_FD64:                               # CODE XREF: ROM:0000FD70↓j
-                stis    r15, (r14)
-                addo    2, r14, r14
-                cmpdeco 1, r13, r13
-                bl      loc_FD64
-                call    fill_haikei_makkuro # fill background(haikei) pitch black(makkuro)
-                call    sub_105C0
-                call    sub_1059C
-                mov     2, g0           # Load CG 1
-                call    _Scroll_Initialize
-                lda     162, g0         # Load CG 81
-                call    _Scroll_Initialize
-                ldib    mode, r15
-                lda     1(r15), r15
-                stib    r15, mode
-                ld      fa_rob0, r3
-                ld      fa_rob1, r4
-                ldib    movie_flags, r15
-                stib    r15, 0x1B1(r3)
-                ldib    movie_flags, r15
-                stib    r15, 0x1B0(r3)
-                ldib    0x5004D8, r15
-                stib    r15, 0x1B1(r4)
-                ldib    0x5004D8, r15
-                stib    r15, 0x1B0(r4)
-                mov     1, r4
-                ld      fa_camera, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                ret
-# ---------------------------------------------------------------------------
-stuff_conti:                            # CODE XREF: ROM:0000FC28↑j
-                ld      fa_rob0, g7     # Label from official source
-                ld      0x1064(g7), r7
-                addo    1, r7, r4
-                and     7, r4, r4
-                st      r4, 0x1064(g7)
-                mulo    0xC, r7, r3
-                lda     0x1004(g7), r4
-                addo    r3, r4, r4
-                ldt     0x1F4(g7), r8
-                stt     r8, (r4)
-                ld      fa_rob1, g7
-                ld      0x1064(g7), r7
-                addo    1, r7, r4
-                and     7, r4, r4
-                st      r4, 0x1064(g7)
-                mulo    0xC, r7, r3
-                lda     0x1004(g7), r4
-                addo    r3, r4, r4
-                ldt     0x1F4(g7), r8
-                stt     r8, (r4)
-                ldib    _sub_mode, r15
-                stib    r15, also_sub_mode
-                ldob    _sub_mode, r3
-                shlo    r3, 1, r4
-                st      r4, 0x500034
-                ld      ENDING_STATE[r3*8], r5
-                callx   (r5)
-                ld      debug_flag, r15
-                bbs     9, r15, loc_FF04
-                addo    4, sp, sp
-                st      g0, -4(sp)
-                lda     0x1001604, g9
-                balx    debug_disp_mes, r14
-# ---------------------------------------------------------------------------
-asc_FEC8:       .asciz "                        "
-                .fill 3, 1, 0
-# ---------------------------------------------------------------------------
-                ld      -4(sp), g0
-                subo    4, sp, sp
-                lda     0x1001604, g9
-                ld      ENDING_STATE_NAMES[r3*8], g0
-loc_FF00:                               # DATA XREF: sub_22B2C+18↓o
-                call    print_mes
-loc_FF04:                               # CODE XREF: ROM:0000FEA8↑j
-                call    sub_3176C
-                ret
-# ---------------------------------------------------------------------------
-ENDING_STATE:   .long ENDING_MOVIE_INT  # DATA XREF: ROM:0000FE94↑r
-ENDING_STATE_NAMES:.long aEndingMovieInt # DATA XREF: ROM:0000FEF8↑r
-                .long ENDING_MOVIE_DSP
-                .long aEndingMovieDsp   # "ENDING_MOVIE_DSP"
-                .long ENDSUB_INT
-                .long aEndsubInt        # "ENDSUB_INT"
-                .long ENDSUB_WAIT_1
-                .long aEndsubWait1      # "ENDSUB_WAIT_1"
-                .long ENDSUB_DSP
-                .long aEndsubDsp        # "ENDSUB_DSP"
-                .long ENDSUB_MOVIE2_INT
-                .long aEndsubMovie2In   # "ENDSUB_MOVIE2_INT"
-                .long ENDSUB_MOVIE2_DSP
-                .long aEndsubMovie2Ds   # "ENDSUB_MOVIE2_DSP"
-                .long ENDSUB_WAIT_2
-                .long aEndsubWait2      # "ENDSUB_WAIT_2"
-# ---------------------------------------------------------------------------
-ENDING_MOVIE_INT:                       # DATA XREF: ROM:ENDING_STATE↑o
-                lda     0x1000000, g9
-                shlo    6, 1, g0
-                shlo    7, 1, g1
-                call    clr_pattern_s
-loc_FF60:                               # DATA XREF: ROM:0006F0E8↓o
-                call    ending_movie_int
-                ld      0x506804, r15
-                setbit  0, r15, r15
-                st      r15, 0x506804
-                ld      fa_camera, r3
-                ld      0x0(r3), r15
-                setbit  0x1F, r15, r15
-                st      r15, 0x0(r3)
-                shlo    6, 0xF, r15
-                stis    r15, game_timer
-                mov     1, r15
-                stib    r15, _sub_mode
-                ret
-# ---------------------------------------------------------------------------
-ENDING_MOVIE_DSP:                       # DATA XREF: ROM:0000FF14↑o
-                ld      busy_signal_flag, r14
-                cmpobe  1, r14, loc_FFC8
-                ld      not_scr_bg_move, r15
-                clrbit  0x10, r15, r15
-                st      r15, not_scr_bg_move
-loc_FFC8:                               # CODE XREF: ROM:0000FFB0↑j
-                ldos    game_timer, r14
-                subi    1, r14, r15
-                stos    r15, game_timer
-                call    ending_movie_cont # does something funny if debug_flag bit 5 is set
-                ldis    game_timer, r14
-                cmpibg  0, r14, sub_FFF0
-                ret
-# =============== S U B R O U T I N E =======================================
-sub_FFF0:                               # CODE XREF: ROM:0000FFE8↑j
-                lda     word_7D3BC, r10
-loc_FFF8:                               # DATA XREF: no_coli_unit_set:loc_2A64C↓o
-                lda     win_down, r11   # Window down
-loc_10000:                              # DATA XREF: get_frame_dat+378↓o
-                ldt     (r10), r4
-                stt     r4, (r11)
-                ldt     0xC(r10), r4
-                stt     r4, 0xC(r11)
-                mov     1, r4
-                ld      fa_camera, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                mov     0, r15
-                st      r15, 0x506804
-                lda     0xAE1014, g0    # sd_game_bgm_14
-                call    check_same_sound
-                call    sound_request_u
-                lda     check_word2+2, r15
-                stib    r15, draw_vs_routine_flag
-                mov     2, r15
-                stib    r15, _sub_mode
-                ret
-# End of function sub_FFF0
-# =============== S U B R O U T I N E =======================================
-ENDSUB_INT:                             # DATA XREF: ROM:0000FF1C↑o
-                ldob    byte_106B9, g0
-                call    ending_send_next_tex
-                mov     1, r4
-                ld      fa_camera, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                mov     1, r4
-                ld      mod_fa_play, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                ld      not_scr_bg_move, r15
-                setbit  0x10, r15, r15
-                st      r15, not_scr_bg_move
-                call    voice_init      # return
-                mov     1, r4
-                ld      mod_fa_obj0, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                shlo    6, 1, r15
-                stis    r15, game_timer
-                ldos    num_motions_ram, r3
-                ldib    byte_106B8[r3*4], r15
-                stib    r15, list_motions_ram
-                ldib    byte_106B9[r3*4], r15
-                stib    r15, STAGE_ID
-                ldib    byte_106BA[r3*4], r15
-                stib    r15, list_motions_ram+3
-                addo    1, r3, r3
-                stos    r3, num_motions_ram
-                ldob    num_motions_ram, r3
-                cmpobl  0xA, r3, loc_101B4
-                lda     0xFF, r13
-                ldob    list_motions_ram, r14
-                cmpobe  r13, r14, loc_101B4
-                ldob    STAGE_ID, r3
-                cmpobl  0xA, r3, loc_10198
-                lda     0xFF, r13
-                ldob    list_motions_ram, r14
-                cmpobe  r13, r14, loc_10198
-                subo    1, r3, r4
-                stob    r4, stage_num
-                call    change_scene
-                lda     0x1DE, r15
-                stis    r15, 0x5A0002
-                call    loc_1A780
-                call    load_ending_rep_data
-                call    sub_81038
-                mov     1, r4
-                ld      fa_camera, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-loc_10198:                              # CODE XREF: ENDSUB_INT+E0↑j
-                mov     0, r15
-                stis    r15, 0x50009E
-                mov     3, r15
-                stib    r15, _sub_mode
-                ret
-# ---------------------------------------------------------------------------
-loc_101B4:                              # CODE XREF: ENDSUB_INT+C4↑j
-                ld      not_scr_bg_move, r15
-                clrbit  0x10, r15, r15
-                st      r15, not_scr_bg_move
-                mov     5, r15
-                stib    r15, _sub_mode
-                ret
-# End of function ENDSUB_INT
-# =============== S U B R O U T I N E =======================================
-ENDSUB_WAIT_1:                          # DATA XREF: ROM:0000FF24↑o
-                subo    1, 0, r13       # Label from official source
-                ldos    game_timer, r14
-                addi    r13, r14, r15
-                stos    r15, game_timer
-                ldos    0x50009E, g1
-                addo    1, g1, g1
-                stos    g1, 0x50009E
-                ldis    game_timer, r14
-                cmpible 0, r14, loc_102FC
-                ld      busy_signal_flag, r14
-                cmpobe  1, r14, loc_102FC
-                ld      not_scr_bg_move, r15
-                clrbit  0xE, r15, r15
-                st      r15, not_scr_bg_move
-                ldob    stage_num, r3
-                and     0xF, r3, r3
-                shlo    8, r3, r4
-                ldos    stage_bg_color(r4), r3 # Color 0x0031E6
-                stos    r3, 0x1800720 # 0x0031E6
-                stos    r3, 0x18007A0 # 0x0031E6
-                lda     0x1004B80, g9
-                lda     516, g0         # Draw credits round replay border
-                call    dsp_pattern_new
-                ld      fa_camera, r3
-                lda     cam_mode34, r15
-                stib    r15, 0x40(r3)
-                ld      not_scr_bg_move, r15
-                clrbit  0x10, r15, r15
-                st      r15, not_scr_bg_move
-                mov     1, r4
-                ld      mod_fa_play, r3
-                ld      0x0(r3), r5
-                setbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                lda     play_init, r5
-                st      r5, 0xC(r3)
-                mov     1, r4
-                ld      fa_camera, r3
-                ld      0x0(r3), r5
-                setbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                mov     1, r4
-                ld      mod_fa_obj0, r3
-                ld      0x0(r3), r5
-                setbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                lda     object_init, r5
-                st      r5, 0xC(r3)
-                mov     4, r15
-                stib    r15, _sub_mode
-loc_102FC:                              # CODE XREF: ENDSUB_WAIT_1+34↑j
-                ret
-# End of function ENDSUB_WAIT_1
-# ---------------------------------------------------------------------------
-ENDSUB_WAIT_1_alt:                      # unreachable code
-                shlo    6, 1, r10
-                cmpibg  g1, r10, loc_10324
-                shlo    0xA, 1, r3
-                mulo    r3, g1, r4
-                divo    r10, r4, r4
-                shlo    0xD, 1, r5
-                addo    r5, r4, r5
-                stos    r5, 0x100A008
-loc_10324:                              # CODE XREF: ROM:00010304↑j
-                shro    1, r10, r10
-                cmpobne r10, g1, loc_1035C
-                lda     0x1000000, g9
-                addo    0x1F, 0x1F, g0
-                addo    0x1F, 0x11, g1
-                call    clr_pattern_s
-                lda     0x1000A50, g9
-                ldob    STAGE_ID, r4    # As the replay stages advance, so do the credits to display
-                ldos    un_staff_credit_textures[r4*2], g0
-                call    dsp_pattern_new
-loc_1035C:                              # CODE XREF: ROM:00010328↑j
-                ret
-# ---------------------------------------------------------------------------
-ENDSUB_DSP:                             # DATA XREF: ROM:0000FF2C↑o
-                call    chg_save_mat_param # Label from Fighting Vipers source (obvious tho)
-                                        #
-                subo    1, 0, r13
-                ldos    game_timer, r14
-                addi    r13, r14, r15
-                stos    r15, game_timer
-                ld      mod_fa_play, r11
-                ld      0x0(r11), r15
-                bbs     0x1F, r15, loc_103AC
-                lda     0x1004B80, g9
-                lda     534, g0         # Space with Earth in the upper left corner
-                call    dsp_pattern_new
-                mov     2, r15
-                stib    r15, _sub_mode
-                ret
-# ---------------------------------------------------------------------------
-loc_103AC:                              # CODE XREF: ROM:00010388↑j
-                ldos    0x5A0002, r5
-                addo    0x1F, 9, r3
-                cmpobne r3, r5, loc_103D8
-                ldos    num_motions_ram, r3
-                ldob    byte_106B9[r3*4], g0
-                lda     255, r13
-                cmpobe  r13, g0, loc_103D8
-                call    ending_send_next_tex
-loc_103D8:                              # CODE XREF: ROM:000103B8↑j
-                ldos    0x5A0002, r5
-                subo    1, r5, r5
-                stos    r5, 0x5A0002
-                ret
-# ---------------------------------------------------------------------------
-ENDSUB_MOVIE2_INT:                      # DATA XREF: ROM:0000FF34↑o
-                lda     0x1004B80, g9
-                lda     534, g0         # Space with Earth in upper left corner
-                call    dsp_pattern_low
-                mov     1, r4
-                ld      fa_camera, r3
-                ld      0x0(r3), r5
-                setbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                ld      not_scr_bg_move, r15
-                clrbit  0x10, r15, r15
-                st      r15, not_scr_bg_move
-                call    window_data_init
-                call    sub_58AA8
-                mov     6, r15
-                stib    r15, _sub_mode
-                ret
-# ---------------------------------------------------------------------------
-ENDSUB_MOVIE2_DSP:                      # DATA XREF: ROM:0000FF3C↑o
-                call    metal_and_eggman_flee
-                ret
-# ---------------------------------------------------------------------------
-ENDSUB_WAIT_2:                          # DATA XREF: ROM:0000FF44↑o
-                ret                     # Label from Fighting Vipers source (obvious tho)
-# =============== S U B R O U T I N E =======================================
-# fill background(haikei) pitch black(makkuro)
-fill_haikei_makkuro:                    # CODE XREF: ROM:0000FD74↑p
-                ld      not_scr_bg_move, r15 # Label from Fighting Vipers source
-                setbit  14, r15, r15
-                st      r15, not_scr_bg_move
-                mov     0, r15
-                stis    r15, scrB_H_page
-                mov     0, r15
-                stis    r15, scrB_V_page
-                lda     1, r3
-                ld      texture_palette_offsets[r3*4], r3
-                ldos    0xC(r3), r4
-                lda     CG_DATA_START, r8
-                shlo    0xA, 3, r10
-loc_10498:                              # CODE XREF: fill_haikei_makkuro+54↓j
-                stis    r4, (r8)
-                addo    2, r8, r8
-                cmpdeco 1, r10, r10
-                bl      loc_10498
-                ret
-# End of function fill_haikei_makkuro
-# ---------------------------------------------------------------------------
-                ld      not_scr_bg_move, r15 # unreachable code
-                setbit  14, r15, r15
-                st      r15, not_scr_bg_move
-                mov     0, r15
-                stis    r15, 0x100A006
-                mov     0, r15
-                stis    r15, 0x100A00E
-                lda     0x1006000, r8
-                b       loc_1055C
-# ---------------------------------------------------------------------------
-                ld      not_scr_bg_move, r15 # unreachable code
-                setbit  14, r15, r15
-                st      r15, not_scr_bg_move
-                mov     0, r15
-                stis    r15, scrB_H_page
-                mov     0, r15
-                stis    r15, scrB_V_page
-                lda     0x1004000, r8
-                b       loc_1055C
-# =============== S U B R O U T I N E =======================================
-sub_1051C:                              # CODE XREF: ROM:0000F9FC↑p
-                mov     0, r15
-                stis    r15, 0x100A000
-                mov     0, r15
-                stis    r15, 0x100A008
-                shlo    0x18, 1, r8
-                b       loc_1055C
-# ---------------------------------------------------------------------------
-                mov     0, r15          # FV leftover sub_10754
-                stis    r15, 0x100A002
-                mov     0, r15
-                stis    r15, 0x100A00A
-                lda     0x1002000, r8
-loc_1055C:                              # CODE XREF: ROM:000104E0↑j
-                lda     1, r3
-                ld      texture_palette_offsets[r3*4], r3
-                ldos    0xC(r3), r4
-                setbit  0xF, r4, r4
-                shlo    0xA, 3, r10
-loc_10574:                              # CODE XREF: sub_1051C+64↓j
-                stis    r4, (r8)
-                addo    2, r8, r8
-                cmpdeco 1, r10, r10
-                bl      loc_10574
-                ret
-# End of function sub_1051C
-# ---------------------------------------------------------------------------
-                lda     0x100D000, r5   # FV leftover sub_107A0
-                lda     0xFFFF, r8
-                b       loc_105CC
-# =============== S U B R O U T I N E =======================================
-sub_1059C:                              # CODE XREF: ROM:loc_FD7C↑p
-                lda     0x100D000, r5
-                mov     0, r8
-                b       loc_105CC
-# End of function sub_1059C
-# ---------------------------------------------------------------------------
-                lda     0x100C000, r5   # FV leftover 0x107C4
-                lda     0xFFFF, r8
-                b       loc_105CC
-# =============== S U B R O U T I N E =======================================
-sub_105C0:                              # CODE XREF: ROM:0000FA10↑p
-                lda     0x100C000, r5
-                mov     0, r8
-loc_105CC:                              # CODE XREF: ROM:00010598↑j
-                shlo    9, 3, r9
-loc_105D0:                              # CODE XREF: sub_105C0+1C↓j
-                stos    r8, (r5)
-                addo    2, r5, r5
-                cmpdeco 1, r9, r9
-                bl      loc_105D0
-                ret
-# End of function sub_105C0
-# =============== S U B R O U T I N E =======================================
-# fill background(haikei) pitch black(makkuro)
-fill_haikei_makkuro_1:                  # CODE XREF: ADV_SEGA_PIC_DSP+2C↑p
-                ld      not_scr_bg_move, r15
-                setbit  14, r15, r15
-                st      r15, not_scr_bg_move
-                mov     0, r15
-                stis    r15, 0x100A006
-                mov     0, r15
-                stis    r15, 0x100A00E
-                lda     1, r3
-                ld      texture_palette_offsets[r3*4], r3
-                ldos    0xC(r3), r4
-                lda     0x1006000, r8
-                shlo    0xA, 3, r10
-loc_1062C:                              # CODE XREF: fill_haikei_makkuro_1+54↓j
-                stis    r4, (r8)
-                addo    2, r8, r8
-                cmpdeco 1, r10, r10
-                bl      loc_1062C
-                ret
-# End of function fill_haikei_makkuro_1
-# ---------------------------------------------------------------------------
-ending_time_dsp:                        # Label from official source
-                mov     g0, r11
-                lda     0x100153A, g9
-                remo    0xA, r11, g4
-                mov     2, g3
-                lda     0x1001536, g9
-                divo    0xA, r11, r11
-                remo    0xA, r11, g4
-                call    dsp_character
-                divo    0xA, r11, r11
-                remo    0xA, r11, g4
-                lda     0x1001530, g9
-                call    dsp_character
-                divo    0xA, r11, r11
-                remo    6, r11, g4
-                divo    6, r11, r11
-                lda     0x100152C, g9
-                call    dsp_character
-                lda     0x1001526, g9
-                remo    0xA, r11, g4
-                call    dsp_character
-                divo    0xA, r11, g4
-                lda     0x1001522, g9
-                call    dsp_character
-                ret
-# ---------------------------------------------------------------------------
-byte_106B8:     .byte 1                 # DATA XREF: ENDSUB_INT+80↑r
-byte_106B9:     .byte 1                 # DATA XREF: ENDSUB_INT↑r
-byte_106BA:     .byte 1                 # DATA XREF: ENDSUB_INT+A0↑r
-                .byte 0
-                .byte 1
-                .byte 2
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 3
-                .byte 0x63
-                .byte 0
-                .byte 0
-                .byte 4
-                .byte 0x63
-                .byte 0
-                .byte 0
-                .byte 5
-                .byte 0x63
-                .byte 0
-                .byte 1
-                .byte 6
-                .byte 5
-                .byte 0
-                .byte 1
-                .byte 7
-                .byte 6
-                .byte 0
-                .byte 1
-                .byte 8
-                .byte 7
-                .byte 0
-                .byte 1
-                .byte 9
-                .byte 8
-                .byte 0
-                .byte 1
-                .byte 0xA
-                .byte 9
-                .byte 0
-                .byte 0xFF
-                .byte 0xFF
-                .byte 0xFF
-                .byte 0
-un_staff_credit_textures:.short 391     # DATA XREF: ROM:00010350↑r
-                .short 392              # Director
-                .short 397              # Game Coordinator
-                .short 398              # Programmers
-                .short 399              # D.S.P. Programmer
-                .short 400              # Character Designer
-                .short 401              # Stage Designers
-                .short 402              # 2D Graphic & Model Design
-                .short 403              # Graphic & Model Design
-                .short 404              # Motion Designers
-                .short 393              # Sound Designers
-                .short 394              # Special Thanks
-                .short 395              # Producer
-                .short 396              # PRESENTED by
-# ---------------------------------------------------------------------------
-NAME_INT:                               # DATA XREF: ROM:00007B74↑o
-                call    scroll_all_init # Label from official source
-                mov     1, r4
-                ld      mod_fa_sampling, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                mov     1, r4
-                ld      mod_fa_effect, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                mov     1, r4
-                ld      mod_fa_tobi, r3 # Projectile (tobi = flight)
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                shlo    7, 1, r15
-                stib    r15, RED
-                shlo    7, 1, r15
-                stib    r15, GREEN
-                shlo    7, 1, r15
-                stib    r15, BLUE
-                call    chg_pol_color_req
-                ld      mod_fa_game_disp, r3
-                ld      0x0(r3), r15
-                setbit  0x19, r15, r15
-                st      r15, 0x0(r3)
-                ld      0x0(r3), r15
-                setbit  0x1E, r15, r15
-                st      r15, 0x0(r3)
-                mov     0, r3
-                stob    r3, curr_round_num
-                ld      0x500710, r15
-                bbs     0x10, r15, loc_107D4
-                ldob    STAGE_ID, r14
-                cmpobg  10, r14, loc_10CEC
-                ldob    RANDOM_MODE, r14
-                cmpobe  0, r14, loc_107D4 # If RANDOM_MODE not equal to 0, then no Name Entry screen
-                mov     10, r15
-                stib    r15, mode
-                ret
-# ---------------------------------------------------------------------------
-loc_107D4:                              # CODE XREF: ROM:000107A8↑j
-                mov     10, r3
-                stob    r3, STAGE_ID
-                mov     0, r15
-                st      r15, 0x5004C8
-                mov     1, r4
-                ld      fa_camera, r3
-                ld      0x0(r3), r5
-                setbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                lda     camera_init, r5
-                st      r5, 0xC(r3)
-                mov     1, r4
-                ld      mod_fa_control0, r3
-                ld      0x0(r3), r5
-                setbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                lda     control_init, r5 # Executes once at start of char sel, once at the start of the vs screen, then once every frame of gameplay once the map is loaded.
-                st      r5, 0xC(r3)
-                lda     0x1000000, g9
-                shlo    6, 1, g0
-                addo    0x1F, 0x11, g1
-                call    clr_pattern_s
-                call    name_init
-                ldob    0x500081, r3
-                bbc     0, r3, loc_10CD4
-                lda     check_word3+2, r15
-                stib    r15, draw_vs_routine_flag
-                shlo    9, 5, r15
-                st      r15, CTRL_TIMER
-                lda     start_ip_add+3, r15
-                stib    r15, stage_num
-                call    change_scene
-                lda     loc_F0C0, g0
-                mov     0, g1
-                lda     CG_DATA_START, g2
-                call    change_bg_color # Adds 0x4000 to g1 for color code
-                call    bg_col_set
-                mov     1, r4
-                ld      mod_fa_coli, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                mov     0, r15
-                stib    r15, POLYGON_DISP
-                ld      not_scr_bg_move, r15
-                setbit  0xE, r15, r15
-                st      r15, not_scr_bg_move
-                ldib    mode, r15
-                lda     1(r15), r15
-                stib    r15, mode
-                mov     1, r4
-                ld      mod_fa_nameentry, r3
-                ld      0x0(r3), r5
-                setbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                lda     nameentry_init, r5
-                st      r5, 0xC(r3)
-                ldob    gameprogram, r4 # bit 0 clear = Player 1
-                cmpobne 0, r4, loc_10940
-                ld      fa_rob0, r3
-                ld      fa_rob1, r4
-                ldib    0x1B0(r3), r15
-                stib    r15, 0x1B0(r4)
-                ldib    0x1B1(r3), r15
-                stib    r15, 0x1B1(r4)
-loc_10940:                              # CODE XREF: ROM:0001091C↑j
-                ld      fa_rob0, r3
-                mov     0, r15
-                stib    r15, 0x1B0(r3)
-                mov     0, r15
-                stib    r15, 0x1B1(r3)
-                cmpobg  0x1A, r4, loc_10960
-                subo    0x1A, r4, r4
-loc_10960:                              # CODE XREF: ROM:00010958↑j
-                ld      fa_rob0, g7
-                mov     0, r3
-                stob    r3, 4(g7)
-                ldib    0x1B0(g7), r15
-                stib    r15, 0x1B1(g7)
-                ldob    0x1B1(g7), r14
-                cmpobg  0x1A, r14, loc_10990
-                ldib    0x1B1(g7), r15
-                lda     -0x1A(r15), r15
-                stib    r15, 0x1B1(g7)
-loc_10990:                              # CODE XREF: ROM:0001097C↑j
-                lda     array_of_floats, r15
-                st      r15, 0x1D00(g7)
-                lda     0x50A284, r15
-                st      r15, 0x1D04(g7)
-                lda     0x50A288, r15
-                st      r15, 0x1D08(g7)
-                lda     0x506000, r15
-                st      r15, 0x1D0C(g7)
-                lda     0x506400, r15
-                st      r15, 0x1D10(g7)
-                lda     0x506480, r15
-                st      r15, 0x1D14(g7)
-                lda     0x506580, r15
-                st      r15, 0x1D18(g7)
-                lda     0x506680, r15
-                st      r15, 0x1D1C(g7)
-                lda     0x5066C0, r15
-                st      r15, 0x1D20(g7)
-                lda     displacement, r15
-                st      r15, 0x18(g7)
-                lda     displacement, r15
-                st      r15, 0x1C(g7)
-                lda     displacement, r15
-                st      r15, 0x20(g7)
-                shlo    0xE, 3, r15
-                stis    r15, 0x26(g7)
-                lda     action_init, r15
-                st      r15, 0xC(g7)
-                mov     0, r15
-                stib    r15, 0x2A(g7)
-                mov     0, r15
-                stis    r15, 0x624(g7)
-                ld      0x0(g7), r3
-                lda     0xFF000000, r4
-                and     r4, r3, r3
-                setbit  0x1F, r3, r3
-                st      r3, 0x0(g7)
-                mov     1, r4
-                ld      mod_fa_osage0_1, r3
-                ld      0x0(r3), r5
-                setbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                lda     osage_init, r5
-                st      r5, 0xC(r3)
-                ld      fa_rob1, g7
-                mov     1, r3
-                stob    r3, 4(g7)
-                ldib    0x1B0(g7), r15
-                stib    r15, 0x1B1(g7)
-                ldob    0x1B1(g7), r14
-                cmpobg  0x1A, r14, loc_10AD4
-                ldib    0x1B1(g7), r15
-                lda     -0x1A(r15), r15
-                stib    r15, 0x1B1(g7)
-loc_10AD4:                              # CODE XREF: ROM:00010AC0↑j
-                lda     cb_r_1, r15
-                st      r15, 0x1D00(g7)
-                lda     cb_mul_R, r15   # cb = collission ball
-                st      r15, 0x1D04(g7)
-                lda     0x50A310, r15
-                st      r15, 0x1D08(g7)
-                lda     pos_00_x, r15
-                st      r15, 0x1D0C(g7)
-                lda     0x506440, r15
-                st      r15, 0x1D10(g7)
-                lda     0x506500, r15
-                st      r15, 0x1D14(g7)
-                lda     0x506600, r15
-                st      r15, 0x1D18(g7)
-                lda     0x5066A0, r15
-                st      r15, 0x1D1C(g7)
-                lda     0x5066D0, r15
-                st      r15, 0x1D20(g7)
-                lda     0x40000000, r15
-                st      r15, 0x18(g7)
-                lda     displacement, r15
-                st      r15, 0x1C(g7)
-                lda     displacement, r15
-                st      r15, 0x20(g7)
-                shlo    0xE, 1, r15
-                stis    r15, 0x26(g7)
-                lda     action_init, r15
-                st      r15, 0xC(g7)
-                mov     0, r15
-                stib    r15, 0x2A(g7)
-                mov     0, r15
-                stis    r15, 0x624(g7)
-                ld      0x0(g7), r3
-                lda     0xFF000000, r4
-                and     r4, r3, r3
-                setbit  0x1F, r3, r3
-                st      r3, 0x0(g7)
-                mov     1, r4
-                ld      mod_fa_osage0_2, r3
-                ld      0x0(r3), r5
-                setbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                lda     osage_init, r5
-                st      r5, 0xC(r3)
-                mov     1, r4
-                ld      mod_fa_win0, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                mov     1, r4
-                ld      mod_fa_win1, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                ld      fa_rob0, r3
-                ld      fa_rob1, r4
-                ld      0x0(r3), r15
-                clrbit  0x11, r15, r15
-                st      r15, 0x0(r3)
-                ld      0x0(r4), r15
-                clrbit  0x11, r15, r15
-                st      r15, 0x0(r4)
-                ret
-# ---------------------------------------------------------------------------
-NAME_DSP:                               # DATA XREF: ROM:00007B7C↑o
-                lda     check_word3+3, r15 # Label from official source
-                stib    r15, draw_vs_routine_flag
-                ldob    0x500081, r3
-                bbs     1, r3, loc_10C78
-                ld      CTRL_TIMER, r14
-                subi    1, r14, r15
-                st      r15, CTRL_TIMER
-                ret
-# ---------------------------------------------------------------------------
-loc_10C78:                              # CODE XREF: ROM:00010C5C↑j
-                mov     1, r4
-                ld      mod_fa_nameentry, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-                call    name_entry_rankdisp
-                ld      fa_rob1, r3
-                lda     0x3CF5C28F, r13
-                ld      0x18(r3), r14
-                subr    r13, r14, r15
-                st      r15, 0x18(r3)
-                ld      CTRL_TIMER, r14
-                subi    1, r14, r15
-                st      r15, CTRL_TIMER
-                ldob    0x500081, r3
-                bbs     2, r3, loc_10CEC
-                ret
-# ---------------------------------------------------------------------------
-loc_10CD4:                              # CODE XREF: ROM:00010854↑j
-                mov     1, r4
-                ld      fa_camera, r3
-                ld      0x0(r3), r5
-                clrbit  0x1F, r5, r5
-                st      r5, 0x0(r3)
-loc_10CEC:                              # CODE XREF: ROM:000107B4↑j
-                mov     10, r15
-                stib    r15, mode
-                call    save_stats_and_reset_counters
-                call    sub_77570
-                lda     0x1000000, g9
-                addo    0x1F, 0x1D, g0
-                mov     8, g1
-                call    clr_pattern_s
-                ret
-# ---------------------------------------------------------------------------
-all_end:                                # CODE XREF: ROM:000111E0↓j
-                call    bookkeep_all_end # Label from official source
-                mov     0, r15
-                stib    r15, 0x500056
-                ldob    time, r3
-                shlo    2, 0x19, r13
-                mulo    r13, r3, r3
-                stos    r3, 0x50006E
-                mov     0, r15
-                stis    r15, 0x5000A2
-                ld      not_scr_bg_move, r15
-                clrbit  2, r15, r15
-                st      r15, not_scr_bg_move
-                ld      not_scr_bg_move, r15
-                clrbit  3, r15, r15
-                st      r15, not_scr_bg_move
-                mov     2, r15
-                stib    r15, mode
-                mov     0, r15
-                st      r15, 0x5001C0
-                mov     0, r15
-                stis    r15, rank_mode
-                ld      select0_flag, r15
-                clrbit  2, r15, r15
-                st      r15, select0_flag
-                ld      select1_flag, r15
-                clrbit  2, r15, r15
-                st      r15, select1_flag
-                call    set_close
-                call    interrupt_wait
-                ret
 # ---------------------------------------------------------------------------
 TEST_INT:                               # DATA XREF: ROM:00007B84↑o
                 call    sub_77E34       # Label from official source
@@ -1865,7 +44,7 @@ TEST_INT:                               # DATA XREF: ROM:00007B84↑o
                 stib    r15, TEST_MENU_FLAG
                 ret
 # ---------------------------------------------------------------------------
-loc_10EA8:                              # CODE XREF: ROM:00010E78↑j
+loc_10EA8:                              # CODE XREF: TEST_INT+AC↑j
                 mov     1, r4
                 ld      mod_fa_nameentry, r3
                 ld      0x0(r3), r5
@@ -2015,7 +194,8 @@ loc_10EA8:                              # CODE XREF: ROM:00010E78↑j
                 lda     0xFF, r15       # Set TEST_MENU_FLAG to false
                 stib    r15, TEST_MENU_FLAG
                 ret
-# ---------------------------------------------------------------------------
+# End of function TEST_INT
+# =============== S U B R O U T I N E =======================================
 TEST_DSP:                               # DATA XREF: ROM:00007B8C↑o
                 ldob    TEST_MENU_FLAG, r3 # Label from Fighting Vipers source (but it was obvious)
                 cmpobe  0, r3, call_DEBUG_TESTS # branch if TEST_MENU_FLAG is 0
@@ -2026,9 +206,10 @@ TEST_DSP:                               # DATA XREF: ROM:00007B8C↑o
                 subo    4, sp, sp
                 ret
 # ---------------------------------------------------------------------------
-call_DEBUG_TESTS:                       # CODE XREF: ROM:0001117C↑j
+call_DEBUG_TESTS:                       # CODE XREF: TEST_DSP+8↑j
                 call    DEBUG_TEST_MODES
                 ret
+# End of function TEST_DSP
 # ---------------------------------------------------------------------------
                 .long 0x508037       # unreachable code
                 .long 1
@@ -3477,9 +1658,9 @@ loc_12910:                              # CODE XREF: action_init+56C↑j
                 lda     rob_action, r15
                 st      r15, 0xC(g7)
                 ldob    also_mode, r15
-                lda     pcrb+2, r14
+                lda     prcb+2, r14
                 cmpobe  r14, r15, loc_1295C
-                lda     pcrb+3, r14
+                lda     prcb+3, r14
                 cmpobe  r14, r15, loc_1295C
 loc_1295C:                              # CODE XREF: action_init+5B4↑j
                 ld      0x0(g7), r14
@@ -4398,7 +2579,7 @@ ACT_RC_KAMAE:                           # CODE XREF: ACT_RC_KAESHI+44↓j
                 cmpobne 0, r14, loc_1357C
                 bbs     0, r6, loc_135DC
 loc_1357C:                              # CODE XREF: ACT_RC_KAESHI-1960↑j
-                ldos    pcrb(g6), r13
+                ldos    prcb(g6), r13
                 ldos    0x1A8(g7), r14  # r14 = p1_motion_num
                 cmpibe  r13, r14, loc_135F8
                 ldos    0x810(g7), r14  # r14 = P1_PARTS+0x810
@@ -4414,12 +2595,12 @@ loc_135A4:                              # CODE XREF: ACT_RC_KAESHI-193C↑j
                 b       loc_135D4
 # ---------------------------------------------------------------------------
 loc_135B4:                              # CODE XREF: ACT_RC_KAESHI-1944↑j
-                ldos    pcrb(g6), g0
+                ldos    prcb(g6), g0
                 call    sub_1CEA8
                 ret
 # ---------------------------------------------------------------------------
 loc_135C4:                              # CODE XREF: ACT_RC_KAESHI-196C↑j
-                ldos    pcrb(g6), g0
+                ldos    prcb(g6), g0
                 ldos    0x810(g7), r14
                 bbs     7, r14, loc_135F4
 loc_135D4:                              # CODE XREF: ACT_RC_KAESHI-1924↑j
@@ -4443,7 +2624,7 @@ ACT_RC_SYAGAMI:                         # DATA XREF: ROM:0001D060↓o
                 bbc     3, r7, loc_13640
                 bbs     9, r7, loc_1366C
                 bbs     0, r6, loc_13660
-                ldos    (pcrb+2)(g6), r13
+                ldos    (prcb+2)(g6), r13
                 ldos    0x1A8(g7), r14
                 cmpibe  r13, r14, syagami_yoke
                 ldos    0x810(g7), r14
@@ -4452,12 +2633,12 @@ ACT_RC_SYAGAMI:                         # DATA XREF: ROM:0001D060↓o
                 b       loc_13660
 # ---------------------------------------------------------------------------
 loc_13630:                              # CODE XREF: ACT_RC_SYAGAMI+28↑j
-                ldos    (pcrb+2)(g6), g0
+                ldos    (prcb+2)(g6), g0
                 call    sub_1CEA8
                 b       syagami_yoke
 # ---------------------------------------------------------------------------
 loc_13640:                              # CODE XREF: ACT_RC_SYAGAMI+8↑j
-                ldos    (pcrb+2)(g6), g0
+                ldos    (prcb+2)(g6), g0
                 ldos    0x810(g7), r14
                 bbs     7, r14, loc_13658
                 call    set_motion
@@ -12890,7 +11071,7 @@ loc_1B3C8:                              # CODE XREF: set_mot_dat+D4↑j
                 st      r15, 0x70(r3)
                 mov     0, r15
                 st      r15, 0x8C(r3)
-                ld      animation_related[g0*4], r11
+                ld      mot_list[g0*4], r11
                 ld      offset_list_motions[g0*4], r15 # 2CC3EE6
                 ldos    (r15), r14      # value of AMY_DP_SQUISH_X_DATA to r14
                 stos    r14, 0x800(g7)  # p1_motd_leng or p2_motd_leng
@@ -13510,7 +11691,7 @@ sub_1BC78:                              # DATA XREF: set_mot_dat+35C↑o
 calc_mht_adr:                           # CODE XREF: decide_command+158↑p
                 lda     loc_1FFC+3, r13 # Label from Fighting Vipers source
                 and     r13, g0, r3
-                ld      animation_related[r3*4], g0
+                ld      mot_list[r3*4], g0
                 addo    0xD, g0, g0
 loc_1BC98:                              # CODE XREF: calc_mht_adr+34↓j
                 ldob    (g0), r3
@@ -17673,10 +15854,10 @@ loc_1F99C:                              # CODE XREF: camera_init+824↑j
                 ld      8(r14), r15
                 st      r15, (g10)[g12*1]
                 ldob    also_mode, r15
-                lda     pcrb+2, r14
+                lda     prcb+2, r14
                 cmpo    r14, r15
                 be      loc_22570
-                lda     pcrb+3, r14
+                lda     prcb+3, r14
                 cmpo    r14, r15
                 be      loc_22570
                 ldob    gameprogram, r14 # bit 0 clear = Player 1
@@ -17694,7 +15875,7 @@ loc_1FA1C:                              # CODE XREF: camera_init+8F4↑j
                 be      loc_20F64       # branch if mode = 11
 loc_1FA44:                              # CODE XREF: camera_init+908↑j
                 ld      mode_flag, r4
-                lda     pcrb, r3
+                lda     prcb, r3
                 lda     displacement8(r3), r3
                 and     r4, r3, r3
                 cmpobe  0, r3, loc_1FAB0
@@ -17711,10 +15892,10 @@ loc_1FA44:                              # CODE XREF: camera_init+908↑j
                 bne     loc_223C4
 loc_1FAB0:                              # CODE XREF: camera_init+950↑j
                 ldob    also_mode, r15
-                lda     pcrb+2, r14
+                lda     prcb+2, r14
                 cmpo    r14, r15
                 be      loc_22570       # branch if also_mode = 6
-                lda     pcrb+3, r14
+                lda     prcb+3, r14
                 cmpo    r14, r15
                 be      loc_22570       # branch if also_mode = 7
                 ldob    also_mode, r15
@@ -25409,7 +23590,7 @@ make_kage_matrix:                       # CODE XREF: camera_init+A80↑p
                 st      r15, (g11)[g12*1]
                 lda     0x33806767, r15
                 st      r15, (g11)[g12*1]
-                lda     dword_3D00, r15
+                lda     0x3D00, r15
                 st      r15, (g11)[g12*1]
                 lda     0x1000202, r15
                 st      r15, (g11)[g12*1]
@@ -25624,7 +23805,7 @@ name_char_kage_disp:                    # CODE XREF: camera_init:loc_2033C↑p
                 st      r15, (g11)[g12*1]
                 lda     0x34006868, r15
                 st      r15, (g11)[g12*1]
-                lda     dword_3D00, r15
+                lda     0x3D00, r15
                 st      r15, (g11)[g12*1]
                 lda     0x50B100, r11
                 ld      dword_97E7C, r10
@@ -29555,7 +27736,7 @@ sub_2CB14:                              # CODE XREF: efc_cont:loc_31CD4↓p
 loc_2CB64:                              # CODE XREF: sub_2CB14+30↑j
                 lda     displacement3, r15
                 cmpobne r15, r3, loc_2CBBC
-                lda     pcrb+1, r5
+                lda     prcb+1, r5
                 cmpobe  r4, r5, loc_2CBBC
                 lda     mode10, r5
                 cmpobe  r4, r5, loc_2CBBC
@@ -30806,7 +28987,7 @@ loc_2DE6C:                              # CODE XREF: area_coli+1BC↑j
                 ldob    also_sub_mode, r4
                 lda     displacement3, r15
                 cmpobne r15, r3, loc_2DEBC
-                lda     pcrb+1, r5
+                lda     prcb+1, r5
                 cmpobne r4, r5, loc_2DEBC
                 mov     0, r15
                 st      r15, 0x644(g7)
@@ -33611,7 +31792,7 @@ loc_30804:                              # DATA XREF: RAM2BASE:002A4C44↓o
                 ld      0x0(g7), r15
                 bbs     0x13, r15, loc_30994
                 ldob    mode_flag, r15
-                lda     pcrb+3, r14
+                lda     prcb+3, r14
                 bbs     r14, r15, loc_309C4
                 ld      0x500034, r12
                 lda     loc_10000, r13
@@ -35422,7 +33603,7 @@ loc_322A0:                              # CODE XREF: efc_crush_parts_set:loc_321
 loc_322FC:                              # CODE XREF: efc_crush_parts_set+178↑j
                 lda     displacement3, r15
                 cmpobne r15, r3, loc_323E0
-                lda     pcrb+1, r5
+                lda     prcb+1, r5
                 cmpobe  r4, r5, loc_32350
                 lda     mode10, r5
                 cmpobe  r4, r5, loc_32350
@@ -36813,32 +34994,32 @@ efc_fang_gun_disp:                      # CODE XREF: rob_disp+6C0↑p
                 ret
 # End of function efc_fang_gun_disp
 # ---------------------------------------------------------------------------
-word_33718:     .short 0x2EF            # DATA XREF: uk_fang_thing:if_fang↑o
-                .short 0x2F0
+word_33718:     .short 751              # DATA XREF: uk_fang_thing:if_fang↑o
+                .short 752
                 .short 0xC28F
                 .short 0xBCF5
                 .short 0x126F
                 .short 0xBC83
                 .short 0x8B44
                 .short 0xBE6C
-                .short 0x304
-                .short 0x303
+                .short 772
+                .short 771
                 .short 0xC28F
                 .short 0xBCF5
                 .short 0x126F
                 .short 0xBC83
                 .short 0x8B44
                 .short 0x3E6C
-word_33738:     .short 0x5D8            # DATA XREF: uk_fang_thing+10↑o
-                .short 0x5D9
+word_33738:     .short 1496             # DATA XREF: uk_fang_thing+10↑o
+                .short 1497
                 .short 0xC28F
                 .short 0xBCF5
                 .short 0x126F
                 .short 0xBC83
                 .short 0x8B44
                 .short 0xBE6C
-                .short 0x5DB
-                .short 0x5DA
+                .short 1499
+                .short 1498
                 .short 0xC28F
                 .short 0xBCF5
                 .short 0x126F
@@ -42209,7 +40390,7 @@ loc_3950C:                              # CODE XREF: ROM:00039504↑j
                 ldos    0x535022(r6)[r8*1], r4
                 cmpobe  0, r4, loc_39598
                 cmpobe  r12, r4, loc_394F8
-                ld      animation_related[r4*4], r13
+                ld      mot_list[r4*4], r13
                 ld      0x0(r13), r5
                 cmpobe  0, r5, loc_39598
                 lda     loc_41110, r15
@@ -42228,7 +40409,7 @@ loc_3955C:                              # CODE XREF: ROM:00039554↑j
                 ldos    0x535022(r6)[r8*1], r4
                 cmpobe  0, r4, loc_39598
                 cmpobe  r12, r4, loc_39548
-                ld      animation_related[r4*4], r13
+                ld      mot_list[r4*4], r13
                 ld      0x0(r13), r5
                 cmpobe  0, r5, loc_39598
                 lda     loc_41110, r15
@@ -42436,9 +40617,9 @@ load:                                   # CODE XREF: sub_3900C+B8↑p
                 ldos    0x22(r4), g1
                 cmpobe  0, g1, loc_39C80
                 cmpobe  g0, g1, loc_399D8
-                ld      animation_related[g0*4], r12
+                ld      mot_list[g0*4], r12
                 ld      0x0(r12), r12
-                ld      animation_related[g1*4], r13
+                ld      mot_list[g1*4], r13
                 ld      0x0(r13), r13
                 xor     r13, r12, r6
                 shlo    5, 5, r15
@@ -42982,7 +41163,7 @@ sub_3A200:                              # CODE XREF: sub_3900C+1C↑p
                 lda     0, g4
                 ld      mod_fa_effect, g1
                 lda     0x570000, g2
-                bal     move_data
+                bal     move_data       # g1 = data src
                 ld      -4(sp), g14
                 subo    4, sp, sp
                 ld      -4(sp), g13
@@ -43031,7 +41212,7 @@ sub_3A310:                              # CODE XREF: save_key_replay+298↑p
                 lda     0, g4
                 ld      mod_fa_effect, g1
                 lda     0x573000, g2
-                bal     move_data
+                bal     move_data       # g1 = data src
                 ld      -4(sp), g14
                 subo    4, sp, sp
                 ld      -4(sp), g13
@@ -43080,7 +41261,7 @@ sub_3A420:                              # CODE XREF: replay_waza_disp+CC↑p
                 lda     0, g4
                 lda     0x570000, g1
                 ld      mod_fa_effect, g2
-                bal     move_data
+                bal     move_data       # g1 = data src
                 ld      -4(sp), g14
                 subo    4, sp, sp
                 ld      -4(sp), g13
@@ -43129,7 +41310,7 @@ sub_3A530:                              # CODE XREF: load_key_replay+328↑p
                 lda     0, g4
                 lda     0x573000, g1
                 ld      mod_fa_effect, g2
-                bal     move_data
+                bal     move_data       # g1 = data src
                 ld      -4(sp), g14
                 subo    4, sp, sp
                 ld      -4(sp), g13
@@ -48381,7 +46562,7 @@ loc_3F204:                              # CODE XREF: send_sound_code+B4↑j
 sound_request_u:                        # CODE XREF: ROM:000084A8↑p
                 lda     0xA00001, r13   # Label from official source
                 cmpobe  r13, g0, sound_request_special
-                lda     pcrb, r3
+                lda     prcb, r3
                 lda     displacement8(r3), r3
                 ld      mode_flag, r13
                 and     r13, r3, r3
@@ -48664,14 +46845,14 @@ load_NORTH_WIND:                        # CODE XREF: stage_bgm_select+30↑j
                 b       call_audio_sub
 # ---------------------------------------------------------------------------
 load_SOUTH_ISLAND_0:                    # CODE XREF: stage_bgm_select+38↑j
-                lda     pcrb+1, r12
+                lda     prcb+1, r12
                 cmpo    r3, r12
                 bne     load_SOUTH_ISLAND_1
                 lda     0xAE1004, g0    # sd_game_bgm_04
                 b       call_audio_sub
 # ---------------------------------------------------------------------------
 load_SOUTH_ISLAND_1:                    # CODE XREF: stage_bgm_select+5C↑j
-                lda     pcrb, r12
+                lda     prcb, r12
                 cmpo    r3, r12
                 bne     LOAD_LEVEL_MUSIC
                 lda     0xAE1004, g0    # sd_game_bgm_04
@@ -58837,7 +57018,7 @@ DEBUG_PARTS_TEST:                       # DATA XREF: ROM:000400A8↑o
                 st      r3, 0x5080B8
                 lda     0x40200000, r15
                 st      r15, db_parts_zpos
-                lda     animation_related, r15
+                lda     mot_list, r15
                 st      r15, 0x5080A4
                 ld      0x5080A4, r15
                 st      r15, 0x5080A8
@@ -61728,13 +59909,13 @@ sub_4B240:                              # CODE XREF: unp_send_tex_para_sub+28↑
                 lda     sys_proc_table, r14
                 lda     loc_8000(r14), r14
                 bbs     r15, r14, loc_4B350
-                lda     pcrb, r14
+                lda     prcb, r14
                 lda     displacement8(r14), r14
                 bbs     r15, r14, loc_4B390
                 lda     displacement9, r14
                 cmpobne r15, r14, loc_4B2E0
                 ldob    stage_num, r14
-                lda     pcrb, r15
+                lda     prcb, r15
                 cmpobe  r14, r15, loc_4B33C
                 lda     stage8, r15
                 cmpobe  r14, r15, loc_4B33C
@@ -72365,7 +70546,7 @@ loc_56608:                              # CODE XREF: adv_movie_cont+3F80↑j
                 st      r15, (g11)[g12*1]
                 lda     0x34006868, r15
                 st      r15, (g11)[g12*1]
-                lda     dword_3D00, r15
+                lda     0x3D00, r15
                 st      r15, (g11)[g12*1]
                 lda     0x3000606, r15
                 st      r15, (g11)[g12*1]
@@ -74576,17 +72757,17 @@ rom_memtest_text:.long aIc7             # DATA XREF: ROM:0005BE94↓t
                 .long 0
                 .long 0x80000
                 .long 0
-program_rom_1:  .long 0xC988            # DATA XREF: sub_5C080+8↓o
+program_rom_1:  .long 0xC988            # DATA XREF: calc_crc+8↓o
                 .long 0x1000810
                 .long aIc15             # "IC.15"
                 .long 0
                 .long 0x80000
                 .long 1
-program_rom_2:  .long 0xE4              # DATA XREF: sub_5C080+10↓o
+program_rom_2:  .long 0xE4              # DATA XREF: calc_crc+10↓o
                 .long 0x1000832
                 .long aIc16             # "IC.16"
 # =============== S U B R O U T I N E =======================================
-sub_5905C:                              # CODE XREF: ROM:00010E94↑p
+sub_5905C:                              # CODE XREF: TEST_INT+C8↑p
                 lda     0x1000080, g9
                 shlo    6, 1, g0
                 addo    0x1F, 0x11, g1
@@ -74688,7 +72869,7 @@ loc_592A4:                              # CODE XREF: sub_5905C+254↓j
                 bl      loc_592A4
                 b       loc_59338
 # ---------------------------------------------------------------------------
-DEBUG_TEST_MODES:                       # CODE XREF: ROM:call_DEBUG_TESTS↑p
+DEBUG_TEST_MODES:                       # CODE XREF: TEST_DSP:call_DEBUG_TESTS↑p
                 ld      fa_rob0, g7
                 ld      fa_rob1, g8
                 ld      fa_camera, g6
@@ -75138,7 +73319,7 @@ aCameraPosition_0:.asciz "CAMERA_POSITION 2   "
                 stos    r15, 0x500082
                 ldob    0xB1(g6), r4
                 and     3, r4, r4
-                ld      0x59F18[r4*4], g0
+                ld      off_59F18[r4*4], g0 # "FIX MODE         "
                 call    print_mes
                 ldos    0x500082, r15
                 lda     0xFFFFFC7F, r14
@@ -75369,7 +73550,7 @@ loc_59F00:                              # CODE XREF: ROM:00059A04↑j
                 call    clr_pattern_s
                 b       loc_59EF0
 # ---------------------------------------------------------------------------
-                .long aFixMode          # "FIX MODE         "
+off_59F18:      .long aFixMode          # DATA XREF: ROM:00059AA8↑r
                 .long aAutoChaseMode    # "AUTO CHASE MODE  "
                 .long aRobPositionMod   # "ROB POSITION MODE"
                 .long asc_59F5E         # "                 "
@@ -77032,7 +75213,7 @@ floating_reset_code:
                 call    write_stats_to_backup_ram
                 ret
 # =============== S U B R O U T I N E =======================================
-sub_5BB20:                              # CODE XREF: ROM:00011160↑p
+sub_5BB20:                              # CODE XREF: TEST_INT+394↑p
                 addo    4, sp, sp
                 st      g4, -4(sp)
                 ld      add_BACKUP_RAM_TO_RAM, g4
@@ -77116,7 +75297,7 @@ loc_5BC88:                              # CODE XREF: sub_5BB20+174↓j
                 ret
 # End of function sub_5BB20
 # =============== S U B R O U T I N E =======================================
-DISP_TEST_MENU:                         # CODE XREF: ROM:0001118C↑p
+DISP_TEST_MENU:                         # CODE XREF: TEST_DSP+18↑p
                 ld      add_BACKUP_RAM_TO_RAM, g4
                 ld      fa_rob0, g7
                 ld      fa_rob1, g8
@@ -77222,7 +75403,7 @@ display_memtest_ic:                     # CODE XREF: ROM:0005BEA8↓j
                 ld      rom_memtest_text[r5*1], g0
                 call    print_mes
                 cmpdeci 0, r4, r4
-                addo    0x18, r5, r5
+                addo    24, r5, r5
                 bl      display_memtest_ic
                 addo    4, sp, sp
                 st      g0, -4(sp)
@@ -77241,7 +75422,7 @@ loc_5BEF0:                              # CODE XREF: ROM:0005BF0C↓j
                 ld      ram_memtest_text[r5*1], g0
                 call    print_mes
                 cmpdeci 0, r4, r4
-                addo    0x14, r5, r5
+                addo    20, r5, r5
                 bl      loc_5BEF0
                 addo    4, sp, sp
                 st      g0, -4(sp)
@@ -77252,11 +75433,11 @@ aTestingNow:    .asciz "TESTING NOW"
 # ---------------------------------------------------------------------------
                 ld      -4(sp), g0
                 subo    4, sp, sp
-                mov     7, r4
+                mov     7, r4           # Run ROM test for 8 ROMs (Zero indexed)
                 xor     r5, r5, r5
 loc_5BF4C:                              # CODE XREF: ROM:0005BFA0↓j
                 ldq     rom_memtest_checksum[r5*1], g0 # Maybe checksums Gotta look into this!
-                call    sub_5C080
+                call    calc_crc        # For program_rom1:
                 cmpobe  g3, g0, loc_5BF7C
                 ld      rom_memtest_text_placements[r5*1], g9
                 addo    0xE, g9, g9
@@ -77277,7 +75458,7 @@ aGood_0:        .asciz "GOOD"
 # ---------------------------------------------------------------------------
 loc_5BF98:                              # CODE XREF: ROM:0005BF78↑j
                 cmpdeci 0, r4, r4
-                addo    0x18, r5, r5
+                addo    24, r5, r5
                 bl      loc_5BF4C
                 mov     14, r4
                 xor     r5, r5, r5
@@ -77329,7 +75510,12 @@ MEMORY_TEST_EXIT:                       # DATA XREF: ROM:0005BE44↑o
                 bne     TEST_MENU_init
                 ret
 # =============== S U B R O U T I N E =======================================
-sub_5C080:                              # CODE XREF: ROM:0005BF54↑p
+# For program_rom1:
+# g0 = (0x5902C) 0x00000000 start offset
+# g1 = (0x59030) 0x00080000 size
+# g2 = (0x59034) 0x00000000 alignment 0 or 1
+# g3 = (0x59038) 0x0000C988 checksum
+calc_crc:                               # CODE XREF: ROM:0005BF54↑p
                 mov     g0, r3
                 mov     g1, r4
                 lda     program_rom_1, r9
@@ -77337,24 +75523,24 @@ sub_5C080:                              # CODE XREF: ROM:0005BF54↑p
                 lda     0xFFFF, r5
                 cmpobe  0, g2, loc_5C0A8
                 addo    2, r3, r3
-loc_5C0A8:                              # CODE XREF: sub_5C080+20↑j
+loc_5C0A8:                              # CODE XREF: calc_crc+20↑j
                 shro    1, r4, r4
                 xor     g0, g0, g0
-loc_5C0B0:                              # CODE XREF: sub_5C080+54↓j
+loc_5C0B0:                              # CODE XREF: calc_crc+54↓j
                 clrbit  1, r3, r15
-                cmpobe  r9, r15, loc_5C0CC
+                cmpobe  r9, r15, loc_5C0CC # Skip reading the bytes if they are the checksum values
                 cmpobe  r10, r15, loc_5C0CC
-                ldob    (r3), r6
+                ldob    (r3), r6        # Read bytes, one at a time
+                addo    g0, r6, g0      # We add that byte to g0
+                ldob    1(r3), r6       # Do it again for the second byte...
                 addo    g0, r6, g0
-                ldob    1(r3), r6
-                addo    g0, r6, g0
-loc_5C0CC:                              # CODE XREF: sub_5C080+34↑j
+loc_5C0CC:                              # CODE XREF: calc_crc+34↑j
                 addo    4, r3, r3
                 cmpdeci 1, r4, r4
                 bl      loc_5C0B0
                 and     r5, g0, g0
                 ret
-# End of function sub_5C080
+# End of function calc_crc
 # =============== S U B R O U T I N E =======================================
 PARSE_RAM:                              # CODE XREF: ROM:0005BFB4↑p
                 mov     g0, r3          # IC ADDRESS
@@ -83052,7 +81238,7 @@ set_game_assign_byte_flag:              # CODE XREF: ROM:00003848↑p
 sub_62328:                              # CODE XREF: ROM:0000384C↑p
                 ld      add_BACKUP_RAM_TO_RAM, r15
                 lda     0x3320(r15), g0 # g0 = BACKUP_RAM_TO_RAM+0x3320
-                mov     0xF, g2
+                mov     15, g2
                 mov     0, g1
                 call    make_crc        # crc value stored to g0
                 stos    g0, 0x1D03300

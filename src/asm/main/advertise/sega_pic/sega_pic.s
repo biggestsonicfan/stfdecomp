@@ -232,3 +232,27 @@ loc_8BEC:                               # CODE XREF: ADV_SEGA_PIC_DSP+3C↑j
 loc_8C04:                               # CODE XREF: ADV_SEGA_PIC_DSP:loc_8BEC↑j
     ret
 # End of function ADV_SEGA_PIC_DSP
+
+        .section pitch_black
+# =============== S U B R O U T I N E =======================================
+# fill background(haikei) pitch black(makkuro)
+fill_haikei_makkuro_1:                  # CODE XREF: ADV_SEGA_PIC_DSP+2C↑p
+    ld      not_scr_bg_move, r15
+    setbit  14, r15, r15
+    st      r15, not_scr_bg_move
+    mov     0, r15
+    stis    r15, 0x100A006
+    mov     0, r15
+    stis    r15, 0x100A00E
+    lda     1, r3
+    ld      texture_palette_offsets[r3*4], r3
+    ldos    0xC(r3), r4
+    lda     0x1006000, r8
+    shlo    0xA, 3, r10
+loc_1062C:                              # CODE XREF: fill_haikei_makkuro_1+54↓j
+    stis    r4, (r8)
+    addo    2, r8, r8
+    cmpdeco 1, r10, r10
+    bl      loc_1062C
+    ret
+# End of function fill_haikei_makkuro_1

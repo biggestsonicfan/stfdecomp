@@ -11,7 +11,7 @@ temp/
 
 # Objects
 *.out
-*.out
+*.o
 
 # ROM Files
 *.zip
