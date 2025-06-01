@@ -151,6 +151,15 @@ SECTIONS
         src/asm/main/round/ending/unused/staff.o(staff)
         src/asm/main/name/name/name.o(name)
         src/asm/main/rank/all_end/all_end.o(end)
+        src/asm/main/debug/test/test/test.o(test)
+        src/asm/main/rank/rank/rank.o(rank)
+        src/asm/main/main/main.o(init)
+        src/asm/main/main/main.o(loop)
+        src/asm/main/main/main.o(wait)
+        src/asm/main/main/main.o(check_start)
+        src/asm/init/vsync/vsync.o(debug_check)
+        src/asm/main/main/main.o(main_funcs1)
+        src/asm/main/advertise/sega_pic/sega_pic.o(col_set)
 
         src/asm/init/warn/check.o(warn_screen_check)
 

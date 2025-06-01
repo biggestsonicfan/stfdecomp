@@ -184,7 +184,7 @@ def main():
         #DSP coprocessor data extraction
         extract_cpres_data()
 
-    elif args.cpres:
+    elif args.rom:
         extract_rom_data()
     elif args.cpres:
         extract_cpres_data()

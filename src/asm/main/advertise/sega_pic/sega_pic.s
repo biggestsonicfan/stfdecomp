@@ -256,3 +256,21 @@ loc_1062C:                              # CODE XREF: fill_haikei_makkuro_1+54↓
     bl      loc_1062C
     ret
 # End of function fill_haikei_makkuro_1
+        .section col_set
+# =============== S U B R O U T I N E =======================================
+bg_col_set:                             # CODE XREF: ADV_SEGA_PIC_DSP+34↑p
+    lda     stage_palette_data_increment_64, g1 # Label from official source
+    mov     5, g2
+loc_12370:                              # CODE XREF: bg_col_set+2C↓j
+    ldis    (g1), g4
+    addi    2, g1, g1
+    subo    1, 0, r3
+    cmpi    g4, r3
+    be      loc_12394
+    shlo    g2, g4, g4
+    stis    g0, STAGE_PALETTE_DATA(g4) # 0x0031E6
+    b       loc_12370
+# ---------------------------------------------------------------------------
+loc_12394:                              # CODE XREF: bg_col_set+1C↑j
+    ret
+# End of function bg_col_set

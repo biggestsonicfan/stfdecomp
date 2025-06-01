@@ -47,3 +47,7 @@ all:
 
 	$(GCC)$(CROSS) -r $(GCC_ARGS) name/name/name.s -o name/name/name.o
 	$(GCC)$(CROSS) -r $(GCC_ARGS) rank/all_end/all_end.s -o rank/all_end/all_end.o
+
+	make -C debug
+
+	$(GCC)$(CROSS) -r $(GCC_ARGS) rank/rank/rank.s -o rank/rank/rank.o
