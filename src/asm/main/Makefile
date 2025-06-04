@@ -21,27 +21,8 @@ all:
 	$(GCC)$(CROSS) -r $(GCC_ARGS) advertise/cpu_battle/cpu_battle.s -o advertise/cpu_battle/cpu_battle.o
 	$(GCC)$(CROSS) -r $(GCC_ARGS) info/info.s -o info/info.o
 	$(GCC)$(CROSS) -r $(GCC_ARGS) select/select.s -o select/select.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/story.s -o round/story.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/game/game.s -o round/game/game.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/mask/mask.s -o round/mask/mask.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/round.s -o round/round.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/burni/burni.s -o round/burni/burni.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/set/set.s -o round/set/set.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/ready/ready.s -o round/ready/ready.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/fight/fight.s -o round/fight/fight.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/rep_waza/rep_waza.s -o round/rep_waza/rep_waza.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/judge/judge.s -o round/judge/judge.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/replay/replay.s -o round/replay/replay.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/next/next.s -o round/next/next.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/victory/victory.s -o round/victory/victory.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/win/win.s -o round/win/win.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/stage_up/stage_up.s -o round/stage_up/stage_up.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/deathegg/mask.s -o round/deathegg/mask.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/deathegg/mezase.s -o round/deathegg/mezase.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/intrude/intrude.s -o round/intrude/intrude.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/continue/continue.s -o round/continue/continue.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/set_close/set_close.s -o round/set_close/set_close.o
-	$(GCC)$(CROSS) -r $(GCC_ARGS) round/over/over.s -o round/over/over.o
+	
+	make -C round
 
 	make -C round/ending
 

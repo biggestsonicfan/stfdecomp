@@ -23,6 +23,8 @@ all:
 	# Make crt960 files
 	make -C src/asm/init
 	make -C src/asm/main
+	make -C src/asm/common
+	make -C src/asm/util
 	
 	$(LINKTOOL)$(CROSS) -v -T$(LIB_DIR)/$(TARGET_PREFIX)1.ld -Fbout -o $(TEMP_DIR)/$(TARGET_PREFIX)1.out \
  	-L$(TEMP_DIR)
