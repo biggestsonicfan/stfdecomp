@@ -11,9 +11,14 @@ temp/
 
 # Objects
 *.out
+*.o
 
 # ROM Files
 *.zip
 
 # Proprietary Files
 cpres*.S
+
+# Work in progress
+src/c/*
+*.bak
