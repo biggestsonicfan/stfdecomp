@@ -38,6 +38,7 @@ all:
 		$(SRC_DIR)/asm/$(TARGET_PREFIX)3.s \
 		$(SRC_DIR)/include/$(CPRES_PREFIX)2.s \
 		$(SRC_DIR)/asm/$(TARGET_PREFIX)4.s \
+		$(SRC_DIR)/asm/rng-menu.s \
 		-o $(TEMP_DIR)/$(TARGET_PREFIX)_data.o	
 
 	$(LINKTOOL)$(CROSS) -v -T$(LIB_DIR)/$(TARGET_PREFIX)1.ld -Fbout -o $(TEMP_DIR)/$(TARGET_PREFIX)1.out \
