@@ -818,4 +818,6 @@ word_16B20:
     .float 0.0
     .short 0
     .short 0
-    
+
+        .section act_rc_jump_float
+flt_1D290:      .float 0.69999999       # DATA XREF: sub_16A4C+74↑r

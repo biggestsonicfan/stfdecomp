@@ -227,7 +227,23 @@ SECTIONS
         src/asm/common/action/play_motion.o(motion)
         src/asm/common/option/option.o(del_option)
         src/asm/common/action/action.o(control)
-        
+        src/asm/common/action/act_rc_kaeshi.o(unknown0)
+        src/asm/common/action/act_rc_guard.o(unknown0)
+        src/asm/main/round/common/get_game_info.o(get_my_info_new_floats)
+        src/asm/common/action/act_rc_guard.o(act_rc_guard_floats)
+        src/asm/common/action/act_rc_yarare.o(act_rc_yarare_floats)
+        src/asm/main/round/common/get_game_info.o(get_en_info_floats)
+        src/asm/common/action/action.o(rob_revise_yang_short)
+        src/asm/common/action/action.o(calc_mht_adr_bytes)
+        src/asm/common/action/play_motion.o(play_motion_bytes)
+        src/asm/common/action/action.o(action_offset_list)
+        src/asm/common/action/play_motion.o(uknown_player_action_offsets)
+        src/asm/common/action/action.o(decide_command_data)
+        src/asm/common/action/act_rc_jump.o(act_rc_jump_float)
+        src/asm/common/action/act_rc_ukemi.o(act_rc_ukemi_floats)
+        src/asm/common/camera/rob_disp.o(rob_disp_animation_data)
+        src/asm/common/control/control_init.o(init)
+
         
         src/asm/init/warn/check.o(warn_screen_check)
         

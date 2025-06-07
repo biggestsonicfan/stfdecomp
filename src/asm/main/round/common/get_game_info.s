@@ -1663,3 +1663,23 @@ loc_19B8C:                              # CODE XREF: calc_gyang_from_fu_vec2+94�
     addi    r7, r3, g0
     ret
 # End of function calc_gyang_from_fu_vec2
+
+    .section get_my_info_new_floats
+# ---------------------------------------------------------------------------
+flt_1CFB0:
+    .float 0.0              # DATA XREF: get_my_info_new+1E0↑o
+    .float -1.0
+    .float 0.0
+    .float 1.0
+    .float 0.0
+    .float 0.0
+flt_1CFC8:
+    .float 0.0              # DATA XREF: get_my_info_new+220↑o
+    .float 0.0
+    .float 1.0
+    .float 0.0
+    .float 1.0
+    .float 0.0
+
+    .section get_en_info_floats
+flt_1D000:      .float 1.8              # DATA XREF: get_en_info+A80↑r

@@ -80,3 +80,29 @@ loc_135F4:                              # CODE XREF: ACT_RC_KAESHI-1928↑j
     call    set_motion
 loc_135F8:                              # CODE XREF: ACT_RC_KAESHI-1968↑j
     ret
+
+.section unknown0
+
+# =============== S U B R O U T I N E =======================================
+sub_1CE94:                              # CODE XREF: ACT_RC_KAESHI:loc_135D4↑p
+    ldos    0x800(g7), r5
+    ldos    0x1AA(g7), r4
+    subo    r4, r5, r4
+    addo    2, r4, r4
+    b       loc_1CEB0
+# End of function sub_1CE94
+# =============== S U B R O U T I N E =======================================
+sub_1CEA8:                              # CODE XREF: ACT_RC_KAESHI-1918↑p
+    ldos    0x800(g7), r5
+    ldos    0x1AA(g7), r4
+loc_1CEB0:                              # CODE XREF: sub_1CE94+10↑j
+    ld      0x1A4(g7), r14
+    setbit  5, r14, r15
+    st      r15, 0x1A4(g7)
+    call    set_motion
+    ldos    0x800(g7), r3
+    mulo    r3, r4, r4
+    divo    r5, r4, r4
+    stos    r4, 0x1AA(g7)
+    ret
+# End of function sub_1CEA8

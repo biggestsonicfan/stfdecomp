@@ -1745,3 +1745,131 @@ loc_1CE70:                              # CODE XREF: air_mot_control+4↑j
 loc_1CE90:                              # CODE XREF: air_mot_control+8↑j
                 ret                     # return
 # End of function air_mot_control
+        .section rob_revise_yang_short
+word_1D004:     .short 0x222            # DATA XREF: rob_revise_yang+18C↑r
+        .section calc_mht_adr_bytes
+byte_1D006:     .byte 0xD               # DATA XREF: calc_mht_adr+28↑r
+                .byte 3
+                .byte 7
+                .byte 0xE
+                .byte 0x12
+                .byte 0xE
+                .byte 6
+                .byte 3
+                .byte 0
+                .byte 0xF
+                .byte 6
+                .byte 0xB
+                .byte 4
+                .byte 3
+                .byte 0xF
+                .byte 3
+                .byte 2
+                .byte 7
+                .byte 7
+                .byte 7
+                .byte 3
+                .byte 6
+                .byte 5
+                .byte 3
+                .byte 0xD
+
+        .section action_offset_list
+SOMETHING_MOVES:.long ACT_13120         # DATA XREF: exec_command+C↑r
+ACTUAL_MOVES:   .long ACT_RC_MOTION     # DATA XREF: exec_action+C↑r
+                .long ACT_13120
+                .long ACT_RC_KAMAE
+                .long selected_player_check
+                .long ACT_RC_SYAGAMI
+                .long ACT_13120
+                .long ACT_RC_WALK
+                .long ACT_13120
+                .long ACT_RC_BWALK
+                .long ACT_13074
+                .long ACT_RC_FUMIKOMI
+                .long ACT_131E4
+                .long ACT_RC_JUMP
+                .long ACT_130E4
+                .long ACT_RC_TA_GUARD
+                .long ACT_13120
+                .long ACT_RC_DOWN
+                .long ACT_13418
+                .long ACT_RC_RISE
+                .long ACT_130E4
+                .long ACT_RC_GUARD
+                .long ACT_13120
+                .long ACT_RC_YARARE
+                .long ACT_13120
+                .long ACT_RC_NAGE
+                .long ACT_13138
+                .long ACT_RC_NAGERARE
+                .long ACT_13114
+                .long ACT_RC_FUMIKOMI
+                .long ACT_13090
+                .long ACT_RC_FUMIKOMI
+                .long ACT_1344C
+                .long ACT_RC_SHIFT
+                .long ACT_13120
+                .long ACT_163A0
+                .long ACT_13120
+                .long ACT_RC_KAESHI
+                .long ACT_13120
+                .long ACT_16120
+                .long ACT_13120
+                .long ACT_164DC
+                .long ACT_13120
+                .long ACT_RC_KAWASHI
+                .long ACT_13114
+                .long ACT_RC_RUN
+                .long ACT_13120
+                .long ACT_RC_SHIFT
+                .long ACT_13120
+                .long ACT_RC_SHIFT
+                .long ACT_13114
+                .long ACT_16558
+                .long ACT_13114
+                .long ACT_16594
+                .long ACT_13120
+                .long ACT_RC_KABEHIT
+                .long ACT_1305C
+                .long ACT_RC_UKEMI
+                .long ACT_13464
+                .long ACT_165D0
+                .long ACT_13120
+                .long ACT_1560C
+                .long ACT_13120
+                .long ACT_156EC
+                .long ACT_13120
+                .long ACT_15A4C
+                .long ACT_13120
+                .long ACT_15C48
+                .long ACT_13120
+                .long ACT_15DFC
+                .long ACT_13120
+                .long ACT_15EE8
+                .long ACT_13120
+                .long ACT_RC_KABE_NAGE
+                .long ACT_13120
+                .long j_ACT_RC_NAGERARE
+                .long ACT_131B0
+                .long ACT_RC_DOWN_ATTACK
+                .long ACT_1318C
+                .long ACT_159B0
+                .long ACT_13178
+                .long ACT_RC_DOWN_NAGE_TOUCH
+                .long ACT_13178
+                .long ACT_RC_NAGE_TOUCH
+                .long ACT_1346C
+                .long ACT_165D4
+                .long ACT_134A8
+                .long ACT_168DC
+
+        .section decide_command_data
+aNage:          .asciz "nage    "    # DATA XREF: decide_command+3CC↑o
+aNage_0:        .asciz " nage   "
+aAirn:          .asciz "airn    "    # DATA XREF: decide_command+1B4↑o
+a_Airn:         .asciz " airn   "
+                .float 0.1
+                .float 0.0049999999
+                .float 4.0
+                .float 0.40000001

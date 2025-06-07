@@ -51,3 +51,4 @@ all:
 	$(GCC)$(CROSS) -r $(GCC_ARGS) option/option.s -o option/option.o
 	$(GCC)$(CROSS) -r $(GCC_ARGS) action/set_motion.s -o action/set_motion.o
 	$(GCC)$(CROSS) -r $(GCC_ARGS) action/play_motion.s -o action/play_motion.o
+	$(GCC)$(CROSS) -r $(GCC_ARGS) control/control_init.s -o control/control_init.o

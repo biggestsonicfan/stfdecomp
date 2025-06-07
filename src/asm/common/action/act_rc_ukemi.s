@@ -172,3 +172,26 @@ loc_14B28_alt:                           # unreachable code
         mov     0, r15
         stib    r15, 0x6F5(g7)
         ret
+
+                .section act_rc_ukemi_floats
+flt_1D294:      .float 4.0              # DATA XREF: ACT_RC_UKEMI+5C↑o
+                .float 1.0
+                .float 4.0
+                .float 1.0
+                .float 12.0
+                .float 1.0
+                .float 12.0
+                .float 1.0
+                .float 1.0
+                .float 1.0
+                .float 4.0
+                .float 1.0
+                .float 8.0
+                .float 1.0
+                .float 4.0
+                .float 1.0
+                .float 4.0
+                .float 1.0
+                .float 24.0
+                .float 24.0
+                

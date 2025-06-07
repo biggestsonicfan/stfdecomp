@@ -1188,3 +1188,20 @@ tails_spinning_tails_anim:.short 1221   # DATA XREF: tails1_tail_disp+8↑o
     .short 1222
 tails_spinning_tails_anim_grey:.short 1460
     .short 1461
+
+        .section rob_disp_animation_data
+egg_robo_anims: .long rd_kao_rob_nobi   # DATA XREF: rob_disp+49C↑r
+                .long rd_kao_rob_gururi
+                .long rd_kao_rob_tizimi
+                .long rd_kao_rob_ex
+egg_robo_head_anim:.long 2981           # DATA XREF: rob_disp:loc_1A064↑r
+                .long 2982
+                .long 2983
+                .long 2984
+                .long 2985
+                .long 2986
+                .long 2987
+                .long 2988
+                .long 2989
+                .long 2990
+                .long 2991

@@ -116,3 +116,72 @@ loc_13ACC:                              # CODE XREF: ACT_RC_GUARD+180↑j
 loc_13AE4:                              # CODE XREF: ACT_RC_GUARD+110↑j
     ret
 # End of function ACT_RC_GUARD
+
+.section unknown0
+# =============== S U B R O U T I N E =======================================
+sub_1CED4:                              # CODE XREF: ROM:0001396C↑p
+        ldos    0x6D0(g8), r10
+        ld      0x1A4(g7), r15
+        bbc     0xD, r15, loc_1CEE8
+        ldos    0x6D8(g7), r13
+        cmpobe  r13, r10, loc_1CF84
+loc_1CEE8:                              # CODE XREF: sub_1CED4+8↑j
+        ld      0x5B8(g7), r15
+        bbs     0, r15, loc_1CFA8
+        mov     0, g0
+        mov     g8, r15
+        mov     g7, g8
+        mov     r15, g7
+        ldib    0x83E(g7), r15
+        stib    r15, 0x50FE03
+        ldib    0x843(g7), r15
+        stib    r15, 0x50FE02
+        ldis    0x828(g7), r15
+        stis    r15, 0x50FE00
+        call    sub_2B94C
+        mov     g8, r15
+        mov     g7, g8
+        mov     r15, g7
+        cmpobe  0, g0, loc_1CFA8
+        ldob    4(g8), r13
+        ldos    0x1AA(g8), r14
+        addi    r13, r14, r3
+        ldos    0x808(g8), r14
+        subi    r3, r14, r3
+        mov     2, g1
+        mov     g0, r11
+        call    calc_mht_adr
+        ldob    1(g0), r4
+        ldob    2(g0), r15
+        shlo    8, r15, r15
+        addo    r15, r4, r4
+        subo    1, r4, r4
+        cmpobl  r4, r3, loc_1CFA8
+        mov     r11, g0
+        call    set_motion
+        stos    r10, 0x6D8(g7)
+        mov     1, g0
+        ret
+# ---------------------------------------------------------------------------
+loc_1CF84:                              # CODE XREF: sub_1CED4+10↑j
+        ldos    0x808(g7), r3
+        cmpobe  0, r3, loc_1CF90
+        subo    1, r3, r3
+loc_1CF90:                              # CODE XREF: sub_1CED4+B4↑j
+        ldos    0x1AA(g7), r4
+        cmpible r4, r3, loc_1CF9C
+        mov     r3, r4
+loc_1CF9C:                              # CODE XREF: sub_1CED4+C0↑j
+        stos    r4, 0x1AA(g7)
+        mov     1, g0
+        ret
+# ---------------------------------------------------------------------------
+loc_1CFA8:                              # CODE XREF: sub_1CED4+18↑j
+        mov     0, g0
+        ret
+# End of function sub_1CED4
+
+    .section act_rc_guard_floats
+flt_1CFE0:      .float 1.0              # DATA XREF: ROM:ACT_RC_GUARD↑r
+flt_1CFE4:      .float 1.0              # DATA XREF: ROM:00013994↑r
+flt_1CFE8:      .float 5.0              # DATA XREF: ROM:000139BC↑r

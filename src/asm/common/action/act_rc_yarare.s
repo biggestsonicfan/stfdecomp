@@ -84,3 +84,10 @@ loc_13BF8:                              # CODE XREF: ACT_RC_YARARE+38↑j
 loc_13C14:                              # CODE XREF: ACT_RC_YARARE+C8↑j
     ret
 # End of function ACT_RC_YARARE
+
+    .section act_rc_yarare_floats
+flt_1CFEC:      .float 0.5              # DATA XREF: ROM:ACT_RC_YARARE↑r
+flt_1CFF0:      .float 1.0              # DATA XREF: ROM:00013B3C↑r
+flt_1CFF4:      .float 5.0              # DATA XREF: ROM:00013B64↑r
+                .float 0.5
+                .float 0.15000001
