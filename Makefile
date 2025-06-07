@@ -49,6 +49,10 @@ all:
 	$(ROMTOOL)$(CROSS) $(LIB_DIR)/$(TARGET_PREFIX)1 $(TEMP_DIR)/$(TARGET_PREFIX)1.out $(BUILD_DIR)/$(TARGET_PREFIX)1
 	mv $(BUILD_DIR)/$(TARGET_PREFIX)1.bin.00 $(BUILD_DIR)/split/$(ROM1)
 	mv $(BUILD_DIR)/$(TARGET_PREFIX)1.bin.01 $(BUILD_DIR)/split/$(ROM2)
+
+	cp -i $(BUILD_DIR)/split/$(ROM1) /c/m2/mame-m2v2/roms/sfight/$(ROM1)
+	cp -i $(BUILD_DIR)/split/$(ROM2) /c/m2/mame-m2v2/roms/sfight/$(ROM2)
+
 	echo "$(ROM1_MD5) $(BUILD_DIR)/split/$(ROM1)" | md5sum --check -
 	echo "$(ROM2_MD5) $(BUILD_DIR)/split/$(ROM2)" | md5sum --check -
 
