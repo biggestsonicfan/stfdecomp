@@ -22,3 +22,7 @@ cpres*.S
 # Work in progress
 src/c/*
 *.bak
+
+# IDE specific files
+.vscode/
+settings.json

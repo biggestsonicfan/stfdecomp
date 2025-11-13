@@ -31,6 +31,9 @@ all:
 
 	$(ROMTOOL)$(CROSS) $(LIB_DIR)/$(TARGET_PREFIX)1 $(TEMP_DIR)/$(TARGET_PREFIX)1.out $(BUILD_DIR)/$(TARGET_PREFIX)1 -L$(TEMP_DIR)
 
+extract:
+	$(PYTHON) $(TOOL_DIR)/data_extract.py --cpresb
+
  clean:
 	find . -name '*.o' -type f -exec rm -v {} \;
 	rm -rf $(BUILD_DIR)

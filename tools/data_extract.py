@@ -7,6 +7,7 @@ parser = argparse.ArgumentParser(description='Automated tool for extracting and 
 parser.add_argument('--all', dest='all', action='store_true', help='Extract and process all assets')
 parser.add_argument('--rom', dest='rom', action='store_true', help='Extract and process ROM data')
 parser.add_argument('--cpres', dest='cpres', action='store_true' ,help='Extract and prepare DSP coprocessor data for use in a decompilation')
+parser.add_argument('--cpresb', dest='cpresb', action='store_true' ,help='Extract and prepare DSP coprocessor data as a binary blob')
 parser.add_argument('--csum', dest='csum', action='store_true' ,help='Verify ROM checksum')
 
 
@@ -138,6 +139,31 @@ def extract_cpres_data():
         write_assembly_data(cpres2, symbol_name='_cpres_data2', output_file=cpres2_output, bytes_per_line=16)
         print(f'Extracted DSP coprocessor data from rom_code1.bin: {cpres2_output}')
 
+def extract_cpres_binary():
+    print('Extracting DSP coprocessor binaries...')
+    rom_type = 'rom_code1.bin'
+    if check_extracted(rom_type) == False:
+        return
+    _cpres1_offset = int('0xB6318',base=16)
+    _cpres1_length = int('0x741C',base=16)
+    _cpres2_offset = int('0xBD748 ',base=16)
+    _cpres2_length = int('0x490E',base=16)
+    with open(os.path.join(rom_data_path, rom_type), 'rb') as rom_code1:
+
+        rom_code1.seek(_cpres1_offset)
+        cpres1 = rom_code1.read(_cpres1_length)
+        cpres1_output = os.path.join(sys.path[0], '..', 'src', 'include', 'cpres1.bin')
+        with open(cpres1_output, "wb") as cpres1_bin:
+            cpres1_bin.write(cpres1)
+        print(f'Extracted DSP coprocessor blob from rom_code1.bin: {cpres1_output}')
+
+        rom_code1.seek(_cpres2_offset)
+        cpres2 = rom_code1.read(_cpres2_length)
+        cpres2_output = os.path.join(sys.path[0], '..', 'src', 'include', 'cpres2.bin')
+        with open(cpres2_output, "wb") as cpres2_bin:
+            cpres2_bin.write(cpres2)
+        print(f'Extracted DSP coprocessor blob from rom_code1.bin: {cpres2_output}')   
+
 def extract_rom_checksum(alignment, csum_data=0, buffer_length=0x80000):
     print('Extracting ROM checksums...')
     magic_offsets = ['0x59038', '0x59050']
@@ -188,6 +214,8 @@ def main():
         extract_rom_data()
     elif args.cpres:
         extract_cpres_data()
+    elif args.cpresb:
+        extract_cpres_binary()
     elif args.csum:
         extract_rom_checksum(0, csum_data=0, buffer_length=0x80000)
     else:
