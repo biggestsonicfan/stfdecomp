@@ -3,6 +3,7 @@
 .include        "src/include/data_globals.S"
     .global _cpres_start
     .global _uk_textures
+    .global fv_intro_cam
 
 data_begin:     .long 0xFFFFFFFF
                 .long 0x18
@@ -8740,10 +8741,14 @@ word_984E0:     .short 0xFFFF           # DATA XREF: ROM:000524D4↑o
                 .short 0xC
                 .short 0
                 .short 0
-dword_98548:    .long 0x12D             # DATA XREF: un_move_camera_a_bit+90↑o
-                .long 0xC9044D
-                .long 0x579
-dword_98554:    .long 0x12C             # DATA XREF: un_move_camera_a_bit+80↑o
+word_98548:    .short 0x12D             # DATA XREF: un_move_camera_a_bit+90↑o
+                .short 1
+                .short 0x44D
+                .short 0xC9
+                .short 0x579
+                .short 0
+word_98554:    .short 0x12C             # DATA XREF: un_move_camera_a_bit+80↑o
+                .short 1
                 .long dword_985B8
                 .long 0x87B80028
                 .long 0xC80009
@@ -9124,32 +9129,65 @@ dword_9900C:    .long 278               # DATA XREF: un_move_camera_a_bit+40↑o
                 .long 0x10000
                 .long 278
                 .long 0x10000
+fv_intro_cam:   
+                .float 0.0
+                .float -0.5
+                .float -4.0
+                .float 0.0
+                .float -0.5
+                .float 0.0
+                .float 100.0
                 .long 0
-                .long 0xBF000000
-                .long 0xC0800000
-                .long 0
-                .long 0xBF000000
-                .long 0
-                .long 0x42C80000
-                .long 0
-                .long 0
-                .long 0x3E99999A
-                .long 0x3F800000
-                .long 0x4101999A
-                .long 0xC154CCCD
-                .long 0x3ECCCCCD
-                .long 0xBE99999A
-                .long 0x42C80000
+                .float 0.0
+                .float 0.30000001
+                .float 1.0
+                .float 8.1000004
+                .float -13.3
+                .float 0.40000001
+                .float -0.30000001
+                .float 100.0
                 .long 0x12C
+                .float 0.0
+                .float 0.30000001
+                .float 1.0
+                .float 8.1000004
+                .float -13.3
+                .float 0.40000001
+                .float -0.30000001
+                .float 100.0
+                .long 0x10140
+                .float 0.0
+                .float 7.6999998
+                .float 1.2
+                .float -0.1
+                .float 0.0
+                .float 0.40000001
+                .float -1.9
+                .float 100.0
+                .long 0x20172
+                .float 0.0
+                .float 1.8
+                .float 1.5
+                .float -6.5
+                .float 1.5
+                .float 1.3
+                .float -1.7
+                .float 100.0
+                .long 0x1A4
                 .long 0
-                .long 0x3E99999A, 0x3F800000, 0x4101999A, 0xC154CCCD, 0x3ECCCCCD
-                .long 0xBE99999A, 0x42C80000, 0x10140, 0
-                .long 0x40F66666, 0x3F99999A, 0xBDCCCCCD, 0
-                .long 0x3ECCCCCD, 0xBFF33333, 0x42C80000, 0x20172, 0
-                .long 0x3FE66666, 0x3FC00000, 0xC0D00000, 0x3FC00000, 0x3FA66666
-                .long 0xBFD9999A, 0x42C80000, 0x1A4, 0
-                .long 0x3F99999A, 0x40066666, 0xC0D00000, 0xBDCCCCCD, 0x3FA66666
-                .long 0x3E99999A, 0x42C80000, 0x201AE, 0
+sonic_fv_intro_data:
+                .float 1.2
+                .float 2.0999999
+                .float -6.5
+                .float -0.1
+                .float 1.3
+                .float 0.30000001
+                .short 1
+                .short 0x42C8
+                .short 0x1AE
+                .short 2
+                .short 0
+                .short 0
                 .long 0x40E9999A, 0x40ECCCCD, 0xC0833333, 0x3DCCCCCD, 0x40E00000
                 .long 0xBF4CCCCD, 0x42C80000, 0x201EA, 0
                 .long 0x40F33333, 0x40A00000, 0x40933333, 0xBFC00000, 0x402CCCCD
@@ -9226,59 +9264,211 @@ dword_9900C:    .long 278               # DATA XREF: un_move_camera_a_bit+40↑o
                 .fill 2, 4, 0
 adv_special_command_list:.long adv_special_command1
                 .long adv_special_command2
-dword_99684:    .long 0                 # DATA XREF: un_move_camera_a_bit+60↑o
-                .long 0x78
-                .long 0x3C0000
-                .long 0
-                .long 0xA2300B4
-                .long 0x3C0000, 0
-                .long 0x154, 0x3C0000, 0
-                .long 0xA050190
-                .long 0x3C0000, 0
-                .long 0x21C, 0x3C0000, 0
-                .long 0xA23026C
-                .long 0x3C0000, 0
-                .long 0x2F8, 0x3C0000, 0
-                .long 0xA050348
-                .long 0x3C0000, 0
-                .long 0x3D4, 0x3C0000, 0
-                .long 0xA230424
-                .long 0x3C0000, 0
-                .long 0x4D8, 0x3C0000, 0
-                .long 0xA050500
-                .long 0x3C0000, 0
-                .long 0x5A0, 0x3C0000, 0
-                .long 0xA0505DC
-                .long 0x3C0000, 0
-                .long 0x67C, 0x3C0000, 0
-                .long 0xA2306B8
-                .long 0x3C0000, 0
-                .long 0x708, 0x3C0000, 0
-                .long 0x78, 0x3C0000, 0
-                .long 0xA2300B4
-                .long 0x3C0000, 0
-                .long 0x1E0, 0x3C0000, 0
-                .long 0xA05021C
-                .long 0x3C0000, 0
-                .long 0x348, 0x3C0000, 0
-                .long 0xA230384
-                .long 0x3C0000, 0
-                .long 0x4B0, 0x3C0000, 0
-                .long 0xA0504EC
-                .long 0x3C0000, 0
-                .long 0x618, 0x3C0000, 0
-                .long 0xA230654
-                .long 0x3C0000, 0
-                .long 0x780, 0x3C0000, 0
-                .long 0xA0507BC
-                .long 0x3C0000, 0
-                .long 0x8E8, 0x3C0000, 0
-                .long 0xA050924
-                .long 0x3C0000, 0
-                .long 0xA50, 0x3C0000, 0
-                .long 0xA230A8C
-                .long 0x3C0000, 0
-                .long 0xAB6, 0x3C0000
+word_99684:     
+                .short 0                # Logo Top Left (does not clear)
+                .short 0
+                .short 0x78
+                .short 0
+                .short 0
+                .short 0x3C
+                .short 0
+                .short 0
+                .short 0xB4
+                .short 0xA23
+                .short 0
+                .short 0x3C
+                .short 0
+                .short 0
+                .short 0x154
+                .short 0
+                .short 0
+                .short 0x3C             # 6(g1)
+                .short 8                # 8(g1) Sonic Name
+                .short 0                # A(g1)
+                .short 0x190
+                .short 0xA05
+                .short 0
+                .short 0x3C
+                .short 0
+                .short 0
+                .short 0x21C
+                .short 0
+                .short 0
+                .short 0x3C
+                .short 9
+                .short 0
+                .short 0x26C
+                .short 0xA23
+                .short 0
+                .short 0x3C
+                .short 0
+                .short 0
+                .short 0x2F8
+                .short 0
+                .short 0
+                .short 0x3C
+                .short 6 #KNUCKLES
+                .short 0
+                .short 0x348
+                .short 0xA05
+                .short 0
+                .short 0x3C
+                .short 0
+                .short 0
+                .short 0x3D4
+                .short 0
+                .short 0
+                .short 0x3C
+                .short 4 #AMY
+                .short 0
+                .short 0x424
+                .short 0xA23
+                .short 0
+                .short 0x3C
+                .short 0
+                .short 0
+                .short 0x4D8
+                .short 0
+                .short 0
+                .short 0x3C
+                .short 0
+                .short 0
+                .short 0x500
+                .short 0xA05
+                .short 0
+                .short 0x3C
+                .short 0
+                .short 0
+                .short 0x5A0
+                .short 0
+                .short 0
+                .short 0x3C
+                .short 5 #FANG
+                .short 0
+                .short 0x5DC
+                .short 0xA05
+                .short 0
+                .short 0x3C
+                .short 0
+                .short 0
+                .short 0x67C
+                .short 0
+                .short 0
+                .short 0x3C
+                .short 181 #ESPIO
+                .short 0
+                .short 0x6B8
+                .short 0xA23
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 1
+                .short 0x708
+                .short 0
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 1
+                .short 0x78
+                .short 0
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 1
+                .short 0xB4
+                .short 0xA23
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 1
+                .short 0x1E0
+                .short 0
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 1
+                .short 0x21C
+                .short 0xA05
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 1
+                .short 0x348
+                .short 0
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 1
+                .short 0x384
+                .short 0xA23
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 0
+                .short 0x4B0
+                .short 0
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 0
+                .short 0x4EC
+                .short 0xA05
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 0
+                .short 0x618
+                .short 0
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 0
+                .short 0x654
+                .short 0xA23
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 0
+                .short 0x780
+                .short 0
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 0
+                .short 0x7BC
+                .short 0xA05
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 0
+                .short 0x8E8
+                .short 0
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 0
+                .short 0x924
+                .short 0xA05
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 0
+                .short 0xA50
+                .short 0
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 0
+                .short 0xA8C
+                .short 0xA23
+                .short 0
+                .short 0x3C
+                .short 1
+                .short 0
+                .short 0xAB6
+                .short 0
+                .short 0
+                .short 0x3C
 dword_9981C:    .long 0xB40000          # DATA XREF: un_move_camera_a_bit+70↑o
                 .long 0
                 .long 0

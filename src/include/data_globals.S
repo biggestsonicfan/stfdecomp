@@ -2939,13 +2939,13 @@
 .global dword_977FC
 .global dword_97DF8
 .global dword_97E7C
-.global dword_98548
-.global dword_98554
+.global word_98548
+.global word_98554
 .global dword_98D78
 .global dword_98E94
 .global dword_98F1C
 .global dword_9900C
-.global dword_99684
+.global word_99684
 .global dword_9981C
 .global dword_9C22C
 .global dword_9C264

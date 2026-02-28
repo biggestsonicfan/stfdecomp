@@ -18,6 +18,28 @@
 .global system_address_table
 .global prcb_ptr
 .global start_ip
+.global dword_8
+
+.global un_move_camera_a_bit
+.global un_set_someting_idk
+.global un_alters_background_layers
+.global _Scroll_Initialize
+.global check_same_sound
+.global sound_request_u
+.global fill_haikei_makkuro_1
+.global byte_80
+.global clr_pattern_s
+.global start_ip_add
+.global fill_haikei_makkuro
+.global chg_pol_color_req
+.global efc_rob_poly_para_init
+.global adv_movie_cont_fv
+.global efc_ram_init
+.global efc_cont
+.global un_character_name_graphics
+.global trial
+.global start_ip_add
+.global change_scene
 
 .include        "src/include/code_globals.S"
 
@@ -7051,7 +7073,7 @@ loc_6AE4:                               # CODE XREF: ROM:00006AF4↓j
                 stis    r15, 0x5000A2
                 mov     1, r15
                 stib    r15, STAGE_ID
-                mov     1, r15
+                mov     9, r15
                 stib    r15, start_stage
                 mov     1, r15
                 stib    r15, current_stage_played_num
@@ -7730,9 +7752,9 @@ advertise_ascii:.long aAdvFbiPicInt     # DATA XREF: ROM:loc_83E0↓r
                 .long aAdvSegaPicInt    # "ADV_SEGA_PIC_INT"
                 .long ADV_SEGA_PIC_DSP
                 .long aAdvSegaPicDsp    # "ADV_SEGA_PIC_DSP"
-                .long ADV_MOVIE_INT
+                .long ADV_MOVIE_INT_FV
                 .long aAdvMovieInt      # "ADV_MOVIE_INT"
-                .long ADV_MOVIE_DSP
+                .long ADV_MOVIE_DSP_FV
                 .long aAdvMovieDsp      # "ADV_MOVIE_DSP"
                 .long ADV_REPLAY_PIC
                 .long aAdvReplayPic     # "ADV_REPLAY_PIC"
@@ -81030,13 +81052,13 @@ un_move_camera_a_bit:
                 st      r3, 0x5001D0
                 lda     dword_98E94, r3
                 st      r3, 0x5001D4
-                lda     dword_99684, r3
+                lda     word_99684, r3
                 st      r3, 0x5003E0
                 lda     dword_9981C, r3
                 st      r3, 0x5003DC
-                lda     dword_98554, r3
+                lda     word_98554, r3
                 st      r3, 0x500470
-                lda     dword_98548, r3
+                lda     word_98548, r3
                 st      r3, 0x50047C
                 ld      0x5001C8, g0
                 ld      fa_rob0, g7
@@ -81053,6 +81075,7 @@ un_move_camera_a_bit:
                 ret
 # End of function un_move_camera_a_bit
 # ---------------------------------------------------------------------------
+un_set_someting_idk:
                 lda     dword_51318, r3 # unreachable code
                 ldl     0x0(r3), r4
                 stl     r4, 0x501480
@@ -81135,6 +81158,7 @@ loc_51060:                              # DATA XREF: ROM:0009858C↓o
 loc_510DC:                              # CODE XREF: ROM:00051068↑j
                 ret
 # ---------------------------------------------------------------------------
+trial:
                 ld      0x500470, r3 # unreachable code
                 ld      4(r3), r3
                 ldos    0x500474, r7
@@ -82377,9 +82401,9 @@ prep_adv_movie:                         # CODE XREF: ADV_MOVIE_INT+1BC↑p
                 call    _Scroll_Initialize
                 shlo    3, 0x15, g0
                 call    _Scroll_Initialize
-                lda     adv_movie_deathegg_init, r15
+                lda     un_move_camera_a_bit, r15
                 st      r15, adv_movie_cont_ex
-                lda     adv_movie_deathegg_disp, r15
+                lda     un_alters_background_layers, r15
                 st      r15, adv_movie_disp_ex
                 ld      0x5004C8, r15
                 setbit  0x1F, r15, r15

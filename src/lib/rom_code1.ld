@@ -96,6 +96,7 @@ SECTIONS
         scroll_stage_num = 0x500264;
         cage_height = 0x50027C;
         adv_fade_cnt = 0x5003E8;
+        adv_movie_cheat = 0x500404;
         _20K_PLAYS_FLAG = 0x50040E;
         SKIP_WARNING = 0x500410;
         total_win = 0x500414;
